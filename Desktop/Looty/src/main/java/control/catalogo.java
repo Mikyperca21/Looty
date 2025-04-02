@@ -1,16 +1,24 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Collection;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/catalogo")
+import model.prodottoBean;
+import model.prodottoDAO;
+
+//@WebServlet("/catalogo")
 public class catalogo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+    prodottoDAO dao = new prodottoDAO();
+    
     public catalogo() {
         super();
         // TODO Auto-generated constructor stub
@@ -18,7 +26,37 @@ public class catalogo extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String action = request.getParameter("action");
+		
+		try {
+			if(action != null) {
+				if (action.equalsIgnoreCase("delete")) {
+					int id = Integer.parseInt(request.getParameter("id"));
+					dao.doDelete(id);
+				}
+			}
+
+		} catch(SQLException e) {
+			System.out.println("Error:" + e.getMessage());
+		}
+		
+		
+		
+		try {
+			Collection<prodottoBean> prodotti = dao.doRetrieveAll();
+			request.setAttribute("prodotti", prodotti);
+			
+			
+			 //Inserire quello che interessa al momento
+			  RequestDispatcher dispatcher = request.getRequestDispatcher("CatalogoAdmin.jsp");
+			  dispatcher.forward(request, response);
+			 
+		} catch(SQLException e) {
+			throw new ServletException("Errore nel recupero dei prodotti " + e);
+		}
+		 
+		 
 	}
 
 	

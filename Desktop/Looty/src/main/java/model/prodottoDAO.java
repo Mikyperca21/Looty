@@ -11,20 +11,22 @@ import java.util.LinkedList;
 public class prodottoDAO {
 	
 
-	public synchronized void doSave(prodottoBean product) throws SQLException {
+	public synchronized void doSave(prodottoBean prodotto) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO prodotti"+ "(nome, descrizione, prezzo1, quantita) VALUES (?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO prodotti"+ "(nome, descrizione, prezzoS, prezzoM, prezzoL, quantita) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setString(2, product.getDescrizione());
-			preparedStatement.setFloat(3, product.getPrezzoS());
-			preparedStatement.setInt(4, product.getQuantita());
+			preparedStatement.setString(1, prodotto.getNome());
+			preparedStatement.setString(2, prodotto.getDescrizione());
+			preparedStatement.setFloat(3, prodotto.getPrezzoS());
+			preparedStatement.setFloat(4, prodotto.getPrezzoM());
+			preparedStatement.setFloat(5, prodotto.getPrezzoL());
+			preparedStatement.setInt(6, prodotto.getQuantita());
 
 			preparedStatement.executeUpdate();
 
@@ -39,7 +41,7 @@ public class prodottoDAO {
 		}
 	}
 
-	public synchronized prodottoBean doRetrieveByKey(int code) throws SQLException {
+	public synchronized prodottoBean doRetrieveByKey(int codice) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -50,7 +52,7 @@ public class prodottoDAO {
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, code);
+			preparedStatement.setInt(1, codice);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -58,7 +60,9 @@ public class prodottoDAO {
 				bean.setCodice(rs.getInt("codice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzoS(rs.getInt("prezzo1"));
+				bean.setPrezzoS(rs.getInt("prezzoS"));
+				bean.setPrezzoM(rs.getFloat("prezzoM"));
+				bean.setPrezzoL(rs.getFloat("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
 			}
 
@@ -79,7 +83,7 @@ public class prodottoDAO {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM prodotti" + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM prodotti" + " WHERE codice = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -104,7 +108,7 @@ public class prodottoDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<prodottoBean> products = new LinkedList<prodottoBean>();
+		Collection<prodottoBean> prodotti = new LinkedList<prodottoBean>();
 
 		String selectSQL = "SELECT * FROM prodotti";
 
@@ -116,7 +120,6 @@ public class prodottoDAO {
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -125,11 +128,11 @@ public class prodottoDAO {
 				bean.setCodice(rs.getInt("codice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzoS(rs.getInt("prezzo1"));
-				bean.setPrezzoM(rs.getFloat("prezzo2"));
-				bean.setPrezzoL(rs.getFloat("prezzo3"));
+				bean.setPrezzoS(rs.getInt("prezzoS"));
+				bean.setPrezzoM(rs.getFloat("prezzoM"));
+				bean.setPrezzoL(rs.getFloat("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
-				products.add(bean);
+				prodotti.add(bean);
 			}
 
 		} finally {
@@ -140,7 +143,7 @@ public class prodottoDAO {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
-		return products;
+		return prodotti;
 	}
 	
 }
