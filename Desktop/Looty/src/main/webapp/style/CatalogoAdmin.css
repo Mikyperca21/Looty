@@ -1,125 +1,114 @@
 @charset "UTF-8";
 /* Importa le icone di Material Design */
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+@import
+	url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined")
+	;
 
 /* Stile generale del body */
 body {
-    background-color: #f8eded;
-    font-family: Arial, sans-serif;
-    padding: 20px;
+	background-color: #f8eded;
+	font-family: Arial, sans-serif;
+	padding: 20px;
 }
 
-/* Contenitore responsivo per la tabella */
 .table-container {
-    overflow-x: auto;
+	overflow-x: auto;
 }
 
-
-/* Stile della tabella */
 .product-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 }
 
 .product-table th, .product-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
+	border: 1px solid #ddd;
+	padding: 12px;
+	text-align: left;
 }
 
 .product-table th {
-    background-color: #b43f3f;
-    color: #ffffff;
+	background-color: #b43f3f;
+	color: #ffffff;
 }
 
 .product-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+	background-color: #f2f2f2;
 }
 
-/* Stile generale del form */
 .form {
-    background-color: #f8dddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 10px;
-    width: 50%; /* Mantiene la dimensione del form senza allargarsi troppo */
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
+	background-color: #f8dddd;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	padding: 20px;
+	border-radius: 10px;
+	width: 50%;
+	max-width: 800px;
+	margin: 20px auto;
+	font-family: Arial, sans-serif;
 }
 
-/* Titolo del form */
 .form-content h2 {
-    text-align: center;
-    color: #b43f3f;
-    margin-bottom: 20px;
+	text-align: center;
+	color: #b43f3f;
+	margin-bottom: 20px;
 }
 
-/* Stile dei gruppi di form */
 .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 10px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin: 10px 0;
 }
 
-/* Stile dei label */
 .form-group label {
-    font-weight: bold;
-    color: #173b45;
-    margin-bottom: 5px;
+	font-weight: bold;
+	color: #173b45;
+	margin-bottom: 5px;
 }
 
-/* Stile degli input */
 .form-group input, .form-content textarea {
-    width: 95%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 10px;
+	width: 95%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+	margin-bottom: 10px;
 }
 
-/* Stile del bottone */
 .form-content button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 20px;
-    background-color: #b43f3f;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 20px;
+	background-color: #b43f3f;
+	color: white;
+	border: none;
+	padding: 12px;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background 0.3s ease-in-out;
+	width: 100%;
 }
 
 .form-content button:hover {
-    background-color: #922c2c;
+	background-color: #922c2c;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .form {
-        width: 90%;
-    }
-    .price-group {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .price-group label {
-        width: 100%;
-        text-align: left;
-    }
-    .price-group input {
-        width: 100%;
-    }
+@media ( max-width : 768px) {
+	.form {
+		width: 90%;
+	}
+	.price-group {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.price-group label {
+		width: 100%;
+		text-align: left;
+	}
+	.price-group input {
+		width: 100%;
+	}
 }
-
-
-

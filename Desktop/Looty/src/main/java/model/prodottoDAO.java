@@ -7,16 +7,15 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-
 public class prodottoDAO {
-	
 
 	public synchronized void doSave(prodottoBean prodotto) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO prodotti"+ "(nome, descrizione, prezzoS, prezzoM, prezzoL, quantita) VALUES (?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO prodotti"
+				+ "(nome, descrizione, prezzoS, prezzoM, prezzoL, quantita) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -103,8 +102,9 @@ public class prodottoDAO {
 		return (result != 0);
 	}
 
-
-	public synchronized Collection<prodottoBean> doRetrieveAll() throws SQLException { //aggiungere come parametro: String order per ordinare prodotti
+	public synchronized Collection<prodottoBean> doRetrieveAll() throws SQLException { // aggiungere come parametro:
+																						// String order per ordinare
+																						// prodotti
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -145,9 +145,5 @@ public class prodottoDAO {
 		}
 		return prodotti;
 	}
-	
+
 }
-
-
-
-
