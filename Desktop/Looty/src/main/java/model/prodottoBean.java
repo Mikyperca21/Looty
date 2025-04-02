@@ -5,24 +5,22 @@ public class prodottoBean {
 	private int codice;
 	private String nome;
 	private String descrizione;
-	private Dimensione dimensione;
-	private float prezzo1;
-	private float prezzo2;
-	private float prezzo3;
+	private float prezzoS;
+	private float prezzoM;
+	private float prezzoL;
 	private int quantita;
 	
 	public prodottoBean() {}
 
-	public prodottoBean(int codice, String nome, String descrizione, Dimensione dimensione, float prezzo1,
-			float prezzo2, float prezzo3, int quantita) {
+	public prodottoBean(int codice, String nome, String descrizione, float prezzoS,
+			float prezzoM, float prezzoL, int quantita) {
 		super();
 		this.codice = codice;
 		this.nome = nome;
 		this.descrizione = descrizione;
-		this.dimensione = dimensione;
-		this.prezzo1 = prezzo1;
-		this.prezzo2 = prezzo2;
-		this.prezzo3 = prezzo3;
+		this.prezzoS = prezzoS;
+		this.prezzoM = prezzoM;
+		this.prezzoL = prezzoL;
 		this.quantita = quantita;
 	}
 
@@ -50,36 +48,29 @@ public class prodottoBean {
 		this.descrizione = descrizione;
 	}
 
-	public Dimensione getDimensione() {
-		return dimensione;
+
+	public float getPrezzoS() {
+		return prezzoS;
 	}
 
-	public void setDimensione(Dimensione dimensione) {
-		this.dimensione = dimensione;
+	public void setPrezzoS(float prezzoS) {
+		this.prezzoS = prezzoS;
 	}
 
-	public float getPrezzo1() {
-		return prezzo1;
+	public float getPrezzoM() {
+		return prezzoM;
 	}
 
-	public void setPrezzo1(float prezzo1) {
-		this.prezzo1 = prezzo1;
+	public void setPrezzoM(float prezzoM) {
+		this.prezzoM = prezzoM;
 	}
 
-	public float getPrezzo2() {
-		return prezzo2;
+	public float getPrezzoL() {
+		return prezzoL;
 	}
 
-	public void setPrezzo2(float prezzo2) {
-		this.prezzo2 = prezzo2;
-	}
-
-	public float getPrezzo3() {
-		return prezzo3;
-	}
-
-	public void setPrezzo3(float prezzo3) {
-		this.prezzo3 = prezzo3;
+	public void setPrezzoL(float prezzoL) {
+		this.prezzoL = prezzoL;
 	}
 
 	public int getQuantita() {
@@ -92,12 +83,9 @@ public class prodottoBean {
 
 	@Override
 	public String toString() {
-		return "prodottoBean [codice=" + codice + ", nome=" + nome + ", descrizione=" + descrizione + ", dimensione="
-				+ dimensione + ", prezzo1=" + prezzo1 + ", prezzo2=" + prezzo2 + ", prezzo3=" + prezzo3 + ", quantita="
-				+ quantita + "]";
+		return "prodottoBean [codice=" + codice + ", nome=" + nome + ", descrizione=" + descrizione + ", prezzoS="
+				+ prezzoS + ", prezzoM=" + prezzoM + ", prezzoL=" + prezzoL + ", quantita=" + quantita + "]";
 	}
-	
-	
 	
 
 }

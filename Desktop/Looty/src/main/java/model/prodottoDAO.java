@@ -1,106 +1,150 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedList;
+
 
 public class prodottoDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/Looty";
-    private static final String USER = "root";
-    private static final String PASS = "root";
+	
 
-    
-    public static List<prodottoBean> getAllProdotti() {
-        List<prodottoBean> listaProdotti = new ArrayList<>();
-        String query = "SELECT * FROM prodotti";
+	public synchronized void doSave(prodottoBean product) throws SQLException {
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 
-            while (rs.next()) {
-                int codice = rs.getInt("codice");
-                String nome = rs.getString("nome");
-                String descrizione = rs.getString("descrizione");
-                String dimensioneStr = rs.getString("dimensione");
-                Dimensione dimensione = Dimensione.fromString(dimensioneStr);
-                float prezzo1 = rs.getFloat("prezzo1");
-                float prezzo2 = rs.getFloat("prezzo2");
-                float prezzo3 = rs.getFloat("prezzo3");
-                int quantita = rs.getInt("quantita");
+		String insertSQL = "INSERT INTO prodotti"+ "(nome, descrizione, prezzo1, quantita) VALUES (?, ?, ?, ?)";
 
-                prodottoBean prodotto = new prodottoBean(codice, nome, descrizione, dimensione, prezzo1, prezzo2, prezzo3, quantita);
-                listaProdotti.add(prodotto);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listaProdotti;
-    }
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, product.getNome());
+			preparedStatement.setString(2, product.getDescrizione());
+			preparedStatement.setFloat(3, product.getPrezzoS());
+			preparedStatement.setInt(4, product.getQuantita());
 
-    
-    public static boolean inserisciProdotto(prodottoBean prodotto) {
-        String query = "INSERT INTO prodotti (nome, descrizione, dimensione, prezzo1, prezzo2, prezzo3, quantita) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+			preparedStatement.executeUpdate();
 
-            stmt.setString(1, prodotto.getNome());
-            stmt.setString(2, prodotto.getDescrizione());
-            stmt.setString(3, prodotto.getDimensione().name());
-            stmt.setFloat(4, prodotto.getPrezzo1());
-            stmt.setFloat(5, prodotto.getPrezzo2());
-            stmt.setFloat(6, prodotto.getPrezzo3());
-            stmt.setInt(7, prodotto.getQuantita());
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+	}
 
-            int rows = stmt.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+	public synchronized prodottoBean doRetrieveByKey(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 
-    
-    public static boolean aggiornaProdotto(prodottoBean prodotto) {
-        String query = "UPDATE prodotti SET nome=?, descrizione=?, dimensione=?, prezzo1=?, prezzo2=?, prezzo3=?, quantita=? WHERE code=?";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+		prodottoBean bean = new prodottoBean();
 
-            stmt.setString(1, prodotto.getNome());
-            stmt.setString(2, prodotto.getDescrizione());
-            stmt.setString(3, prodotto.getDimensione().name());
-            stmt.setFloat(4, prodotto.getPrezzo1());
-            stmt.setFloat(5, prodotto.getPrezzo2());
-            stmt.setFloat(6, prodotto.getPrezzo3());
-            stmt.setInt(7, prodotto.getQuantita());
-            stmt.setInt(8, prodotto.getCodice());
+		String selectSQL = "SELECT * FROM prodotti" + " WHERE CODE = ?";
 
-            int rows = stmt.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, code);
 
-    
-    public static boolean eliminaProdotto(int code) {
-        String query = "DELETE FROM prodotti WHERE code=?";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+			ResultSet rs = preparedStatement.executeQuery();
 
-            stmt.setInt(1, code);
-            int rows = stmt.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+			while (rs.next()) {
+				bean.setCodice(rs.getInt("codice"));
+				bean.setNome(rs.getString("nome"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setPrezzoS(rs.getInt("prezzo1"));
+				bean.setQuantita(rs.getInt("quantita"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
+	}
+
+	public synchronized boolean doDelete(int codice) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "DELETE FROM prodotti" + " WHERE CODE = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, codice);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
+	}
+
+
+	public synchronized Collection<prodottoBean> doRetrieveAll() throws SQLException { //aggiungere come parametro: String order per ordinare prodotti
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<prodottoBean> products = new LinkedList<prodottoBean>();
+
+		String selectSQL = "SELECT * FROM prodotti";
+
+		/*
+		 * if (order != null && !order.equals("")) { selectSQL += " ORDER BY " + order;
+		 * }
+		 */
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				prodottoBean bean = new prodottoBean();
+
+				bean.setCodice(rs.getInt("codice"));
+				bean.setNome(rs.getString("nome"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setPrezzoS(rs.getInt("prezzo1"));
+				bean.setPrezzoM(rs.getFloat("prezzo2"));
+				bean.setPrezzoL(rs.getFloat("prezzo3"));
+				bean.setQuantita(rs.getInt("quantita"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return products;
+	}
+	
 }
+
+
 
 
