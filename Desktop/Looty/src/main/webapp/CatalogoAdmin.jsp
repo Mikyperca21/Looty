@@ -30,6 +30,7 @@
 					<th>Prezzo taglia M</th>
 					<th>Prezzo taglia L</th>
 					<th>Descrizione</th>
+					<th>Quantità</th>
 					<th>Azione</th>
 				</tr>
 			</thead>
@@ -48,9 +49,16 @@
 					<td><%=bean.getPrezzoM()%> €</td>
 					<td><%=bean.getPrezzoL()%> €</td>
 					<td><%=bean.getDescrizione()%></td>
-					<td><a href="catalogo?action=delete&id=<%=bean.getCodice()%>">
+					<td><%=bean.getQuantita()%></td>
+					<td class="button-container">
+					<a href="catalogo?action=delete&id=<%=bean.getCodice()%>">
 							<button class="action-button">
 								<span class="material-symbols-outlined">delete</span>
+							</button>
+					</a>
+					<a href="catalogo?action=modify&id=<%=bean.getCodice()%>">
+							<button class="action-button">
+								<span class="material-symbols-outlined">edit</span>
 							</button>
 					</a></td>
 				</tr>
@@ -73,7 +81,7 @@
 	<div id="form-container" class="form">
 		<div class="form-content">
 			<h2>Nuovo Prodotto</h2>
-			<form action="/catalogo" method="post">
+			<form action="<%= request.getContextPath() %>/catalogo" method="post">
 				<input type="hidden" name="action" value="inserisci">
 
 				<div class="form-group">

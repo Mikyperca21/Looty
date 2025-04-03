@@ -38,7 +38,7 @@ public class catalogo extends HttpServlet {
 				}
 				if (action.equalsIgnoreCase("inserisci")) {
 					String nome = request.getParameter("nome");
-					String descrizione = request.getParameter("Descrizione");
+					String descrizione = request.getParameter("descrizione");
 					Float prezzoS = Float.parseFloat(request.getParameter("prezzoS"));
 					Float prezzoM = Float.parseFloat(request.getParameter("prezzoM"));
 					Float prezzoL = Float.parseFloat(request.getParameter("prezzoL"));
@@ -52,6 +52,10 @@ public class catalogo extends HttpServlet {
 					bean.setPrezzoL(prezzoL);
 					bean.setQuantita(quantita);
 					dao.doSave(bean);
+				}
+				
+				if(action.equalsIgnoreCase("modify")) {
+					
 				}
 			}
 
@@ -71,6 +75,11 @@ public class catalogo extends HttpServlet {
 			throw new ServletException("Errore nel recupero dei prodotti " + e);
 		}
 
+	}
+
+	private Object getRequestURI() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

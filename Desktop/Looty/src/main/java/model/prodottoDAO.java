@@ -28,7 +28,7 @@ public class prodottoDAO {
 			preparedStatement.setInt(6, prodotto.getQuantita());
 
 			preparedStatement.executeUpdate();
-
+			
 			connection.commit();
 		} finally {
 			try {

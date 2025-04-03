@@ -1,14 +1,13 @@
 @charset "UTF-8";
 /* Importa le icone di Material Design */
 @import
-	url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined")
-	;
+	url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
 /* Stile generale del body */
 body {
 	background-color: #f8eded;
-	font-family: Arial, sans-serif;
 	padding: 20px;
+	color: #173b45;
 }
 
 .table-container {
@@ -34,6 +33,30 @@ body {
 
 .product-table tbody tr:nth-child(even) {
 	background-color: #f2f2f2;
+}
+
+.action-button {
+    all: unset; 
+    display: inline-block;
+}
+
+.button-container {
+    display: flex;          
+    gap: 10px;              
+    justify-content: center;
+}
+
+.action-button span {
+	border: none;
+	border-radius: 50%;
+	padding: 12px;
+	color: #f8eded;
+	background-color: #b43f3f;
+	cursor: pointer;
+	font-size: 20px;
+}
+.action-button span:hover {
+	transform: scale(1.1);
 }
 
 .form {
@@ -73,6 +96,10 @@ body {
 	border-radius: 5px;
 	font-size: 16px;
 	margin-bottom: 10px;
+}
+
+#descrizione {
+    height: 100px; /* Imposta l'altezza desiderata */
 }
 
 .form-content button {
