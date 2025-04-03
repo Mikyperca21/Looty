@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<h2>Catalogo Amministratore:</h2>
+	<h1>Catalogo Amministratore:</h1>
 
 	<div class="table-container">
 		<%
@@ -50,13 +50,12 @@
 					<td><%=bean.getPrezzoL()%> €</td>
 					<td><%=bean.getDescrizione()%></td>
 					<td><%=bean.getQuantita()%></td>
-					<td class="button-container">
-					<a href="catalogo?action=delete&id=<%=bean.getCodice()%>">
+					<td class="button-container"><a
+						href="catalogo?action=delete&id=<%=bean.getCodice()%>">
 							<button class="action-button">
 								<span class="material-symbols-outlined">delete</span>
 							</button>
-					</a>
-					<a href="catalogo?action=modify&id=<%=bean.getCodice()%>">
+					</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
 							<button class="action-button">
 								<span class="material-symbols-outlined">edit</span>
 							</button>
@@ -81,7 +80,7 @@
 	<div id="form-container" class="form">
 		<div class="form-content">
 			<h2>Nuovo Prodotto</h2>
-			<form action="<%= request.getContextPath() %>/catalogo" method="post">
+			<form action="<%=request.getContextPath()%>/catalogo" method="post">
 				<input type="hidden" name="action" value="inserisci">
 
 				<div class="form-group">

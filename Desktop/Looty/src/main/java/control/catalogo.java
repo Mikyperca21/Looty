@@ -55,7 +55,24 @@ public class catalogo extends HttpServlet {
 				}
 				
 				if(action.equalsIgnoreCase("modify")) {
-					
+					 int id = Integer.parseInt(request.getParameter("id"));
+					    String nome = request.getParameter("nome");
+					    String descrizione = request.getParameter("descrizione");
+					    Float prezzoS = Float.parseFloat(request.getParameter("prezzoS"));
+					    Float prezzoM = Float.parseFloat(request.getParameter("prezzoM"));
+					    Float prezzoL = Float.parseFloat(request.getParameter("prezzoL"));
+					    int quantita = Integer.parseInt(request.getParameter("quantita"));
+
+					    prodottoBean bean = new prodottoBean();
+					    bean.setCodice(id);
+					    bean.setNome(nome);
+					    bean.setDescrizione(descrizione);
+					    bean.setPrezzoS(prezzoS);
+					    bean.setPrezzoM(prezzoM);
+					    bean.setPrezzoL(prezzoL);
+					    bean.setQuantita(quantita);
+
+					    dao.doUpdate(bean);
 				}
 			}
 

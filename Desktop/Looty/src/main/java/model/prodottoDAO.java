@@ -39,6 +39,35 @@ public class prodottoDAO {
 			}
 		}
 	}
+	
+	public synchronized void doUpdate(prodottoBean prodotto) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    String updateSQL = "UPDATE prodotti SET nome=?, descrizione=?, prezzoS=?, prezzoM=?, prezzoL=?, quantita=? WHERE codice=?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(updateSQL);
+	        preparedStatement.setString(1, prodotto.getNome());
+	        preparedStatement.setString(2, prodotto.getDescrizione());
+	        preparedStatement.setFloat(3, prodotto.getPrezzoS());
+	        preparedStatement.setFloat(4, prodotto.getPrezzoM());
+	        preparedStatement.setFloat(5, prodotto.getPrezzoL());
+	        preparedStatement.setInt(6, prodotto.getQuantita());
+	        preparedStatement.setInt(7, prodotto.getCodice()); 
+
+	        preparedStatement.executeUpdate();
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null) preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+
 
 	public synchronized prodottoBean doRetrieveByKey(int codice) throws SQLException {
 		Connection connection = null;
@@ -46,7 +75,7 @@ public class prodottoDAO {
 
 		prodottoBean bean = new prodottoBean();
 
-		String selectSQL = "SELECT * FROM prodotti" + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM prodotti WHERE codice = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
