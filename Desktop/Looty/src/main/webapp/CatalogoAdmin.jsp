@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="style/CatalogoAdmin.css">
 </head>
 <body>
-
+	<%@ include file = "Header.jsp" %>
 	<h1>Catalogo Amministratore:</h1>
 
 	<div class="table-container">
@@ -157,6 +157,6 @@
 			</form>
 		</div>
 	</div>
-
+<%@ include file = "Footer.jsp" %>
 </body>
 </html>

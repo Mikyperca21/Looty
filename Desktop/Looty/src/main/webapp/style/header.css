@@ -1,0 +1,131 @@
+@charset "ISO-8859-1";
+
+/* stile "totale" per decorazioni linke ecc. */
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+ul{
+	list-style: none;
+}
+
+/* --- */
+
+body{
+	font-family: Sans-serif;
+	padding-top: 80px; /* stessa altezza navbar*/
+}
+
+/*---*/
+
+.header{
+	position: fixed; /* W3school: An element with position: fixed; is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. The top, right, bottom, and left properties are used to position the element.*/
+	width: 100%;
+	top: 0;
+}
+
+.navbar{
+	background-color: rgb(180, 63, 63);
+}
+
+.navbar-content{
+	padding: 0 30px;
+	max-width: 100%;
+	margin: 0 auto; /*0 su top e bottom e auto su destra e sinistra*/
+	height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /*mi da spazio tra due elementi di navbar conent: <a logo> e <nav>*/
+}
+
+.logo{
+	display: flex;
+	align-items: center;
+	column-gap: 10px; /* distanza tra gli item, in questo caso tra il logo e il logo-text*/
+}
+
+.logo-text{
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.nav-ul{
+	display:flex;
+	column-gap: 36px; /* per distanziare i <li> tra loro */
+	font-size: 36px;
+}
+
+.nav-link{
+	color: rgba(255, 255, 255, 0.75);
+	transition: all 0.2s;
+}
+
+.nav-link:hover{
+	color: rgba(255, 255, 255, 1);
+}
+
+.ricerca{
+	font-size: 20px;
+	width: 25%;
+	border-radius: 10px;
+	border-style: 5px;
+	border-color: red;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+.search-container {
+	float: right;
+}
+
+.search-container input[type=text] {
+	padding: 6px;
+	margin-top: 8px;
+	font-size: 17px;
+	border: none;
+	background-color: #173b45;
+	color: #f8eded;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+::placeholder{
+	color: #f8eded;
+}
+
+.search-container button {
+	color: #f8eded;
+	float: right;
+	padding: 6px 10px;
+	margin-top: 8px;
+	margin-right: 16px;
+	background: #173b45;
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.search-container button:hover {
+	background: #fff;
+	color: #173b45;
+}
+
+
+
+.search-container button:focus {	/* <-- non va */
+	outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
