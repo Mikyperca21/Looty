@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Carrello;
+import model.ElementoCarrello;
 import model.prodottoBean;
 import model.prodottoDAO;
 
@@ -83,15 +84,45 @@ public class catalogo extends HttpServlet {
 				}
 				if(action.equalsIgnoreCase("aggiungiCarrello")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					carrello.aggiungiProdotto(dao.doRetrieveByKey(id));
+					String dimensione = request.getParameter("dimensione");
+				    int quantita = Integer.parseInt(request.getParameter("quantita"));
+
+				    prodottoBean prodotto = dao.doRetrieveByKey(id);
+				    ElementoCarrello elemento = new ElementoCarrello(prodotto, dimensione, quantita);
+				    carrello.aggiungiProdotto(elemento);
 				}
 				if(action.equalsIgnoreCase("rimuoviCarrello")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					carrello.eliminaProdotto(dao.doRetrieveByKey(id));
+					String dimensione = request.getParameter("dimensione");
+					int quantita = Integer.parseInt(request.getParameter("quantita"));
+					prodottoBean prodotto = dao.doRetrieveByKey(id);
+					ElementoCarrello elemento = new ElementoCarrello (prodotto, dimensione, quantita);
+					carrello.eliminaProdotto(elemento);;
 					 RequestDispatcher dispatcher = request.getRequestDispatcher("Carrello.jsp");
 				     dispatcher.forward(request, response);
 				}
-				
+				if (action.equalsIgnoreCase("modificaQuantitaCarrello")) {
+				    int id = Integer.parseInt(request.getParameter("id"));
+				    String dimensione = request.getParameter("dimensione");
+				    int nuovaQuantita = Integer.parseInt(request.getParameter("quantita"));
+
+				    for (ElementoCarrello elemento : carrello.getProdotti()) {
+				        if (elemento.getProdotto().getCodice() == id &&
+				            elemento.getDimensione().equalsIgnoreCase(dimensione)) {
+				            if (nuovaQuantita <= 0) {
+				                carrello.eliminaProdotto(elemento);
+				            } else {
+				                elemento.setQuantita(nuovaQuantita);
+				            }
+
+				            break;
+				        }
+				    }
+				    request.getSession().setAttribute("carrello", carrello);
+					request.setAttribute("carrello", carrello);
+				    response.sendRedirect("Carrello.jsp");
+				    return; 
+				}
 			}
 
 		} catch (SQLException e) {

@@ -3,7 +3,6 @@
 @import
 	url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
-/* Stile generale del body */
 body {
 	background-color: #f8eded;
 	padding: 20px;
@@ -41,6 +40,41 @@ h1{
 .action-button {
     all: unset; 
     display: inline-block;
+}
+.carrello-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carrello-form select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid #173b45;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #173b45;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+input[type="number"]:focus {
+    border-color: #173bbb;
+    outline: none;
+}
+
+input[type="number"]:disabled {
+    background-color: #f0f0f0;
+    border-color: #cccccc;
+    color: #999999;
 }
 
 .button-container {
@@ -102,7 +136,7 @@ h1{
 }
 
 #descrizione {
-    height: 100px; /* Imposta l'altezza desiderata */
+    height: 100px;
 }
 
 .form-content button {

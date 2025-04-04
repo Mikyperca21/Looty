@@ -31,7 +31,9 @@
 					<th>Prezzo taglia M</th>
 					<th>Prezzo taglia L</th>
 					<th>Descrizione</th>
-					<th>Quantità</th>
+					<th>Quantità disponibili</th>
+					<th>Dimensione</th>
+					<th>Quantità desiderata:</th>
 					<th>Azione</th>
 				</tr>
 			</thead>
@@ -42,53 +44,66 @@
 					while (it.hasNext()) {
 						prodottoBean bean = (prodottoBean) it.next();
 				%>
-
 				<tr>
-
 					<td><%=bean.getNome()%></td>
 					<td><%=bean.getPrezzoS()%> €</td>
 					<td><%=bean.getPrezzoM()%> €</td>
 					<td><%=bean.getPrezzoL()%> €</td>
 					<td><%=bean.getDescrizione()%></td>
 					<td><%=bean.getQuantita()%></td>
-					<td class="button-container"><a
-						href="catalogo?action=delete&id=<%=bean.getCodice()%>">
-							<button class="action-button">
-								<span class="material-symbols-outlined">delete</span>
-							</button>
-					</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
-							<button class="action-button">
-								<span class="material-symbols-outlined">edit</span>
-							</button>
-					</a>
-					</a> <a href="catalogo?action=aggiungiCarrello&id=<%=bean.getCodice()%>">
-							<button class="action-button">
+					<td colspan="3">
+						<form id="form-<%=bean.getCodice()%>" action="catalogo"
+							method="post" class="carrello-form"
+							style="display: flex; gap: 10px; align-items: center;">
+							<input type="hidden" name="action" value="aggiungiCarrello">
+							<input type="hidden" name="id" value="<%=bean.getCodice()%>">
+
+							<select name="dimensione" required>
+								<option value="">Seleziona</option>
+								<option value="S">S</option>
+								<option value="M">M</option>
+								<option value="L">L</option>
+							</select> <input type="number" name="quantita" min="1" max="10" value="1"
+								required />
+
+							<button type="submit" class="action-button"
+								id="btn-<%=bean.getCodice()%>">
 								<span class="material-symbols-outlined">add_shopping_cart</span>
 							</button>
-					</a></td>
+
+							<a href="catalogo?action=delete&id=<%=bean.getCodice()%>">
+								<button type="button" class="action-button">
+									<span class="material-symbols-outlined">delete</span>
+								</button>
+							</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
+								<button type="button" class="action-button">
+									<span class="material-symbols-outlined">edit</span>
+								</button>
+							</a>
+						</form>
+					</td>
 				</tr>
 				<%
 				}
 				} else {
 				%>
 				<tr>
-					<td colspan="6">No products available</td>
+					<td colspan="9">Nessun prodotto disponibile</td>
 				</tr>
 				<%
 				}
 				%>
 			</tbody>
+
 		</table>
 	</div>
-	
+
 	<div class="botton-provvisorio">
 		<a href="Carrello.jsp" style="text-decoration: none;">
-  <button>
-    <span class="material-symbols-outlined">
-shopping_bag
-</span>
-  </button>
-</a>
+			<button>
+				<span class="material-symbols-outlined"> shopping_bag </span>
+			</button>
+		</a>
 	</div>
 
 

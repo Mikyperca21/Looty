@@ -1,28 +1,49 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Carrello {
-	private List<prodottoBean> prodotti = new ArrayList<prodottoBean>();
+	private List<ElementoCarrello> prodotti = new ArrayList<ElementoCarrello>();
+
 	public void Carello() {
-		
+
 	}
-	
-	public void aggiungiProdotto(prodottoBean prodotto) {
+
+	public void aggiungiProdotto(ElementoCarrello prodotto) {
+		for (ElementoCarrello esistente : prodotti) {
+			if (esistente.getProdotto().getCodice() == prodotto.getProdotto().getCodice()
+					&& esistente.getDimensione().equalsIgnoreCase(prodotto.getDimensione())) {
+				int nuovaQuantita = esistente.getQuantita() + prodotto.getQuantita();
+				esistente.setQuantita(nuovaQuantita);
+				return;
+			}
+		}
 		prodotti.add(prodotto);
 	}
-	
-	public void eliminaProdotto(prodottoBean prodotto) {
-		for(prodottoBean prod : prodotti) {
-			if(prod.getCodice() == prodotto.getCodice()) {
-				prodotti.remove(prod);
+
+	public void eliminaProdotto(ElementoCarrello prodotto) {
+		Iterator<ElementoCarrello> it = prodotti.iterator();
+		while (it.hasNext()) {
+			ElementoCarrello prod = it.next();
+			if (prod.getProdotto().getCodice() == prodotto.getProdotto().getCodice()
+					&& prod.getDimensione().equalsIgnoreCase(prodotto.getDimensione())) {
+
+				int nuovaQuantita = prod.getQuantita() - 1;
+
+				if (nuovaQuantita > 0) {
+					prod.setQuantita(nuovaQuantita);
+				} else {
+					it.remove();
+				}
+
 				break;
 			}
 		}
 	}
-	
-	public List<prodottoBean> getProdotti(){
+
+	public List<ElementoCarrello> getProdotti() {
 		return prodotti;
 	}
 

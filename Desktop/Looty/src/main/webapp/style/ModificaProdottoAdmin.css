@@ -3,7 +3,6 @@
 @import
 	url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
-/* Stile generale del body */
 body {
 	background-color: #f8eded;
 	padding: 20px;
@@ -53,7 +52,7 @@ h1{
 }
 
 #descrizione {
-    height: 100px; /* Imposta l'altezza desiderata */
+    height: 100px;
 }
 .container-button {
     display: flex;

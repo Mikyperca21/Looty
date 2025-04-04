@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
 body {
@@ -19,7 +20,7 @@ h2 {
     margin: 20px auto;
     padding: 20px;
     display: grid;
-    grid-template-columns: 1fr; /* Modifica qui: una sola colonna per riga */
+    grid-template-columns: 1fr; /* Una sola colonna per riga */
     gap: 20px;
 }
 
@@ -76,11 +77,11 @@ h2 {
 }
 
 .container-button button {
+    flex: 1; 
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 20px;
     background-color: #173b45;
     color: white;
     border: none;
@@ -89,9 +90,33 @@ h2 {
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
-    width: 100%;
 }
 
 .container-button button:hover {
     background-color: #173bbb;
+}
+
+
+input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid #173b45;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #173b45;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+input[type="number"]:focus {
+    border-color: #173bbb;
+    outline: none;
+}
+
+input[type="number"]:disabled {
+    background-color: #f0f0f0;
+    border-color: #cccccc;
+    color: #999999;
 }

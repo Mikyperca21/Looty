@@ -1,7 +1,7 @@
 package model;
 
 public class prodottoBean {
-	
+
 	private int codice;
 	private String nome;
 	private String descrizione;
@@ -9,11 +9,12 @@ public class prodottoBean {
 	private float prezzoM;
 	private float prezzoL;
 	private int quantita;
-	
-	public prodottoBean() {}
 
-	public prodottoBean(int codice, String nome, String descrizione, float prezzoS,
-			float prezzoM, float prezzoL, int quantita) {
+	public prodottoBean() {
+	}
+
+	public prodottoBean(int codice, String nome, String descrizione, float prezzoS, float prezzoM, float prezzoL,
+			int quantita) {
 		super();
 		this.codice = codice;
 		this.nome = nome;
@@ -22,6 +23,35 @@ public class prodottoBean {
 		this.prezzoM = prezzoM;
 		this.prezzoL = prezzoL;
 		this.quantita = quantita;
+	}
+
+	private String tagliaCarrello;
+
+	public String getTagliaCarrello() {
+		return tagliaCarrello;
+	}
+
+	public void setTagliaCarrello(String tagliaCarrello) {
+		this.tagliaCarrello = tagliaCarrello;
+	}
+
+	public String getPrezzoByTagliaCarrello() {
+		float prezzo;
+		if (tagliaCarrello == null) {
+			prezzo = prezzoS;
+		} else {
+			switch (tagliaCarrello.toUpperCase()) {
+			case "M":
+				prezzo = prezzoM;
+				break;
+			case "L":
+				prezzo = prezzoL;
+				break;
+			default:
+				prezzo = prezzoS;
+			}
+		}
+		return String.format("%.2f", prezzo);
 	}
 
 	public int getCodice() {
@@ -47,7 +77,6 @@ public class prodottoBean {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-
 
 	public float getPrezzoS() {
 		return prezzoS;
@@ -86,6 +115,5 @@ public class prodottoBean {
 		return "prodottoBean [codice=" + codice + ", nome=" + nome + ", descrizione=" + descrizione + ", prezzoS="
 				+ prezzoS + ", prezzoM=" + prezzoM + ", prezzoL=" + prezzoL + ", quantita=" + quantita + "]";
 	}
-	
 
 }
