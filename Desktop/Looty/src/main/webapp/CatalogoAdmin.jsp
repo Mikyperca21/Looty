@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, model.prodottoBean"%>
+<%@ page import="java.util.*, model.prodottoBean, model.Carrello"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +19,9 @@
 		if (request.getAttribute("prodotti") == null) {
 			response.sendRedirect("/catalogo");
 
-			prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
 		}
+		prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
+		Carrello carrello = (Carrello) session.getAttribute("carrello");
 		%>
 		<table class="product-table">
 			<thead>
@@ -59,6 +60,11 @@
 							<button class="action-button">
 								<span class="material-symbols-outlined">edit</span>
 							</button>
+					</a>
+					</a> <a href="catalogo?action=aggiungiCarrello&id=<%=bean.getCodice()%>">
+							<button class="action-button">
+								<span class="material-symbols-outlined">add_shopping_cart</span>
+							</button>
 					</a></td>
 				</tr>
 				<%
@@ -73,6 +79,16 @@
 				%>
 			</tbody>
 		</table>
+	</div>
+	
+	<div class="botton-provvisorio">
+		<a href="Carrello.jsp" style="text-decoration: none;">
+  <button>
+    <span class="material-symbols-outlined">
+shopping_bag
+</span>
+  </button>
+</a>
 	</div>
 
 

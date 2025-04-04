@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Carrello;
 import model.prodottoBean;
 import model.prodottoDAO;
 
@@ -27,6 +28,12 @@ public class catalogo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
+		if (carrello == null) {
+			carrello = new Carrello();
+			request.getSession().setAttribute("carrello", carrello);
+		}
 
 		String action = request.getParameter("action");
 
@@ -74,11 +81,25 @@ public class catalogo extends HttpServlet {
 
 					    dao.doUpdate(bean);
 				}
+				if(action.equalsIgnoreCase("aggiungiCarrello")) {
+					int id = Integer.parseInt(request.getParameter("id"));
+					carrello.aggiungiProdotto(dao.doRetrieveByKey(id));
+				}
+				if(action.equalsIgnoreCase("rimuoviCarrello")) {
+					int id = Integer.parseInt(request.getParameter("id"));
+					carrello.eliminaProdotto(dao.doRetrieveByKey(id));
+					 RequestDispatcher dispatcher = request.getRequestDispatcher("Carrello.jsp");
+				     dispatcher.forward(request, response);
+				}
+				
 			}
 
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
+		
+		request.getSession().setAttribute("carrello", carrello);
+		request.setAttribute("carrello", carrello);
 
 		try {
 			Collection<prodottoBean> prodotti = dao.doRetrieveAll();
