@@ -36,7 +36,7 @@
 								<!-- <a href= "#" class = "nav-link">Account</a> -->
 							</li>
 							<li class = "nav-item">
-								<a href= "#" class = "nav-link"><span class="material-symbols-outlined">shopping_cart</span></a>
+								<a href= "Carrello.jsp" class = "nav-link"><span class="material-symbols-outlined">shopping_cart</span></a>
 							</li>
 						</ul>
 					</nav>

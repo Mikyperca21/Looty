@@ -14,11 +14,9 @@
 
 	<div class="table-container">
 		<%
-		// Recupero della collezione di prodotti dall'attributo della richiesta
 		Collection<?> prodotti = (Collection<?>) request.getAttribute("prodotti");
 		if (request.getAttribute("prodotti") == null) {
 			response.sendRedirect("/catalogo");
-
 		}
 		prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
 		Carrello carrello = (Carrello) session.getAttribute("carrello");
@@ -31,10 +29,8 @@
 					<th>Prezzo taglia M</th>
 					<th>Prezzo taglia L</th>
 					<th>Descrizione</th>
-					<th>Quantità disponibili</th>
-					<th>Dimensione</th>
-					<th>Quantità desiderata:</th>
-					<th>Azione</th>
+					<th>Quantità</th>
+					<th>Modifica</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,37 +41,32 @@
 						prodottoBean bean = (prodottoBean) it.next();
 				%>
 				<tr>
-					<td><%=bean.getNome()%></td>
-					<td><%=bean.getPrezzoS()%> €</td>
-					<td><%=bean.getPrezzoM()%> €</td>
-					<td><%=bean.getPrezzoL()%> €</td>
-					<td><%=bean.getDescrizione()%></td>
-					<td><%=bean.getQuantita()%></td>
-					<td colspan="3">
-						<form id="form-<%=bean.getCodice()%>" action="catalogo"
-							method="post" class="carrello-form"
-							style="display: flex; gap: 10px; align-items: center;">
+					<td data-label="Nome"><%=bean.getNome()%></td>
+					<td data-label="Prezzo taglia S"><%=bean.getPrezzoS()%> €</td>
+					<td data-label="Prezzo taglia M"><%=bean.getPrezzoM()%> €</td>
+					<td data-label="Prezzo taglia L"><%=bean.getPrezzoL()%> €</td>
+					<td data-label="Descrizione"><%=bean.getDescrizione()%></td>
+					<td data-label="Quantità disponibili"><%=bean.getQuantita()%></td>
+					<td data-label="Dimensione">
+						<form id="form-<%=bean.getCodice()%>" action="catalogo" method="post" class="carrello-form">
 							<input type="hidden" name="action" value="aggiungiCarrello">
 							<input type="hidden" name="id" value="<%=bean.getCodice()%>">
-
 							<select name="dimensione" required>
 								<option value="">Seleziona</option>
 								<option value="S">S</option>
 								<option value="M">M</option>
 								<option value="L">L</option>
-							</select> <input type="number" name="quantita" min="1" max="10" value="1"
-								required />
-
-							<button type="submit" class="action-button"
-								id="btn-<%=bean.getCodice()%>">
+							</select>
+							<input type="number" name="quantita" min="1" max="10" value="1" required />
+							<button type="submit" class="action-button" id="btn-<%=bean.getCodice()%>">
 								<span class="material-symbols-outlined">add_shopping_cart</span>
 							</button>
-
 							<a href="catalogo?action=delete&id=<%=bean.getCodice()%>">
 								<button type="button" class="action-button">
 									<span class="material-symbols-outlined">delete</span>
 								</button>
-							</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
+							</a>
+							<a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
 								<button type="button" class="action-button">
 									<span class="material-symbols-outlined">edit</span>
 								</button>
@@ -84,7 +75,7 @@
 					</td>
 				</tr>
 				<%
-				}
+					}
 				} else {
 				%>
 				<tr>
@@ -94,18 +85,8 @@
 				}
 				%>
 			</tbody>
-
 		</table>
 	</div>
-
-	<div class="botton-provvisorio">
-		<a href="Carrello.jsp" style="text-decoration: none;">
-			<button>
-				<span class="material-symbols-outlined"> shopping_bag </span>
-			</button>
-		</a>
-	</div>
-
 
 
 	<div id="form-container" class="form">
@@ -157,6 +138,8 @@
 			</form>
 		</div>
 	</div>
-<%@ include file = "Footer.jsp" %>
+	<div class="container-footer">
+		<%@ include file = "Footer.jsp" %>
+	</div>
 </body>
 </html>

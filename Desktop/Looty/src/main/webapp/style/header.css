@@ -100,9 +100,10 @@ body{
 	border-bottom-left-radius: 10px;
 }
 
-::placeholder{
-	color: #f8eded;
+.search-container ::placeholder{
+	color: #f3eded;
 }
+
 
 .search-container button {
 	color: #f8eded;

@@ -4,12 +4,12 @@
 
 body {
     background-color: #f8eded;
-    padding: 20px;
     color: #173b45;
     font-family: Arial, sans-serif;
 }
 
 h2 {
+	margin-top:20px;
     text-align: center;
     color: #173b45;
 }
@@ -119,4 +119,10 @@ input[type="number"]:disabled {
     background-color: #f0f0f0;
     border-color: #cccccc;
     color: #999999;
+}
+
+.container-footer {
+    width: 100%;
+    padding: 20px;
+    background-color: #173b45;
 }

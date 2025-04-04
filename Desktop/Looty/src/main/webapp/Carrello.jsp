@@ -13,7 +13,8 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 <link rel="stylesheet" href="style/Carrello.css">
 </head>
 <body>
-	<h2>Carrello</h2>
+<%@ include file = "Header.jsp" %>
+	<h2>Il tuo carrello: </h2>
 	<div class="carrello-container">
 		<%
 		if (carrello != null && carrello.getProdotti() != null && !carrello.getProdotti().isEmpty()) {
@@ -67,6 +68,9 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 				
 			
 		</div>
+	</div>
+	<div class="container-footer">
+		<%@ include file = "Footer.jsp" %>
 	</div>
 </body>
 </html>

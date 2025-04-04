@@ -11,6 +11,7 @@
 	
 	<body>
 		<div class="footer-container">
+		<footer>
 			<div class = "top-footer">
 				<img src = "images/LogoLooty_resized.png">
 				<span class = "logo-text">Collezionabili esclusivi direttamente a casa tua!</span>
@@ -36,6 +37,7 @@
 					</ul>
 				</nav>
 			</div>
+			</footer>
 	    </div>
 	</body>
 </html>

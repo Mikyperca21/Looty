@@ -1,16 +1,13 @@
-@charset "ISO-8859-1";
+@charset "UTF-8";
 
-html, body {
-     min-height: 100%;
-	 font-family: Sans-serif;
-}
 
 .footer-container{
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	background-color: rgba(23 59 69 1);
+	background-color: #173b45;
 	color: white;
+	height: 50%;
 	text-align: left;
 }
 
@@ -29,7 +26,10 @@ html, body {
 
 .separatore{
 	border-top: 1px solid #f8eded;
-	width: 90%;
+	width: 95%;
+	align-items: center;
+	margin: 10px;
+	justify-content: center;
 }
 
 /* 
@@ -55,6 +55,7 @@ html, body {
 .footer-ul{
 	justify-content: space-between;
 	display: flex;
+	margin:20px;
 }
 
 .footer-link{
