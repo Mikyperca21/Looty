@@ -20,7 +20,7 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 	<h1>Modifica Prodotto</h1>
 	<div id="form-container" class="form">
 		<div class="form-content">
-			<form action="catalogo" method="post">
+			<form action="catalogo" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="action" value="modify"> <input
 					type="hidden" name="id" value="<%=prodotto.getCodice()%>">
 				<div class="form-group">
@@ -51,16 +51,31 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 					<label for="descrizione">Descrizione: </label>
 					<textarea id="descrizione" name="descrizione" required><%=prodotto.getDescrizione()%></textarea>
 				</div>
-				<div class="container-button">
 				
+				<div class="form-group"> <label for="immagine">Immagine
+						attuale:</label>
+					<div class="preview-container">
+						<img id="preview" src="<%=prodotto.getImmagine()%>"
+							alt="Immagine prodotto" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="immagine">Sostituisci immagine:</label> <input
+						type="file" id="immagine" name="immagine" accept="image/*">
+				</div>
+				
+				<div class="container-button">
 				<button type="button" onclick="window.history.back()">
-					<span class="material-symbols-outlined">arrow_back</span>Torna Indietro</button>
+					<span class="material-symbols-outlined">arrow_back</span>Torna
+					Indietro
+				</button>
 				<button type="submit" value="modifica">
 					<span class="material-symbols-outlined">check</span>Salva modifiche
 				</button>
-				</div>
-			</form>
 		</div>
+		</form>
+	</div>
 	</div>
 </body>
 </html>

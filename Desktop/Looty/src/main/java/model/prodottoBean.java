@@ -9,12 +9,13 @@ public class prodottoBean {
 	private float prezzoM;
 	private float prezzoL;
 	private int quantita;
+	private String immagine;
 
 	public prodottoBean() {
 	}
 
 	public prodottoBean(int codice, String nome, String descrizione, float prezzoS, float prezzoM, float prezzoL,
-			int quantita) {
+			int quantita, String immagine) {
 		super();
 		this.codice = codice;
 		this.nome = nome;
@@ -23,6 +24,7 @@ public class prodottoBean {
 		this.prezzoM = prezzoM;
 		this.prezzoL = prezzoL;
 		this.quantita = quantita;
+		this.immagine = immagine;
 	}
 
 	private String tagliaCarrello;
@@ -108,6 +110,14 @@ public class prodottoBean {
 
 	public void setQuantita(int quantita) {
 		this.quantita = quantita;
+	}
+	
+	public String getImmagine() {
+		return immagine;
+	}
+	
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
 	}
 
 	@Override

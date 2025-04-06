@@ -29,16 +29,9 @@ public class Carrello {
 			ElementoCarrello prod = it.next();
 			if (prod.getProdotto().getCodice() == prodotto.getProdotto().getCodice()
 					&& prod.getDimensione().equalsIgnoreCase(prodotto.getDimensione())) {
+				
+				it.remove();
 
-				int nuovaQuantita = prod.getQuantita() - 1;
-
-				if (nuovaQuantita > 0) {
-					prod.setQuantita(nuovaQuantita);
-				} else {
-					it.remove();
-				}
-
-				break;
 			}
 		}
 	}

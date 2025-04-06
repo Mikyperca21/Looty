@@ -15,7 +15,7 @@ public class prodottoDAO {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO prodotti"
-				+ "(nome, descrizione, prezzoS, prezzoM, prezzoL, quantita) VALUES (?, ?, ?, ?, ?, ?)";
+				+ "(nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -26,6 +26,7 @@ public class prodottoDAO {
 			preparedStatement.setFloat(4, prodotto.getPrezzoM());
 			preparedStatement.setFloat(5, prodotto.getPrezzoL());
 			preparedStatement.setInt(6, prodotto.getQuantita());
+			preparedStatement.setString(7, prodotto.getImmagine());
 
 			preparedStatement.executeUpdate();
 			
@@ -44,7 +45,7 @@ public class prodottoDAO {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 
-	    String updateSQL = "UPDATE prodotti SET nome=?, descrizione=?, prezzoS=?, prezzoM=?, prezzoL=?, quantita=? WHERE codice=?";
+	    String updateSQL = "UPDATE prodotti SET nome=?, descrizione=?, prezzoS=?, prezzoM=?, prezzoL=?, quantita=?, immagine=? WHERE codice=?";
 
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
@@ -55,7 +56,8 @@ public class prodottoDAO {
 	        preparedStatement.setFloat(4, prodotto.getPrezzoM());
 	        preparedStatement.setFloat(5, prodotto.getPrezzoL());
 	        preparedStatement.setInt(6, prodotto.getQuantita());
-	        preparedStatement.setInt(7, prodotto.getCodice()); 
+	        preparedStatement.setString(7, prodotto.getImmagine());
+	        preparedStatement.setInt(8, prodotto.getCodice()); 
 
 	        preparedStatement.executeUpdate();
 	        connection.commit();
@@ -92,6 +94,7 @@ public class prodottoDAO {
 				bean.setPrezzoM(rs.getFloat("prezzoM"));
 				bean.setPrezzoL(rs.getFloat("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
+				bean.setImmagine(rs.getString("immagine"));
 			}
 
 		} finally {
@@ -161,6 +164,7 @@ public class prodottoDAO {
 				bean.setPrezzoM(rs.getFloat("prezzoM"));
 				bean.setPrezzoL(rs.getFloat("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
+				bean.setImmagine(rs.getString("immagine"));
 				prodotti.add(bean);
 			}
 

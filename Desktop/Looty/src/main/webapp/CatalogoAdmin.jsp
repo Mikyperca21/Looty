@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="style/CatalogoAdmin.css">
 </head>
 <body>
-	<%@ include file = "Header.jsp" %>
+	<%@ include file="Header.jsp"%>
 	<h1>Catalogo Amministratore:</h1>
 
 	<div class="table-container">
@@ -24,6 +24,7 @@
 		<table class="product-table">
 			<thead>
 				<tr>
+					<th>Immagine</th>
 					<th>Nome</th>
 					<th>Prezzo taglia S</th>
 					<th>Prezzo taglia M</th>
@@ -41,6 +42,8 @@
 						prodottoBean bean = (prodottoBean) it.next();
 				%>
 				<tr>
+					<td data-label="Immagine"><img src="<%=bean.getImmagine()%>"
+						style="width: 100px;"></td>
 					<td data-label="Nome"><%=bean.getNome()%></td>
 					<td data-label="Prezzo taglia S"><%=bean.getPrezzoS()%> €</td>
 					<td data-label="Prezzo taglia M"><%=bean.getPrezzoM()%> €</td>
@@ -48,7 +51,8 @@
 					<td data-label="Descrizione"><%=bean.getDescrizione()%></td>
 					<td data-label="Quantità disponibili"><%=bean.getQuantita()%></td>
 					<td data-label="Dimensione">
-						<form id="form-<%=bean.getCodice()%>" action="catalogo" method="post" class="carrello-form">
+						<form id="form-<%=bean.getCodice()%>" action="catalogo"
+							method="post" class="carrello-form">
 							<input type="hidden" name="action" value="aggiungiCarrello">
 							<input type="hidden" name="id" value="<%=bean.getCodice()%>">
 							<select name="dimensione" required>
@@ -56,17 +60,17 @@
 								<option value="S">S</option>
 								<option value="M">M</option>
 								<option value="L">L</option>
-							</select>
-							<input type="number" name="quantita" min="1" max="10" value="1" required />
-							<button type="submit" class="action-button" id="btn-<%=bean.getCodice()%>">
+							</select> <input type="number" name="quantita" min="1" max="10" value="1"
+								required />
+							<button type="submit" class="action-button"
+								id="btn-<%=bean.getCodice()%>">
 								<span class="material-symbols-outlined">add_shopping_cart</span>
 							</button>
 							<a href="catalogo?action=delete&id=<%=bean.getCodice()%>">
 								<button type="button" class="action-button">
 									<span class="material-symbols-outlined">delete</span>
 								</button>
-							</a>
-							<a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
+							</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
 								<button type="button" class="action-button">
 									<span class="material-symbols-outlined">edit</span>
 								</button>
@@ -75,7 +79,7 @@
 					</td>
 				</tr>
 				<%
-					}
+				}
 				} else {
 				%>
 				<tr>
@@ -92,7 +96,8 @@
 	<div id="form-container" class="form">
 		<div class="form-content">
 			<h2>Nuovo Prodotto</h2>
-			<form action="<%=request.getContextPath()%>/catalogo" method="post">
+			<form action="<%=request.getContextPath()%>/catalogo" method="post"
+				enctype="multipart/form-data">
 				<input type="hidden" name="action" value="inserisci">
 
 				<div class="form-group">
@@ -131,6 +136,16 @@
 						placeholder="Inserisci una descrizione della box" required></textarea>
 				</div>
 
+				<div class="form-group">
+					<label for="immagine">Inserire immagine del prodotto:</label> <input
+						type="file" id="immagine" name="immagine">
+				</div>
+
+				<div class="preview-container">
+					<img id="preview" src="#" alt="Anteprima immagine">
+				</div>
+
+
 				<button type="submit" value="aggiungi">
 					<span class="material-symbols-outlined">add</span>Inserisci
 					Prodotto
@@ -139,7 +154,27 @@
 		</div>
 	</div>
 	<div class="container-footer">
-		<%@ include file = "Footer.jsp" %>
+		<%@ include file="Footer.jsp"%>
 	</div>
+	<script>
+		document.getElementById("immagine").addEventListener("change",
+				function(event) {
+					const file = event.target.files[0];
+					const preview = document.getElementById("preview");
+
+					if (file && file.type.startsWith("image/")) {
+						const reader = new FileReader();
+						reader.onload = function(e) {
+							preview.src = e.target.result;
+							preview.style.display = "block";
+						};
+						reader.readAsDataURL(file);
+					} else {
+						preview.src = "#";
+						preview.style.display = "none";
+					}
+				});
+	</script>
+
 </body>
 </html>

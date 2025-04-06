@@ -11,22 +11,23 @@ CREATE TABLE prodotti (
   prezzoS FLOAT DEFAULT 0,
   prezzoM FLOAT DEFAULT 0,
   prezzoL FLOAT DEFAULT 0,
-  quantita INT DEFAULT 0
+  quantita INT DEFAULT 0,
+  immagine VARCHAR(255)
 );
 
 
-INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita)
-VALUES ('Marvel', 'box a sorpresa marvel', 29.99, 34.99, 39.99, 100);
+INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
+VALUES ('Marvel', 'box a sorpresa marvel', 29.99, 34.99, 39.99, 100, 'images/Marvel,png');
 
 
-INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita)
-VALUES ('Pokemon', 'Box pokemon', 19.99, 22.99, 25.99, 150);
+INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
+VALUES ('Pokemon', 'Box pokemon', 19.99, 22.99, 25.99, 150, 'images/Pokemon.png');
 
-INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita)
-VALUES ('harry', 'Box harry', 99.99, 109.99, 119.99, 50);
+INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
+VALUES ('harry', 'Box harry', 99.99, 109.99, 119.99, 50, 'images/harry.png');
 
-INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita)
-VALUES ('demon', 'Box demon', 99.99, 109.99, 119.99, 50);
+INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
+VALUES ('demon', 'Box demon', 99.99, 109.99, 119.99, 50, 'images/demon.png');
 
-INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita)
-VALUES ('fragolina', 'Box fragolina', 99.99, 109.99, 119.99, 50);
+INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
+VALUES ('fragolina', 'Box fragolina', 99.99, 109.99, 119.99, 50, 'images/fragolina.png');

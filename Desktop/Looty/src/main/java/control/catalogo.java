@@ -1,14 +1,19 @@
 package control;
 
+import java.io.File;
+
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collection;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 //import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import model.Carrello;
 import model.ElementoCarrello;
@@ -16,6 +21,7 @@ import model.prodottoBean;
 import model.prodottoDAO;
 
 //@WebServlet("/catalogo")
+@MultipartConfig
 public class catalogo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,6 +57,20 @@ public class catalogo extends HttpServlet {
 					Float prezzoM = Float.parseFloat(request.getParameter("prezzoM"));
 					Float prezzoL = Float.parseFloat(request.getParameter("prezzoL"));
 					int quantita = Integer.parseInt(request.getParameter("quantita"));
+					Part filePart = request.getPart("immagine");
+			        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+			       
+			        String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+			        File uploadDir = new File(uploadPath);
+			        if (!uploadDir.exists()) uploadDir.mkdirs();
+
+			      
+			        filePart.write(uploadPath + File.separator + fileName);
+
+			       
+			        String relativePath = "images/" + fileName;
+
 
 					prodottoBean bean = new prodottoBean();
 					bean.setNome(nome);
@@ -59,29 +79,52 @@ public class catalogo extends HttpServlet {
 					bean.setPrezzoM(prezzoM);
 					bean.setPrezzoL(prezzoL);
 					bean.setQuantita(quantita);
+					bean.setImmagine(relativePath);
 					dao.doSave(bean);
 				}
 				
 				if(action.equalsIgnoreCase("modify")) {
-					 int id = Integer.parseInt(request.getParameter("id"));
-					    String nome = request.getParameter("nome");
-					    String descrizione = request.getParameter("descrizione");
-					    Float prezzoS = Float.parseFloat(request.getParameter("prezzoS"));
-					    Float prezzoM = Float.parseFloat(request.getParameter("prezzoM"));
-					    Float prezzoL = Float.parseFloat(request.getParameter("prezzoL"));
-					    int quantita = Integer.parseInt(request.getParameter("quantita"));
+				    int id = Integer.parseInt(request.getParameter("id"));
+				    String nome = request.getParameter("nome");
+				    String descrizione = request.getParameter("descrizione");
+				    Float prezzoS = Float.parseFloat(request.getParameter("prezzoS"));
+				    Float prezzoM = Float.parseFloat(request.getParameter("prezzoM"));
+				    Float prezzoL = Float.parseFloat(request.getParameter("prezzoL"));
+				    int quantita = Integer.parseInt(request.getParameter("quantita"));
 
-					    prodottoBean bean = new prodottoBean();
-					    bean.setCodice(id);
-					    bean.setNome(nome);
-					    bean.setDescrizione(descrizione);
-					    bean.setPrezzoS(prezzoS);
-					    bean.setPrezzoM(prezzoM);
-					    bean.setPrezzoL(prezzoL);
-					    bean.setQuantita(quantita);
+				    Part filePart = request.getPart("immagine");
+				    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-					    dao.doUpdate(bean);
+				    String relativePath = null;
+
+				   
+				    if (fileName != null && !fileName.isEmpty()) {
+				        String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+				        File uploadDir = new File(uploadPath);
+				        if (!uploadDir.exists()) uploadDir.mkdirs();
+
+				        filePart.write(uploadPath + File.separator + fileName);
+
+				        relativePath = "images/" + fileName;
+				    } else {
+				       
+				        prodottoBean existing = dao.doRetrieveByKey(id);
+				        relativePath = existing.getImmagine();
+				    }
+
+				    prodottoBean bean = new prodottoBean();
+				    bean.setCodice(id);
+				    bean.setNome(nome);
+				    bean.setDescrizione(descrizione);
+				    bean.setPrezzoS(prezzoS);
+				    bean.setPrezzoM(prezzoM);
+				    bean.setPrezzoL(prezzoL);
+				    bean.setQuantita(quantita);
+				    bean.setImmagine(relativePath);
+
+				    dao.doUpdate(bean);
 				}
+
 				if(action.equalsIgnoreCase("aggiungiCarrello")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					String dimensione = request.getParameter("dimensione");

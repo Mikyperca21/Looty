@@ -13,9 +13,10 @@ h1 {
 }
 
 .product-table {
-	width: 100%;
+	width: 95%;
 	border-collapse: collapse;
 	margin: 20px;
+	padding: 20px;
 }
 
 .product-table th, .product-table td {
@@ -159,6 +160,21 @@ input[type="number"]:disabled {
 	background-color: #922c2c;
 }
 
+.preview-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+#preview {
+	display: none;
+	max-width: 200px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
 .container-footer {
     margin-top: auto;
     background-color: #173b45;
@@ -166,7 +182,7 @@ input[type="number"]:disabled {
 /* ----------------------------- */
 /*        RESPONSIVE TABLE      */
 /* ----------------------------- */
-@media (max-width: 2000px) {
+/* @media (max-width: 2000px) {
 	.product-table thead {
 		display: none;
 	}
@@ -207,4 +223,4 @@ input[type="number"]:disabled {
 	.form {
 		width: 90%;
 	}
-}
+} */

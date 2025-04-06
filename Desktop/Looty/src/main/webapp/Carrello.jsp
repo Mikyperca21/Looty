@@ -13,8 +13,8 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 <link rel="stylesheet" href="style/Carrello.css">
 </head>
 <body>
-<%@ include file = "Header.jsp" %>
-	<h2>Il tuo carrello: </h2>
+	<%@ include file="Header.jsp"%>
+	<h2>Il tuo carrello:</h2>
 	<div class="carrello-container">
 		<%
 		if (carrello != null && carrello.getProdotti() != null && !carrello.getProdotti().isEmpty()) {
@@ -22,13 +22,19 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 			for (ElementoCarrello prodCarr : prodottiNelCarrello) {
 		%>
 		<div class="card">
-			<div class="card-body">
+			<div class="product-image">
+				<img src="<%=prodCarr.getProdotto().getImmagine()%>"
+					alt="Immagine prodotto">
+			</div>
+			<div class="product-details">
 				<h3><%=prodCarr.getProdotto().getNome()%></h3>
 				<p class="price">
 					€<%=prodCarr.getPrezzoTotale()%></p>
 				<p>
 					Dimensione:
 					<%=prodCarr.getDimensione()%></p>
+			</div>
+			<div class="product-actions">
 				<form action="catalogo" method="post" style="display: inline;">
 					<input type="hidden" name="action" value="modificaQuantitaCarrello" />
 					<input type="hidden" name="id"
@@ -39,15 +45,17 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 						max="99" required />
 					<button type="submit" class="action-button">Aggiorna</button>
 				</form>
+
 				<a
 					href="catalogo?action=rimuoviCarrello&id=<%=prodCarr.getProdotto().getCodice()%>&dimensione=<%=prodCarr.getDimensione()%>&quantita=<%=prodCarr.getQuantita()%>">
-
-					<button class="action-button">
-						<span class="material-symbols-outlined">delete</span>
+					<button class="action-button delete-button">
+						<span class="material-symbols-outlined">delete</span> Elimina
 					</button>
 				</a>
 			</div>
 		</div>
+
+
 		<%
 		}
 		} else {
@@ -62,15 +70,13 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 				Indietro
 			</button>
 			<button type="submit">
-					<span class="material-symbols-outlined">payments</span>Procedi
-					all'acquisto
+				<span class="material-symbols-outlined">payments</span>Procedi
+				all'acquisto
 			</button>
-				
-			
 		</div>
 	</div>
 	<div class="container-footer">
-		<%@ include file = "Footer.jsp" %>
+		<%@ include file="Footer.jsp"%>
 	</div>
 </body>
 </html>
