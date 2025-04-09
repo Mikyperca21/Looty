@@ -97,7 +97,7 @@ input[type="number"]:disabled {
 }
 
 .form {
-	background-color: #f8dddd;
+	background-color: #f8eded;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	padding: 20px;
 	border-radius: 10px;
@@ -176,51 +176,9 @@ input[type="number"]:disabled {
 
 
 .container-footer {
-    margin-top: auto;
+    width: 100%;
+    padding: 20px;
     background-color: #173b45;
+    text-align: center;
+    color: white;
 }
-/* ----------------------------- */
-/*        RESPONSIVE TABLE      */
-/* ----------------------------- */
-/* @media (max-width: 2000px) {
-	.product-table thead {
-		display: none;
-	}
-
-	.product-table tr {
-		display: block;
-		margin-bottom: 20px;
-		background-color: #fff;
-		border: 1px solid #ddd;
-		border-radius: 10px;
-		padding: 15px;
-	}
-
-	.product-table td {
-		display: block;
-		text-align: right;
-		position: relative;
-		padding-left: 50%;
-		border: none;
-		border-bottom: 1px solid #eee;
-	}
-
-	.product-table td::before {
-		content: attr(data-label);
-		position: absolute;
-		left: 10px;
-		width: 45%;
-		font-weight: bold;
-		text-align: left;
-		white-space: nowrap;
-	}
-
-	.carrello-form {
-		flex-direction: row;
-		align-items: flex-start;
-	}
-	
-	.form {
-		width: 90%;
-	}
-} */

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Catalogo Amministratore</title>
 <link rel="stylesheet" href="style/CatalogoAdmin.css">
+<link rel ="icon" href = "images/LogoLooty_resized.png">
 </head>
 <body>
 	<%@ include file="Header.jsp"%>

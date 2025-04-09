@@ -15,8 +15,10 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 <meta charset="UTF-8">
 <title>Modifica Prodotto</title>
 <link rel="stylesheet" href="style/ModificaProdottoAdmin.css">
+<link rel="icon" href="images/LogoLooty_resized.png">
 </head>
 <body>
+<%@ include file="Header.jsp"%>
 	<h1>Modifica Prodotto</h1>
 	<div id="form-container" class="form">
 		<div class="form-content">
@@ -51,9 +53,9 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 					<label for="descrizione">Descrizione: </label>
 					<textarea id="descrizione" name="descrizione" required><%=prodotto.getDescrizione()%></textarea>
 				</div>
-				
-				<div class="form-group"> <label for="immagine">Immagine
-						attuale:</label>
+
+				<div class="form-group">
+					<label for="immagine">Immagine attuale:</label>
 					<div class="preview-container">
 						<img id="preview" src="<%=prodotto.getImmagine()%>"
 							alt="Immagine prodotto" />
@@ -64,18 +66,22 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 					<label for="immagine">Sostituisci immagine:</label> <input
 						type="file" id="immagine" name="immagine" accept="image/*">
 				</div>
-				
+
 				<div class="container-button">
-				<button type="button" onclick="window.history.back()">
-					<span class="material-symbols-outlined">arrow_back</span>Torna
-					Indietro
-				</button>
-				<button type="submit" value="modifica">
-					<span class="material-symbols-outlined">check</span>Salva modifiche
-				</button>
+					<button type="button" onclick="window.history.back()">
+						<span class="material-symbols-outlined">arrow_back</span>Torna
+						Indietro
+					</button>
+					<button type="submit" value="modifica">
+						<span class="material-symbols-outlined">check</span>Salva
+						modifiche
+					</button>
+				</div>
+			</form>
 		</div>
-		</form>
 	</div>
+	<div class="container-footer">
+		<%@ include file="Footer.jsp"%>
 	</div>
 </body>
 </html>

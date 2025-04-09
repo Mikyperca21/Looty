@@ -5,10 +5,10 @@
 
 body {
 	background-color: #f5f9ff;
-	padding: 20px;
 	color: #173b45;
 }
 h1{
+	padding-top: 20px;
 	text-align: center;
 }
 
@@ -94,6 +94,14 @@ h1{
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
+.container-footer {
+    width: 100%;
+    padding: 20px;
+    background-color: #173b45;
+    text-align: center;
+    color: white;
+}
 
 @media ( max-width : 768px) {
 	.form {

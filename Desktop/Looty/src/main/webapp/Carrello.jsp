@@ -11,6 +11,7 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 <meta charset="UTF-8">
 <title>Carrello</title>
 <link rel="stylesheet" href="style/Carrello.css">
+<link rel="icon" href="images/LogoLooty_resized.png">
 </head>
 <body>
 	<%@ include file="Header.jsp"%>

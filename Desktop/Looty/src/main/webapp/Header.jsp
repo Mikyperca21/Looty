@@ -13,7 +13,7 @@
 		<header class = "header">
 			<div class = "navbar">
 				<div class = "navbar-content">
-					<a href = "#" class = "logo">
+					<a href = "catalogo" class = "logo">
 						<img src = "images/LogoLooty_resized.png" alt = "Logo di Looty"/>	
 						<span class = "logo-text">Looty</span>
 					</a>

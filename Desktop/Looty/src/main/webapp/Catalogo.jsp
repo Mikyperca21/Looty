@@ -7,9 +7,13 @@
 <meta charset="UTF-8">
 <title>Looty</title>
 <link rel="stylesheet" href="style/Catalogo.css">
+<link rel="icon" href="images/LogoLooty_resized.png">
 </head>
 <body>
-	<%@ include file="Header.jsp"%>
+	<div class = "container-header">
+		<%@ include file="Header.jsp"%>
+	</div>
+	
 	<div class="titolo">
 
 		<h2 style="padding: 40px;">I nostri prodotti:</h2>
@@ -33,8 +37,9 @@
 		for (Object obj : prodotti) {
 			prodottoBean bean = (prodottoBean) obj;
 		%><div class="card">
-			<a href="dettaglioProdotto?action=getProdotto&id=<%=bean.getCodice() %>" style="text-decoration: none;">
- <img
+			<a
+				href="dettaglioProdotto?action=getProdotto&id=<%=bean.getCodice()%>"
+				style="text-decoration: none;"> <img
 				src="<%=bean.getImmagine()%>" />
 			</a>
 			<h2 class="card-title"><%=bean.getNome()%></h2>
@@ -63,7 +68,7 @@
 				<%=bean.getPrezzoS()%>
 				€
 			</p>
-			
+
 		</div>
 
 		<%
