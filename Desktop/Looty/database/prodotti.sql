@@ -17,11 +17,11 @@ CREATE TABLE prodotti (
 
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
-VALUES ('Marvel', 'box a sorpresa marvel', 29.99, 34.99, 39.99, 100, 'images/Marvel,png');
+VALUES ('Marvel', 'box a sorpresa marvel', 29.99, 34.99, 39.99, 100, 'images/Marvel.png');
 
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
-VALUES ('Pokemon', 'Box pokemon', 19.99, 22.99, 25.99, 150, 'images/Pokemon.png');
+VALUES ('Pokemon', 'Box pokemon', 19.99, 22.99, 25.99, 150, 'images/pokemon.png');
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
 VALUES ('harry', 'Box harry', 99.99, 109.99, 119.99, 50, 'images/harry.png');

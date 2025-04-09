@@ -180,7 +180,7 @@ public class catalogo extends HttpServlet {
 			request.setAttribute("prodotti", prodotti);
 
 			// Inserire quello che interessa al momento
-			RequestDispatcher dispatcher = request.getRequestDispatcher("CatalogoAdmin.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Catalogo.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (SQLException e) {

@@ -20,7 +20,7 @@
 		// Recupero della collezione di prodotti dall'attributo della richiesta
 		Collection<?> prodotti = (Collection<?>) request.getAttribute("prodotti");
 		if (request.getAttribute("prodotti") == null) {
-			response.sendRedirect("/catalogo");
+			response.sendRedirect(request.getContextPath() + "/catalogo");
 		}
 		prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
 		Carrello carrello = (Carrello) session.getAttribute("carrello");
@@ -33,7 +33,7 @@
 		for (Object obj : prodotti) {
 			prodottoBean bean = (prodottoBean) obj;
 		%><div class="card">
-			<a href="#" style="text-decoration: none;">
+			<a href="dettaglioProdotto?action=getProdotto&id=<%=bean.getCodice() %>" style="text-decoration: none;">
  <img
 				src="<%=bean.getImmagine()%>" />
 			</a>

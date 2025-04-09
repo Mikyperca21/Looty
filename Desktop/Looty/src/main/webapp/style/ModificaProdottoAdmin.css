@@ -4,7 +4,7 @@
 	url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
 body {
-	background-color: #f8eded;
+	background-color: #f5f9ff;
 	padding: 20px;
 	color: #173b45;
 }
@@ -13,7 +13,7 @@ h1{
 }
 
 .form {
-	background-color: #f8dddd;
+	background-color: #f8eded;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	padding: 20px;
 	border-radius: 10px;

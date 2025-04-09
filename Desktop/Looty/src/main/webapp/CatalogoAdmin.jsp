@@ -11,12 +11,75 @@
 <body>
 	<%@ include file="Header.jsp"%>
 	<h1>Catalogo Amministratore:</h1>
+	
+	
+
+	<div id="form-container" class="form">
+		<div class="form-content">
+			<h2>Nuovo Prodotto</h2>
+			<form action="<%=request.getContextPath()%>/catalogo" method="post"
+				enctype="multipart/form-data">
+				<input type="hidden" name="action" value="inserisci">
+
+				<div class="form-group">
+					<label for="nome">Nome:</label> <input type="text" id="nome"
+						placeholder="Inserisci il nome" name="nome" required>
+				</div>
+
+				<div class="form-group">
+					<label for="prezzoS">Prezzo per la mystery box di taglia S:</label>
+					<input type="number" step="any" id="prezzoS" name="prezzoS"
+						min="0.01" placeholder="Inserisci il prezzo per la box piccola"
+						required>
+				</div>
+				<div class="form-group">
+					<label for="prezzoM">Prezzo per la mystery box di taglia M:</label>
+					<input type="number" step="any" id="prezzoM" name="prezzoM"
+						min="0.01" placeholder="Inserisci il prezzo per la box media"
+						required>
+				</div>
+				<div class="form-group">
+					<label for="prezzoL">Prezzo per la mystery box di taglia L:</label>
+					<input type="number" step="any" id="prezzoL" name="prezzoL"
+						min="0.01" placeholder="Inserisci il prezzo per la box grande"
+						required>
+				</div>
+
+				<div class="form-group">
+					<label for="quantita">Quantità di box disponibili:</label> <input
+						type="number" id="quantita" name="quantita" min="1"
+						placeholder="Inserisci la quantità di box disponibili" required>
+				</div>
+
+				<div class="form-group">
+					<label for="descrizione">Descrizione:</label>
+					<textarea id="descrizione" name="descrizione"
+						placeholder="Inserisci una descrizione della box" required></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="immagine">Inserire immagine del prodotto:</label> <input
+						type="file" id="immagine" name="immagine">
+				</div>
+
+				<div class="preview-container">
+					<img id="preview" src="#" alt="Anteprima immagine">
+				</div>
+
+
+				<button type="submit" value="aggiungi">
+					<span class="material-symbols-outlined">add</span>Inserisci
+					Prodotto
+				</button>
+			</form>
+		</div>
+	</div>
 
 	<div class="table-container">
 		<%
 		Collection<?> prodotti = (Collection<?>) request.getAttribute("prodotti");
 		if (request.getAttribute("prodotti") == null) {
-			response.sendRedirect("/catalogo");
+			response.sendRedirect(request.getContextPath() + "/catalogo");
 		}
 		prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
 		Carrello carrello = (Carrello) session.getAttribute("carrello");
@@ -92,67 +155,6 @@
 		</table>
 	</div>
 
-
-	<div id="form-container" class="form">
-		<div class="form-content">
-			<h2>Nuovo Prodotto</h2>
-			<form action="<%=request.getContextPath()%>/catalogo" method="post"
-				enctype="multipart/form-data">
-				<input type="hidden" name="action" value="inserisci">
-
-				<div class="form-group">
-					<label for="nome">Nome:</label> <input type="text" id="nome"
-						placeholder="Inserisci il nome" name="nome" required>
-				</div>
-
-				<div class="form-group">
-					<label for="prezzoS">Prezzo per la mystery box di taglia S:</label>
-					<input type="number" step="any" id="prezzoS" name="prezzoS"
-						min="0.01" placeholder="Inserisci il prezzo per la box piccola"
-						required>
-				</div>
-				<div class="form-group">
-					<label for="prezzoM">Prezzo per la mystery box di taglia M:</label>
-					<input type="number" step="any" id="prezzoM" name="prezzoM"
-						min="0.01" placeholder="Inserisci il prezzo per la box media"
-						required>
-				</div>
-				<div class="form-group">
-					<label for="prezzoL">Prezzo per la mystery box di taglia L:</label>
-					<input type="number" step="any" id="prezzoL" name="prezzoL"
-						min="0.01" placeholder="Inserisci il prezzo per la box grande"
-						required>
-				</div>
-
-				<div class="form-group">
-					<label for="quantita">Quantità di box disponibili:</label> <input
-						type="number" id="quantita" name="quantita" min="1"
-						placeholder="Inserisci la quantità di box disponibili" required>
-				</div>
-
-				<div class="form-group">
-					<label for="descrizione">Descrizione:</label>
-					<textarea id="descrizione" name="descrizione"
-						placeholder="Inserisci una descrizione della box" required></textarea>
-				</div>
-
-				<div class="form-group">
-					<label for="immagine">Inserire immagine del prodotto:</label> <input
-						type="file" id="immagine" name="immagine">
-				</div>
-
-				<div class="preview-container">
-					<img id="preview" src="#" alt="Anteprima immagine">
-				</div>
-
-
-				<button type="submit" value="aggiungi">
-					<span class="material-symbols-outlined">add</span>Inserisci
-					Prodotto
-				</button>
-			</form>
-		</div>
-	</div>
 	<div class="container-footer">
 		<%@ include file="Footer.jsp"%>
 	</div>
