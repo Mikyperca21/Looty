@@ -31,3 +31,16 @@ VALUES ('demon', 'Box demon', 99.99, 109.99, 119.99, 50, 'images/demon.png');
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
 VALUES ('fragolina', 'Box fragolina', 99.99, 109.99, 119.99, 50, 'images/fragolina.png');
+
+
+
+DROP TABLE IF EXISTS utente;
+
+CREATE TABLE utente (	
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(20) NOT NULL,
+  cognome VARCHAR(20) NOT NULL,
+  email VARCHAR(20) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  ruolo BOOLEAN NOT NULL DEFAULT 0
+);

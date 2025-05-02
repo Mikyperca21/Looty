@@ -2,12 +2,18 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
+.container-header{
+	z-index: 100;
+	width: 100%;
+}
+
 body {
     background-color: #f5f9ff;
     color: #173b45;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    /* height: 100%; */
 }
 
 
@@ -179,5 +185,12 @@ input[type="number"]:disabled {
 }
 
 .container-button button:hover {
-    background-color: #173bbb;
+    background-color: #6295a3;
+}
+
+.container-footer {
+    margin-top: 700px;
+    width: 100%;
+    padding: 20px;
+    background-color: #173b45;
 }

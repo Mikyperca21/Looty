@@ -19,8 +19,8 @@
 			<div class = "login-content">
 				<form action = "#" method = "post">
 					<ul>
-						<li><input class = "login" type = "text" placeholder = "E-mail" required = "true"/></li>
-						<li><input class = "login" type = "password" placeholder = "Password" required = "true"/></li>
+						<li><input name = "email" class = "login" type = "text" placeholder = "E-mail" required = "true"/></li>
+						<li><input name = "password" class = "login" type = "password" placeholder = "Password" required = "true"/></li>
 						<li><input class = "login" type = "submit" value = "Accedi"/></li>
 						<li><i><a id = "link-registrati" href = "Registrazione.jsp">Altrimenti registrati</a></i></li>
 					</ul>
