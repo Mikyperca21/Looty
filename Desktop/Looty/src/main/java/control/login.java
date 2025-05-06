@@ -1,9 +1,10 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
-
 import model.utenteBean;
+import model.utenteDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,49 +16,72 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public login() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public login() {
+		super();
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+
 		List<String> errors = new ArrayList<>();
-		RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("login.jsp");
-		
-		if(email == null || email.trim().isEmpty()) {
+		RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("Catalogo.jsp"); // <-- correggi se hai un'altra pagina login
+
+		if (email == null || email.trim().isEmpty()) {
 			errors.add("L'email non può essere vuota!");
 		}
-		
-		if(password == null || password.trim().isEmpty()) {
+		if (password == null || password.trim().isEmpty()) {
 			errors.add("La password non può essere vuota!");
 		}
-		
-		if(!errors.isEmpty()) { // se ci sono errori
+		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
 			dispatcherToLoginPage.forward(request, response);
 			return;
 		}
-		
-		String hashPassword = utenteBean.toHash(password);
-		String hashDB = "DAO";
-		
-		if(email.equals("admin@admin.com") && hashPassword.equals(hashDB)){ //admin
-			request.getSession().setAttribute("isAdmin", Boolean.TRUE); //inserisco il token nella sessione
-			response.sendRedirect("CatalogoAdmin.jsp");
-		} else if (email.equals("user") && hashPassword.equals(hashDB)) { //user
-			request.getSession().setAttribute("isAdmin", Boolean.FALSE); //inserisco il token nella sessione
-			response.sendRedirect("common/protected.jsp");
-		} else { 
+
+		// Hash password
+		String hashedPassword = utenteBean.toHash(password);
+
+		// Recupera utente dal DB
+		utenteDAO dao = new utenteDAO();
+		utenteBean utente;
+		try {
+			utente = dao.doRetrieveByEmail(email);
+			
+			
+			
+		if (utente != null && utente.getPassword().equals(hashedPassword)) {
+			
+			System.out.println("Hash inserito: " + hashedPassword);
+			System.out.println("Hash da DB: " + utente.getPassword());
+
+			// Salva l'utente in sessione
+			request.getSession().setAttribute("utenteLoggato", utente);
+			System.out.println("Utente salvato in sessione: " + utente.getEmail());
+			System.out.println("Session ID: " + request.getSession().getId());
+
+			// Se è admin, vai su catalogo admin
+			if ("admin@admin.com".equals(utente.getEmail())) {
+				request.getSession().setAttribute("isAdmin", Boolean.TRUE);
+				response.sendRedirect("CatalogoAdmin.jsp");
+			} else {
+				request.getSession().setAttribute("isAdmin", Boolean.FALSE);
+				response.sendRedirect("ProfiloUtente.jsp");
+			}
+		} else {
 			errors.add("Username o password non validi!");
 			request.setAttribute("errors", errors);
 			dispatcherToLoginPage.forward(request, response);
 		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 	}
 }

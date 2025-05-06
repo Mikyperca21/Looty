@@ -1,5 +1,7 @@
 package model;
 
+import java.nio.charset.StandardCharsets;
+
 public class utenteBean {
 	private int id;
 	private String nome;
@@ -7,7 +9,7 @@ public class utenteBean {
 	private String email;
 	private String password;
 	private int ordini;
-	private String ruolo; // forse è un ENUM
+	private boolean ruolo; // forse è un ENUM
 	
 	public utenteBean(){
 		
@@ -64,11 +66,11 @@ public class utenteBean {
 		this.ordini = ordini;
 	}
 
-	public String getRuolo() {
+	public boolean getRuolo() {
 		return ruolo;
 	}
 
-	public void setRuolo(String ruolo) {
+	public void setRuolo(boolean ruolo) {
 		this.ruolo = ruolo;
 	}
 	
@@ -80,7 +82,7 @@ public class utenteBean {
 		
 		try {
 			java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
-			byte[] hash = digest.digest(password.getBytes());
+			byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 			hashString = "";
 			for(int i = 0; i < hash.length; i++) {
 				hashString += Integer.toHexString((hash[i] & 0xFF) | 0x100).toLowerCase().substring(1,3); // <- copiato dalle slides
@@ -89,6 +91,6 @@ public class utenteBean {
 			System.out.println(e);
 		}
 		
-		return null;
+		return hashString;
 	}
 }

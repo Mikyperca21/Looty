@@ -22,7 +22,7 @@ public class utenteDAO {
 			preparedStatement.setString(2, utente.getCognome());
 			preparedStatement.setString(3, utente.getEmail());
 			preparedStatement.setString(4, utente.getPassword());
-			preparedStatement.setString(5, utente.getRuolo());
+			preparedStatement.setBoolean(5, utente.getRuolo());
 
 			preparedStatement.executeUpdate();
 			
@@ -50,7 +50,7 @@ public class utenteDAO {
 			preparedStatement.setString(2, utente.getCognome());
 			preparedStatement.setString(3, utente.getEmail());
 			preparedStatement.setString(4, utente.getPassword());
-			preparedStatement.setString(5, utente.getRuolo());
+			preparedStatement.setBoolean(5, utente.getRuolo());
 			preparedStatement.setInt(6, utente.getId());
 			
 	        preparedStatement.executeUpdate();
@@ -85,7 +85,7 @@ public class utenteDAO {
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
-				bean.setRuolo(rs.getString("ruolo"));
+				bean.setRuolo(rs.getBoolean("ruolo"));
 			}
 
 		} finally {
@@ -153,7 +153,7 @@ public class utenteDAO {
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
-				bean.setRuolo(rs.getString("ruolo"));
+				bean.setRuolo(rs.getBoolean("ruolo"));
 				
 				prodotti.add(bean);
 			}
@@ -167,5 +167,42 @@ public class utenteDAO {
 			}
 		}
 		return prodotti;
+	}
+
+	public utenteBean doRetrieveByEmail(String email) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		utenteBean bean = new utenteBean();
+
+		String selectSQL = "SELECT * FROM utente WHERE email = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setId(rs.getInt("id"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCognome(rs.getString("cognome"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setRuolo(rs.getBoolean("ruolo"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
+
 	}
 }

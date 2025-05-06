@@ -15,17 +15,17 @@
 		
 		<div class = "signup-container">
 			<div class = "signup-content">
-				<form action = "#" method = "post">
+				<form action = "<%=request.getContextPath()%>/registrazione" method = "post">
 					<ul>
-						<li><input class = "signup" type = "text" placeholder = "Nome" required = "true"/></li>
-						<li><input class = "signup" type = "text" placeholder = "Cognome" required = "true"/></li>
-						<li><input class = "signup" type = "text" placeholder = "E-mail" required = "true"/></li>
-						<li><input class = "signup" type = "password" placeholder = "Password" required = "true"/></li>
+						<li><input class = "signup" type = "text" name="Nome" placeholder = "Nome" required = "true"/></li>
+						<li><input class = "signup" type = "text" name="Cognome" placeholder = "Cognome" required = "true"/></li>
+						<li><input class = "signup" type = "text" name="Email" placeholder = "E-mail" required = "true"/></li>
+						<li><input class = "signup" type = "password" name="Password" placeholder = "Password" required = "true"/></li>
 						<!-- indirizzo, città, prov, cap, -->
-						<li><input class = "signup" type = "text" placeholder = "Via" required = "true"/></li>
-						<li><input class = "signup" type = "text" placeholder = "Città" required = "true"/></li>
-						<li><input class = "signup" type = "text" placeholder = "Provincia" required = "true"/></li>
-						<li><input class = "signup" type = "number" placeholder = "Cap" required = "true" max = "99999"/></li>
+						<li><input class = "signup" type = "text" name="Via" placeholder = "Via" required = "true"/></li>
+						<li><input class = "signup" type = "text" name="Citta" placeholder = "Citta" required = "true"/></li>
+						<li><input class = "signup" type = "text" name="Provincia" placeholder = "Provincia" required = "true"/></li>
+						<li><input class = "signup" type = "number" name="Cap" placeholder = "Cap" required = "true" max = "99999"/></li>
 						<li><input class = "signup" type = "submit" value = "Registrati"/></li>
 						<li><i><a id = "link-login" href = "Login.jsp">Hai già un account? Accedi</a></i></li>
 					</ul>

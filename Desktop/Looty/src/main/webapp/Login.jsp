@@ -17,11 +17,11 @@
 	
 		<div class = "login-container">
 			<div class = "login-content">
-				<form action = "#" method = "post">
+				<form action = "<%=request.getContextPath()%>/login" method = "post">
 					<ul>
 						<li><input name = "email" class = "login" type = "text" placeholder = "E-mail" required = "true"/></li>
 						<li><input name = "password" class = "login" type = "password" placeholder = "Password" required = "true"/></li>
-						<li><input class = "login" type = "submit" value = "Accedi"/></li>
+						<li><input class = "login" type = "submit" value = "Login"/></li>
 						<li><i><a id = "link-registrati" href = "Registrazione.jsp">Altrimenti registrati</a></i></li>
 					</ul>
 				</form>
