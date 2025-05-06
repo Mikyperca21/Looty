@@ -9,39 +9,40 @@ import java.util.LinkedList;
 
 public class utenteDAO {
 	public synchronized void doSave(utenteBean utente) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO utente"
-				+ " (nome, cognome, email, password, ruolo) VALUES (?, ?, ?, ?, ?)";
+	    String insertSQL = "INSERT INTO utente"
+	            + " (nome, cognome, email, pass, ruolo) VALUES (?, ?, ?, ?, ?)";
 
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, utente.getNome());
-			preparedStatement.setString(2, utente.getCognome());
-			preparedStatement.setString(3, utente.getEmail());
-			preparedStatement.setString(4, utente.getPassword());
-			preparedStatement.setBoolean(5, utente.getRuolo());
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(insertSQL);
+	        preparedStatement.setString(1, utente.getNome());
+	        preparedStatement.setString(2, utente.getCognome());
+	        preparedStatement.setString(3, utente.getEmail());
+	        preparedStatement.setString(4, utenteBean.toHash(utente.getPassword()));
+	        preparedStatement.setBoolean(5, utente.getRuolo());
 
-			preparedStatement.executeUpdate();
-			
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
+	        preparedStatement.executeUpdate();
+	        
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
 	}
+
 	
 	public synchronized void doUpdate(utenteBean utente) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 
-	    String updateSQL = "UPDATE utente SET nome=?, cognome=?, email=?, password=?, ruolo=? WHERE id=?";
+	    String updateSQL = "UPDATE utente SET nome=?, cognome=?, email=?, pass=?, ruolo=? WHERE id=?";
 
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
@@ -84,7 +85,7 @@ public class utenteDAO {
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setPassword(rs.getString("pass"));
 				bean.setRuolo(rs.getBoolean("ruolo"));
 			}
 
@@ -152,7 +153,7 @@ public class utenteDAO {
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setPassword(rs.getString("pass"));
 				bean.setRuolo(rs.getBoolean("ruolo"));
 				
 				prodotti.add(bean);
@@ -190,7 +191,7 @@ public class utenteDAO {
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setPassword(rs.getString("pass"));
 				bean.setRuolo(rs.getBoolean("ruolo"));
 			}
 

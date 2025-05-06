@@ -52,9 +52,7 @@ public class utenteBean {
 	}
 
 	public void setPassword(String pass) {
-		// cifro la password per poi salvarla nel DB
-		pass = toHash(pass);
-		
+
 		this.password = pass;
 	}
 

@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ page import="model.utenteBean" %>
+
+<%
+    utenteBean utenteHeader = (utenteBean) session.getAttribute("utenteLoggato");
+    String accountLink = (utenteHeader != null) ? "ProfiloUtente.jsp" : "Login.jsp";
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -32,7 +39,7 @@
 								<!-- <a href= "#" class = "nav-link">Categoria</a> -->
 							</li>
 							<li class = "nav-item">
-								<a href= "Login.jsp" class = "nav-link"><span class="material-symbols-outlined">account_circle</span></a>
+								<a href= "<%= accountLink %>" class = "nav-link"><span class="material-symbols-outlined">account_circle</span></a>
 								<!-- <a href= "#" class = "nav-link">Account</a> -->
 							</li>
 							<li class = "nav-item">

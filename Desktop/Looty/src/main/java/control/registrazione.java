@@ -50,6 +50,7 @@ public class registrazione extends HttpServlet {
 		bean.setCognome(cognome);
 		bean.setEmail(email);
 		bean.setPassword(password);
+
 		bean.setRuolo(false);
 		
 		try {

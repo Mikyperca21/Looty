@@ -17,46 +17,44 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title><%= utente.getNome() %>'s profile</title>
+		<title>AreaUtente di: <%= utente.getNome() %></title>
 		<link rel = "stylesheet" href = "style/ProfiloUtente.css">
 		<link rel = "icon" href = "images/LogoLooty_resized.png">
 	</head>
 	
 	<body>
+	
+	<div class = "container-header">
+		<%@ include file="Header.jsp"%>
+	</div>
 		<div class = "user-container">
 			<div class = "user-content">
-				<h1>Bentornato <%= utente.getNome() %> +""+ <%= utente.getCognome() %></h1> <!--  mi da errore se li metto insieme -->
-				<a href = "#">I miei ordini</a>
+				<h1>Bentornato <%= utente.getNome() +" "+ utente.getCognome() %></h1> <!--  mi da errore se li metto insieme -->
+				<a href = "<%=request.getContextPath()%>/logout">Logout</a>
 				
 			</div>
 		</div>
 		
 		<div class="container">
-        <!-- Info Utente -->
-        <div class="user-info">
-            <img src="https://via.placeholder.com/80" alt="Foto Profilo">
-            <p><strong>Mario Rossi</strong></p>
-            <p>Email: mario.rossi@example.com</p>
-            <p>Telefono: +39 123 456 7890</p>
-        </div>
+       
 
         <!-- Griglia con riquadri cliccabili -->
         <div class="grid">
             <div class="box" onclick="showSection('profile')">
-                <i class="fas fa-user"></i>
-                <p>Profilo</p>
+                <span class="material-symbols-outlined">person</span>
+                <p>Dati personali</p>
             </div>
             <div class="box" onclick="showSection('orders')">
-                <i class="fas fa-box"></i>
-                <p>Ordini</p>
+                <span class="material-symbols-outlined">local_shipping</span>
+                <p>I miei ordini</p>
             </div>
             <div class="box" onclick="showSection('addresses')">
-                <i class="fas fa-map-marker-alt"></i>
-                <p>Indirizzi</p>
+                <span class="material-symbols-outlined">location_on</span>
+                <p>I miei indirizzi</p>
             </div>
             <div class="box" onclick="showSection('payments')">
-                <i class="fas fa-credit-card"></i>
-                <p>Pagamenti</p>
+                <span class="material-symbols-outlined">payments</span>
+                <p>Metodi di pagamento</p>
             </div>
         </div>
     </div>
@@ -81,5 +79,9 @@
             <p>Aggiungi o rimuovi carte di credito o altri metodi di pagamento.</p>
         </div>
     </div>
+    
+    <div class="container-footer">
+		<%@ include file="Footer.jsp"%>
+	</div>
 	</body>
 </html>

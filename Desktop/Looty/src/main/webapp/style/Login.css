@@ -26,6 +26,7 @@ body{
 	background-color: #e8f0f7;
 	font-family: Sans-serif;
 	padding-top: 80px; /* stessa altezza navbar*/
+	font-size: 14px;
 }
   
 .login-container{
@@ -45,7 +46,6 @@ body{
 }
 
 .login{
-	font-size: 24px;
 	margin-top: 50px;
 	margin-bottom: 50px;
 	padding-left: 20px;

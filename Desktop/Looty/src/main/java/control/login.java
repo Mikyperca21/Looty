@@ -42,41 +42,38 @@ public class login extends HttpServlet {
 
 		// Hash password
 		String hashedPassword = utenteBean.toHash(password);
+		
 
 		// Recupera utente dal DB
 		utenteDAO dao = new utenteDAO();
 		utenteBean utente;
 		try {
-			utente = dao.doRetrieveByEmail(email);
-			
-			
-			
-		if (utente != null && utente.getPassword().equals(hashedPassword)) {
-			
-			System.out.println("Hash inserito: " + hashedPassword);
-			System.out.println("Hash da DB: " + utente.getPassword());
+		    utente = dao.doRetrieveByEmail(email);
 
-			// Salva l'utente in sessione
-			request.getSession().setAttribute("utenteLoggato", utente);
-			System.out.println("Utente salvato in sessione: " + utente.getEmail());
-			System.out.println("Session ID: " + request.getSession().getId());
+		    System.out.println("DEBUG — Email inserita: " + email);
+		    System.out.println("DEBUG — Password inserita (hash): " + hashedPassword);
 
-			// Se è admin, vai su catalogo admin
-			if ("admin@admin.com".equals(utente.getEmail())) {
-				request.getSession().setAttribute("isAdmin", Boolean.TRUE);
-				response.sendRedirect("CatalogoAdmin.jsp");
-			} else {
-				request.getSession().setAttribute("isAdmin", Boolean.FALSE);
-				response.sendRedirect("ProfiloUtente.jsp");
-			}
-		} else {
-			errors.add("Username o password non validi!");
-			request.setAttribute("errors", errors);
-			dispatcherToLoginPage.forward(request, response);
-		}
+		    if (utente != null) {
+		        System.out.println("DEBUG — Utente trovato: " + utente.getEmail());
+		        System.out.println("DEBUG — Password salvata nel DB: " + utente.getPassword());
+		    } else {
+		        System.out.println("DEBUG — Nessun utente trovato con questa email.");
+
+		    }
+
+		    if (utente != null && utente.getPassword().equals(hashedPassword)) {
+		        request.getSession().setAttribute("utenteLoggato", utente);
+		        request.getSession().setAttribute("isAdmin", "admin@admin.com".equals(utente.getEmail()));
+		        response.sendRedirect("ProfiloUtente.jsp");
+		        return;
+		    } else {
+		        errors.add("Username o password non validi!");
+		        request.setAttribute("errors", errors);
+		        dispatcherToLoginPage.forward(request, response);
+		    }
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    e.printStackTrace();
 		}
 
 	}
