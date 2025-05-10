@@ -1,0 +1,120 @@
+@charset "UTF-8";
+/* Importa le icone di Material Design */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+.container-header {
+	z-index: 100;
+	width: 100%;
+}
+
+body {
+	background-color: #f5f9ff;
+	color: #173b45;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3 {
+	text-align: center;
+	color: #173b45;
+	padding: 20px;
+}
+
+h2 {
+	margin-bottom: 30px;
+}
+
+
+.carrello-container {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	padding: 20px;
+}
+
+.articoli {
+	flex: 1;
+	width: 100%;
+}
+
+.ordini-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.ordini-table th, .ordini-table td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+.ordini-table th {
+	background-color: #173b45;
+	color: white;
+}
+
+.ordini-table tbody tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.ordini-table td a {
+	text-decoration: none;
+	color: #b43f3f;
+	font-weight: bold;
+}
+
+.ordini-table td a:hover {
+	color: #922c2c;
+}
+
+.action-button{
+	all: unset;
+	display: inline-block;
+}
+
+.action-button span {
+	border: none;
+	border-radius: 50%;
+	padding: 12px;
+	color: #f8eded;
+	background-color: #b43f3f;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.action-button span:hover {
+  background-color: #620b01;
+  transform: translateY(-2px);
+}
+
+.action-button span:active {
+  background-color: #c87872;
+  transform: translateY(0);
+}  
+
+
+img {
+	border-radius: 8px;
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+}
+
+
+.ordini-table th, .ordini-table td {
+	font-size: 16px;
+}
+
+.ordini-table tbody td {
+	padding: 12px 15px;
+}
+
+.container-footer {
+	margin-top: 700px;
+	width: 100%;
+	padding: 20px;
+	background-color: #173b45;
+}

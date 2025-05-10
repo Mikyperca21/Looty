@@ -63,38 +63,58 @@ body {
 }
 
 .grid {
-	flex: 1;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-	gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    width: 100%;   
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
-/* Box */
 .box {
-	background: #fff;
-	padding: 20px;
-	min-height: 180px; /* Aumentato per maggiore altezza */
-	border-radius: 12px;
-	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
-	text-align: center;
-	cursor: pointer;
-	transition: all 0.2s ease;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    width: 200px;
+    height: 180px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .box:hover {
-	transform: scale(1.05);
-	border: 1px solid #173b45;
+    transform: scale(1.05);
+    border: 1px solid #173b45;
+}
+
+.box a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .box .material-symbols-outlined {
-	font-size: 36px;
-	color: #173b45;
-	margin-bottom: 10px;
+    font-size: 36px;
+    color: #173b45;
+    margin-bottom: 10px;
+}
+
+.box p {
+    margin: 0;
+    font-weight: bold;
+    word-wrap: break-word;
+    padding: 0 5px;
 }
 
 .section {
@@ -107,20 +127,50 @@ body {
 	display: block;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-	.container {
-		flex-direction: column;
-		padding: 20px;
-	}
-
-	.grid {
-		grid-template-columns: repeat(1, 1fr);
-	}
-}
 
 .container-footer {
 	width: 100%;
 	padding: 20px;
 	background-color: #173b45;
 }
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+
+    .box {
+        width: 100%;
+        height: auto;
+        min-height: unset;
+        padding: 12px 20px;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+
+    .box a {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: left;
+        padding: 0;
+        gap: 15px;
+    }
+
+    .box .material-symbols-outlined {
+        font-size: 28px;
+    }
+
+    .box p {
+        font-size: 16px;
+    }
+}
+
+

@@ -2,9 +2,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
-.container-header{
-	z-index: 100;
-	width: 100%;
+.container-header {
+    z-index: 100;
+    width: 100%;
 }
 
 body {
@@ -13,9 +13,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    /* height: 100%; */
 }
-
 
 h2 {
     margin-top: 20px;
@@ -24,9 +22,18 @@ h2 {
 }
 
 .carrello-container {
-    margin: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
+.articoli {
+    flex: 2;
+}
+
+.riepilogo {
+    flex: 1;
+    padding: 20px;
+}
 
 .card {
     background-color: #ffffff;
@@ -34,20 +41,19 @@ h2 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     display: flex;
-    gap: 20px; 
+    gap: 20px;
     margin-bottom: 20px;
-    align-items: center; 
+    align-items: center;
     justify-content: space-between;
     text-align: left;
-    width: 100%; 
+    width: 100%;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
 
-
 .product-image {
-    flex: 1; 
+    flex: 1;
     overflow: hidden;
     height: 200px;
 }
@@ -58,12 +64,11 @@ h2 {
     object-fit: cover;
 }
 
-
 .product-details {
-    flex: 2; 
+    flex: 2;
     padding-left: 20px;
-    justify-content: center; 	
-    margin: 0 auto; 
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .product-details h3 {
@@ -80,55 +85,89 @@ h2 {
     margin-bottom: 10px;
 }
 
-
-
 .product-actions {
-    flex: 1; 
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px; 
-    align-items: center; 
-    justify-content: center; 
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
 }
-
 
 .action-button {
     all: unset;
     display: inline-block;
     background-color: #b43f3f;
     color: #ffffff;
-    padding: 10px 20px;
     border-radius: 25px;
     cursor: pointer;
     text-align: center;
-    font-size: 14px;
-    transition: background 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
     margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .action-button:hover {
-    background-color: #b41f1f;
+    background-color: #620b01;
+    transform: translateY(-2px);
+}
+
+.action-button:active {
+    background-color: #c87872;
+    transform: translateY(0); 
 }
 
 
 .delete-button {
-    background-color: #b43f3f; 
+    background-color: #b43f3f;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
 }
 
 .delete-button:hover {
-    background-color: #b41f1f; 
+    background-color: #620b01;
+    transform: translateY(-2px);
+}
+
+.delete-button:active {
+    background-color: #c87872;
+    transform: translateY(0);
 }
 
 
-.container-button {
+.container-button button {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    gap: 5%;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #173b45;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
 }
 
+.container-button button:hover {
+    background-color: #6295a3;
+    transform: translateY(-2px); 
+}
+
+.container-button button:active {
+    background-color: #5a8d9e;
+    transform: translateY(0);
+}
+
+.empty-cart-message {
+    flex: 1;
+    text-align: center;
+    margin-top: 20px;
+}
 
 .container-footer {
+    margin-top: 700px;
     width: 100%;
     padding: 20px;
     background-color: #173b45;
@@ -161,36 +200,16 @@ input[type="number"]:disabled {
     color: #999999;
 }
 
-.container-button {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    gap: 5%;
+@media (max-width: 1024px) {
+    .carrello-container {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .articoli,
+    .riepilogo {
+        width: 100%;
+        padding: 10px;
+    }
 }
 
-.container-button button {
-    flex: 1; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background-color: #173b45;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-}
-
-.container-button button:hover {
-    background-color: #6295a3;
-}
-
-.container-footer {
-    margin-top: 700px;
-    width: 100%;
-    padding: 20px;
-    background-color: #173b45;
-}

@@ -52,4 +52,22 @@ public class ElementoCarrello {
 		}
 		return prezzoUnitario * quantita;
 	}
+	
+	
+	public int getQuantitaDaScalare() {
+		int quantitaDaScalare = 0;
+		switch(dimensione) {
+		case "S": 
+			quantitaDaScalare = 1;
+			break;
+		case "M": 
+			quantitaDaScalare = 2;
+			break;
+		case "L": 
+			quantitaDaScalare = 3;
+			break;
+		}
+		return quantitaDaScalare * quantita;
+	}
 }
+

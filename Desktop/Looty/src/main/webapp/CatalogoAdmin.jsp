@@ -53,7 +53,8 @@
 				</div>
 
 				<div class="form-group">
-					<label for="descrizione">Descrizione:</label>
+					<label for="descrizione">Descrizione (Nota: per l'acquisto della box di dimensione S verrà scalata una quantità dal magazzino, per l'acquisto di una box di taglia media 
+					verranno scalate due unità dal magazzino e per l'acquisto della box di dimensione L verranno scalate tre unità dal magazzino):</label>
 					<textarea id="descrizione" name="descrizione"
 						placeholder="Inserisci una descrizione della box" required></textarea>
 				</div>

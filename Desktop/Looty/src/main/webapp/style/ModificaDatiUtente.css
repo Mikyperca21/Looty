@@ -1,0 +1,115 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+body {
+	background-color: #f5f9ff;
+	color: #173b45;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+h2 {
+	margin-top: 40px;
+	text-align: center;
+	color: #b43f3f;
+	font-size: 32px;
+}
+
+.container-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.container-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.container-form label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.container-form input {
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.container-form input[readonly] {
+    background-color: #f2f2f2;
+    border: none;
+    color: #333;
+    cursor: not-allowed;
+}
+
+/* Button */
+.container-form button {
+    display: flex;
+    align-items: center;    
+    justify-content: center; 
+    gap: 8px;                 
+    padding: 14px 24px;
+    min-width: 150px;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    background-color: #b43f3f;
+    color: white;
+    border: none;
+}
+
+
+.material-symbols-outlined {
+    font-size: 22px;
+    vertical-align: middle;
+}
+
+
+.container-form button:hover {
+    background-color: #620b01;
+    transform: translateY(-2px);
+}
+
+.container-form button:active {
+    background-color: #c87872;
+    transform: translateY(0);
+}
+
+.container-button {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container-button button {
+    min-width: 150px;
+    font-size: 18px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+
+/* Footer container */
+.container-footer {
+    margin-top: 40px;
+    width: 100%;
+    padding: 20px;
+    background-color: #173b45;
+    color: white;
+    text-align: center;
+}

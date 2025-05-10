@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class login extends HttpServlet {
@@ -22,11 +23,14 @@ public class login extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+	    
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		List<String> errors = new ArrayList<>();
-		RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("Catalogo.jsp"); // <-- correggi se hai un'altra pagina login
+		RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("Login.jsp"); 
 
 		if (email == null || email.trim().isEmpty()) {
 			errors.add("L'email non può essere vuota!");
@@ -40,26 +44,16 @@ public class login extends HttpServlet {
 			return;
 		}
 
-		// Hash password
 		String hashedPassword = utenteBean.toHash(password);
 		
 
-		// Recupera utente dal DB
+		
 		utenteDAO dao = new utenteDAO();
 		utenteBean utente;
 		try {
 		    utente = dao.doRetrieveByEmail(email);
 
-		    System.out.println("DEBUG — Email inserita: " + email);
-		    System.out.println("DEBUG — Password inserita (hash): " + hashedPassword);
-
-		    if (utente != null) {
-		        System.out.println("DEBUG — Utente trovato: " + utente.getEmail());
-		        System.out.println("DEBUG — Password salvata nel DB: " + utente.getPassword());
-		    } else {
-		        System.out.println("DEBUG — Nessun utente trovato con questa email.");
-
-		    }
+		    
 
 		    if (utente != null && utente.getPassword().equals(hashedPassword)) {
 		        request.getSession().setAttribute("utenteLoggato", utente);
@@ -67,8 +61,7 @@ public class login extends HttpServlet {
 		        response.sendRedirect("ProfiloUtente.jsp");
 		        return;
 		    } else {
-		        errors.add("Username o password non validi!");
-		        request.setAttribute("errors", errors);
+		    	request.setAttribute("errore", "Username o password non validi!");
 		        dispatcherToLoginPage.forward(request, response);
 		    }
 

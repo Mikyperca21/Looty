@@ -148,21 +148,29 @@ public class catalogo extends HttpServlet {
 				    int id = Integer.parseInt(request.getParameter("id"));
 				    String dimensione = request.getParameter("dimensione");
 				    int nuovaQuantita = Integer.parseInt(request.getParameter("quantita"));
+				    String operazione = request.getParameter("operazione");
 
 				    for (ElementoCarrello elemento : carrello.getProdotti()) {
 				        if (elemento.getProdotto().getCodice() == id &&
 				            elemento.getDimensione().equalsIgnoreCase(dimensione)) {
-				            if (nuovaQuantita <= 0) {
-				                carrello.eliminaProdotto(elemento);
-				            } else {
-				                elemento.setQuantita(nuovaQuantita);
+				            
+				            if (operazione.equals("incrementa")) {
+				                
+				                elemento.setQuantita(nuovaQuantita + 1);
+				            } else if (operazione.equals("decrementa")) {
+				                
+				                if (nuovaQuantita > 1) {
+				                    elemento.setQuantita(nuovaQuantita - 1);
+				                } else {
+				                    carrello.eliminaProdotto(elemento);
+				                }
 				            }
 
 				            break;
 				        }
 				    }
 				    request.getSession().setAttribute("carrello", carrello);
-					request.setAttribute("carrello", carrello);
+				    request.setAttribute("carrello", carrello);
 				    response.sendRedirect("Carrello.jsp");
 				    return; 
 				}

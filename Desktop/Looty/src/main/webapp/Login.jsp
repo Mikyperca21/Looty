@@ -2,12 +2,18 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
+<%if (session.getAttribute("utenteLoggato") != null) {
+    RequestDispatcher dispatcher = request.getRequestDispatcher("ProfiloUtente.jsp");
+    dispatcher.forward(request, response);
+    return;
+} %>
+
 <html>
 	<head>
 		<meta charset="utf-8" />
 		<title>Login-Looty</title>
 		<link rel = "stylesheet" href = "style/Login.css"/>
-		<link rel = "icon" href = "LogoLooty_resized.png" type = "image/x-icon"/>
+<link rel="icon" href="images/LogoLooty_resized.png">
 	</head>
 	
 	<body>
@@ -18,6 +24,9 @@
 		<div class = "login-container">
 			<div class = "login-content">
 				<form action = "<%=request.getContextPath()%>/login" method = "post">
+				<% if (request.getAttribute("errore") != null) { %>
+    <div class="errore"><%= request.getAttribute("errore") %></div>
+<% } %>
 					<ul>
 						<li><input name = "email" class = "login" type = "text" placeholder = "E-mail" required = "true"/></li>
 						<li><input name = "password" class = "login" type = "password" placeholder = "Password" required = "true"/></li>

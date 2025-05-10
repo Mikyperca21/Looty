@@ -8,16 +8,17 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class utenteDAO {
+
 	public synchronized void doSave(utenteBean utente) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
+	    ResultSet generatedKeys = null;
 
-	    String insertSQL = "INSERT INTO utente"
-	            + " (nome, cognome, email, pass, ruolo) VALUES (?, ?, ?, ?, ?)";
+	    String insertSQL = "INSERT INTO utente (nome, cognome, email, pass, ruolo) VALUES (?, ?, ?, ?, ?)";
 
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
-	        preparedStatement = connection.prepareStatement(insertSQL);
+	        preparedStatement = connection.prepareStatement(insertSQL, PreparedStatement.RETURN_GENERATED_KEYS);
 	        preparedStatement.setString(1, utente.getNome());
 	        preparedStatement.setString(2, utente.getCognome());
 	        preparedStatement.setString(3, utente.getEmail());
@@ -25,17 +26,22 @@ public class utenteDAO {
 	        preparedStatement.setBoolean(5, utente.getRuolo());
 
 	        preparedStatement.executeUpdate();
-	        
-	        connection.commit();
+
+	        generatedKeys = preparedStatement.getGeneratedKeys();
+	        if (generatedKeys.next()) {
+	            utente.setId(generatedKeys.getInt(1)); 
+	        }
 	    } finally {
 	        try {
-	            if (preparedStatement != null)
-	                preparedStatement.close();
+	            if (generatedKeys != null) generatedKeys.close();
+	            if (preparedStatement != null) preparedStatement.close();
 	        } finally {
 	            DriverManagerConnectionPool.releaseConnection(connection);
 	        }
 	    }
 	}
+
+
 
 	
 	public synchronized void doUpdate(utenteBean utente) throws SQLException {
@@ -171,39 +177,39 @@ public class utenteDAO {
 	}
 
 	public utenteBean doRetrieveByEmail(String email) throws SQLException {
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
 
-		utenteBean bean = new utenteBean();
+	    utenteBean bean = null; 
 
-		String selectSQL = "SELECT * FROM utente WHERE email = ?";
+	    String selectSQL = "SELECT * FROM utente WHERE email = ?";
 
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, email);
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, email);
 
-			ResultSet rs = preparedStatement.executeQuery();
+	        ResultSet rs = preparedStatement.executeQuery();
 
-			while (rs.next()) {
-				bean.setId(rs.getInt("id"));
-				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("pass"));
-				bean.setRuolo(rs.getBoolean("ruolo"));
-			}
+	        if (rs.next()) {
+	            bean = new utenteBean();
+	            bean.setId(rs.getInt("id"));
+	            bean.setNome(rs.getString("nome"));
+	            bean.setCognome(rs.getString("cognome"));
+	            bean.setEmail(rs.getString("email"));
+	            bean.setPassword(rs.getString("pass"));
+	            bean.setRuolo(rs.getBoolean("ruolo"));
+	        }
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return bean;
-
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	    return bean; 
 	}
+
 }

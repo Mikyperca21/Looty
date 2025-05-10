@@ -37,7 +37,7 @@ public class prodottoBean {
 		this.tagliaCarrello = tagliaCarrello;
 	}
 
-	public String getPrezzoByTagliaCarrello() {
+	public double getPrezzoByTagliaCarrello() {
 		float prezzo;
 		if (tagliaCarrello == null) {
 			prezzo = prezzoS;
@@ -53,7 +53,7 @@ public class prodottoBean {
 				prezzo = prezzoS;
 			}
 		}
-		return String.format("%.2f", prezzo);
+		return prezzo;
 	}
 
 	public int getCodice() {

@@ -14,9 +14,6 @@ import javax.servlet.http.HttpSession;
 import model.utenteBean;
 import model.utenteDAO;
 
-/**
- * Servlet implementation class registrazione
- */
 @WebServlet("/registrazione")
 public class registrazione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,13 +23,17 @@ public class registrazione extends HttpServlet {
    
     public registrazione() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
-		HttpSession session = request.getSession();
+		 HttpSession session = request.getSession();
+	        if (session.getAttribute("utenteLoggato") != null) {
+	            // L'utente è già loggato, reindirizza alla pagina di profilo
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("ProfiloUtente.jsp");
+	            dispatcher.forward(request, response);
+	            return;
+	        }
 		
 		String nome = request.getParameter("Nome");
 		String cognome = request.getParameter("Cognome");
@@ -45,31 +46,43 @@ public class registrazione extends HttpServlet {
 		 * Integer.parseInt(request.getParameter("Cap"));
 		 */
 		
-		utenteBean bean = new utenteBean();
-		bean.setNome(nome);
-		bean.setCognome(cognome);
-		bean.setEmail(email);
-		bean.setPassword(password);
+		if (nome != null && cognome != null && email != null && password != null) {
+            utenteBean bean = new utenteBean();
+            bean.setNome(nome);
+            bean.setCognome(cognome);
+            bean.setEmail(email);
+            bean.setPassword(password);
+            bean.setRuolo(false);
 
-		bean.setRuolo(false);
-		
-		try {
-			dao.doSave(bean);
-			request.getSession().setAttribute("utenteLoggato", bean);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Catalogo.jsp");
-		dispatcher.forward(request, response);
-	}
+            try {
+                utenteBean esistente = dao.doRetrieveByEmail(email);
+                if (esistente != null && esistente.getId() != 0) {
+                    request.setAttribute("errore", "Email già registrata");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("Registrazione.jsp");
+                    dispatcher.forward(request, response);
+                    return;
+                }
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+                dao.doSave(bean);
 
+                utenteBean utenteLoggato = dao.doRetrieveByEmail(email);
+                session.setAttribute("utenteLoggato", utenteLoggato);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("ProfiloUtente.jsp");
+                dispatcher.forward(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("errore", "Errore durante la registrazione");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("Registrazione.jsp");
+                dispatcher.forward(request, response);
+            }
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Registrazione.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

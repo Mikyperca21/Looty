@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%if (session.getAttribute("utenteLoggato") != null) {
+    RequestDispatcher dispatcher = request.getRequestDispatcher("ProfiloUtente.jsp");
+    dispatcher.forward(request, response);
+    return;
+} %>
 	<html>
 	<head>
 		<meta charset="UTF-8">
@@ -16,6 +22,10 @@
 		<div class = "signup-container">
 			<div class = "signup-content">
 				<form action = "<%=request.getContextPath()%>/registrazione" method = "post">
+				<% if (request.getAttribute("errore") != null) { %>
+    <div class="errore"><%= request.getAttribute("errore") %></div>
+<% } %>
+				
 					<ul>
 						<li><input class = "signup" type = "text" name="Nome" placeholder = "Nome" required = "true"/></li>
 						<li><input class = "signup" type = "text" name="Cognome" placeholder = "Cognome" required = "true"/></li>

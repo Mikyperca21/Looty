@@ -1,85 +1,99 @@
 @charset "UTF-8";
-body{
-	color: #b43f3f;
-	background-color: #f5f9ff;
-	font-family: 'Montserrat', Sans-serif;
-	margin: 0px;
-	padding: 0px;
+
+body {
+    background-color: #f5f9ff;
+    font-family: 'Montserrat', Sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #173b45;
 }
 
-p{
-	color: #173b45;
+.container {
+    margin: 40px auto;
+    background-color: #fff;
+    width: 70%;
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-img{
-	max-width: 100%;
-	max-height: 400px;
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
-.container{
-	text-align: center;
-	background-color: white;
-	width: 60%;
-	padding:20px;
-	justify-content: center;
-	align-items: center;
-	display: flex;
-	margin: auto;
-	border-radius: 30px;
+img {
+    max-width: 350px;
+    height: auto;
+    border-radius: 16px;
 }
 
-.content{
-	text-align: center;
-	padding: 20px 20px 20px 20px;
-	display: flex;
-	gap: 10px;
-	align-items: center;
+.text {
+    max-width: 500px;
+    text-align: left;
 }
 
-input[type="submit"]{
-	color: blue;
-	border-radius: 10px;
-	border-style: none;
-	font-size: 24px;
-	padding: 10px 10px 10px 10px;
-	width: 40%;
-	background-color: #b43f3f;
-	color: #fff;
-	transition: all 0.2s;
+.text h1 {
+    color: #b43f3f;
+    margin-bottom: 15px;
 }
 
-input[type="submit"]:hover{
-	cursor: pointer;
-	background-color: #922c2c;
+.text p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
 }
 
-input[type="submit"]:active{
-	cursor: pointer;
-	background-color: #F8EDED;
-}
-
-input[type = "number"]{
-	font-size: 24px;
-	width: 40%;
-	border: none;
-	border-bottom: 2px solid #173b45;	
-}
-
-select,
-input[type="number"] {
-    padding: 6px;
-    border-radius: 4px;
+input[type="number"],
+select {
+    font-size: 16px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    font-family: 'Montserrat', Sans-serif;
+}
+
+input[type="submit"] {
+    background-color: #b43f3f;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+input[type="submit"]:hover {
+    background-color: #620b01;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+input[type="submit"]:active {
+    background-color: #c87872;
+    transform: translateY(0);
 }
 
 input::placeholder {
-	font-family: 'Montserrat', Sans-serif;
-	font-size: 18px;
+    font-family: 'Montserrat', Sans-serif;
 }
 
 .container-footer {
-    margin-top: 700px;
+    margin-top: 40px;
     width: 100%;
     padding: 20px;
     background-color: #173b45;
+    color: white;
+    text-align: center;
 }

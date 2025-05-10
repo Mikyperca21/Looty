@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+.container-header {
+	z-index: 100;
+	width: 100%;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f9ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    color: #173b45;
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+
+.ordine-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ordine-header h3 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.action-button{
+	all: unset;
+	display: inline-block;
+}
+
+.action-button span {
+	border: none;
+	border-radius: 50%;
+	padding: 12px;
+	color: #f8eded;
+	background-color: #b43f3f;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.action-button span:hover {
+  background-color: #620b01;
+  transform: translateY(-2px);
+}
+
+.action-button span:active {
+  background-color: #c87872;
+  transform: translateY(0);
+}  
+
+
+.material-symbols-outlined {
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.dettagli-ordine {
+    background-color: white;
+    width: 80%;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dettagli-ordine h3 {
+    color: #173b45;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.dettagli-ordine p {
+    color: #555;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+
+.dettagli-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.dettagli-table th, .dettagli-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.dettagli-table th {
+    background-color: #173b45;
+    color: white;
+}
+
+.dettagli-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.dettagli-table td img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+
+
+.container-footer {
+	margin-top: 700px;
+	width: 100%;
+	padding: 20px;
+	background-color: #173b45;
+}
+
+
+/* Responsività */
+@media (max-width: 768px) {
+    .dettagli-ordine {
+        width: 90%;
+    }
+
+    .dettagli-table th, .dettagli-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .action-button {
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    .dettagli-ordine {
+        width: 95%;
+    }
+
+    .dettagli-table th, .dettagli-table td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
