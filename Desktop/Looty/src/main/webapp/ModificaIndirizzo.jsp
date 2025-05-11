@@ -44,51 +44,41 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
 					    <input type="text" id="etichetta" name="etichetta" 
 					           value="<%= i.getEtichetta() != null && !i.getEtichetta().isEmpty() ? i.getEtichetta() : "" %>" 
 					           readonly placeholder="Etichetta">
-					</div>
-					
-					<div class="form-row">
-					    <label for="via">Via</label>
-					    <input type="text" id="via" name="via" 
-					           value="<%= i.getVia() != null && !i.getVia().isEmpty() ? i.getVia() : "" %>" 
-					           readonly required placeholder="Via">
-					</div>
-					
-					<div class="form-row">
-					    <label for="citta">Città</label>
+					           <label for="citta">Città</label>
 					    <input type="text" id="citta" name="citta" 
 					           value="<%= i.getCitta() != null && !i.getCitta().isEmpty() ? i.getCitta() : "" %>" 
 					           readonly required placeholder="Città">
 					</div>
 					
 					<div class="form-row">
+						<label for="via">Via</label>
+					    <input type="text" id="via" name="via" 
+					           value="<%= i.getVia() != null && !i.getVia().isEmpty() ? i.getVia() : "" %>" 
+					           readonly required placeholder="Via">
+					</div>
+					
+					<div class="form-row">
+					    
 					    <label for="provincia">Provincia</label>
 					    <input type="text" id="provincia" name="provincia" 
 					           value="<%= i.getProvincia() != null && !i.getProvincia().isEmpty() ? i.getProvincia() : "" %>" 
 					           readonly required placeholder="Provincia">
-					</div>
-					
-					<div class="form-row">
 					    <label for="cap">CAP</label>
 					    <input type="text" id="cap" name="cap" 
 					           value="<%= i.getCap() != null && !i.getCap().isEmpty() ? i.getCap() : "" %>" 
 					           readonly required placeholder="CAP">
-					</div>
+					</div> 
 					
 					<div class="form-row">
 					    <label for="paese">Paese</label>
 					    <input type="text" id="paese" name="paese" 
 					           value="<%= i.getPaese() != null && !i.getPaese().isEmpty() ? i.getPaese() : "" %>" 
 					           readonly required placeholder="Paese">
-					</div>
-					
-					<div class="form-row">
 					    <label for="telefono">Telefono</label>
 					    <input type="text" id="telefono" name="telefono" 
 					           value="<%= i.getTelefono() != null && !i.getTelefono().isEmpty() ? i.getTelefono() : "" %>" 
 					           readonly required placeholder="Telefono">
 					</div>
-
-
 
 					<div>
 						<label> <input type="radio" name="preferito"

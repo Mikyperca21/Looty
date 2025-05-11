@@ -111,6 +111,38 @@ public class indirizzoDAO {
         }
     }
     
+    public indirizzoBean doRetrievePreferitoByUtente(int idUtente) {
+        indirizzoBean indirizzo = null;
+
+        try (Connection con = DriverManagerConnectionPool.getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     "SELECT * FROM indirizzo WHERE id_utente = ? AND is_preferito = 1 LIMIT 1")) {
+
+            ps.setInt(1, idUtente);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    indirizzo = new indirizzoBean();
+                    indirizzo.setId(rs.getInt("id"));
+                    indirizzo.setIdUtente(rs.getInt("id_utente"));
+                    indirizzo.setVia(rs.getString("via"));
+                    indirizzo.setCitta(rs.getString("citta"));
+                    indirizzo.setCap(rs.getString("cap"));
+                    indirizzo.setProvincia(rs.getString("provincia"));
+                    indirizzo.setPaese(rs.getString("paese"));
+                    indirizzo.setTelefono(rs.getString("telefono"));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return indirizzo;
+    }
+
+ 
+    
     public void setPreferito(int idUtente, int idIndirizzoPreferito) throws SQLException {
         try (Connection con = DriverManagerConnectionPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("UPDATE indirizzo SET is_preferito = 0 WHERE id_utente = ?")) {

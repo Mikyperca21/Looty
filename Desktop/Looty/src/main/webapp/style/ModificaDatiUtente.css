@@ -53,7 +53,6 @@ h2 {
     cursor: not-allowed;
 }
 
-/* Button */
 .container-form button {
     display: flex;
     align-items: center;    
@@ -104,7 +103,6 @@ h2 {
 }
 
 
-/* Footer container */
 .container-footer {
     margin-top: 40px;
     width: 100%;

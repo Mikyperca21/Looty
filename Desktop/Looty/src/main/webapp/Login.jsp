@@ -27,12 +27,15 @@
 				<% if (request.getAttribute("errore") != null) { %>
     <div class="errore"><%= request.getAttribute("errore") %></div>
 <% } %>
-					<ul>
-						<li><input name = "email" class = "login" type = "text" placeholder = "E-mail" required = "true"/></li>
-						<li><input name = "password" class = "login" type = "password" placeholder = "Password" required = "true"/></li>
-						<li><input class = "login" type = "submit" value = "Login"/></li>
-						<li><i><a id = "link-registrati" href = "Registrazione.jsp">Altrimenti registrati</a></i></li>
-					</ul>
+						<div class="form-row">
+						<input name = "email" class = "login" type = "text" placeholder = "E-mail" required = "true"/>
+						</div>
+						<div class="form-row">
+						<input name = "password" class = "login" type = "password" placeholder = "Password" required = "true"/>
+						</div>
+						<input class = "login" type = "submit" value = "Login"/>
+						<i><a id = "link-registrati" href = "Registrazione.jsp">Altrimenti registrati</a></i>
+					
 				</form>
 			</div>
 		</div>

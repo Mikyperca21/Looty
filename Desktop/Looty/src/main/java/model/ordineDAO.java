@@ -13,8 +13,8 @@ public class ordineDAO {
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
 
-        String insertSQL = "INSERT INTO ordine (id_utente, totale, data_ordine, via, citta, cap, provincia, paese, telefono, id_indirizzo) "
-                         + "VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO ordine (id_utente, totale, data_ordine, via, citta, cap, provincia, paese, telefono) "
+                         + "VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
 
         try {
             connection = DriverManagerConnectionPool.getConnection();

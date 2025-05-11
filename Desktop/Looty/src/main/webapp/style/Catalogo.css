@@ -12,17 +12,18 @@
 }
 
 body {
+    font-family: 'Poppins', sans-serif;
     background-color: #f5f9ff;
-    color: #173b45;
-    font-family: Arial, sans-serif;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
 h2 {
-    margin-top: 20px;
     text-align: center;
     color: #173b45;
+    margin-top: 20px;
+    font-size: 28px;
 }
 
 .container {

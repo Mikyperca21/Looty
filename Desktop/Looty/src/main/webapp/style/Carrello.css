@@ -94,49 +94,64 @@ h2 {
     justify-content: center;
 }
 
-.action-button {
-    all: unset;
-    display: inline-block;
-    background-color: #b43f3f;
-    color: #ffffff;
-    border-radius: 25px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.action-button{
+	all: unset;
+	display: inline-block;
 }
 
-.action-button:hover {
+.action-button span {
+	border: none;
+	border-radius: 50%;
+	padding: 12px;
+	color: #f8eded;
+	background-color: #b43f3f;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.action-button span:hover {
+  background-color: #620b01;
+  transform: translateY(-2px);
+}
+
+.action-button span:active {
+  background-color: #c87872;
+  transform: translateY(0);
+}  
+
+
+.delete-button button{
+	all: unset;
+	display: inline-block;
+}
+
+.delete-button span {
+	border: none;
+	border-radius: 50%;
+	padding: 12px;
+	color: #f8eded;
+	background-color: #b43f3f;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.delete-button span:hover {
     background-color: #620b01;
     transform: translateY(-2px);
 }
 
-.action-button:active {
-    background-color: #c87872;
-    transform: translateY(0); 
-}
-
-
-.delete-button {
-    background-color: #b43f3f;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-}
-
-.delete-button:hover {
-    background-color: #620b01;
-    transform: translateY(-2px);
-}
-
-.delete-button:active {
+.delete-button span:active {
     background-color: #c87872;
     transform: translateY(0);
 }
 
 
+.container-button {
+    width: 100%;
+}
+
 .container-button button {
-    flex: 1;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,11 +159,14 @@ h2 {
     background-color: #173b45;
     color: white;
     border: none;
-    padding: 14px;
+    padding: 16px;
     border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease;
 }
+
 
 .container-button button:hover {
     background-color: #6295a3;
@@ -167,12 +185,10 @@ h2 {
 }
 
 .container-footer {
-    margin-top: 700px;
+    margin-top: 100px;
     width: 100%;
     padding: 20px;
     background-color: #173b45;
-    text-align: center;
-    color: white;
 }
 
 

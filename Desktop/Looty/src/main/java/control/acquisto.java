@@ -69,6 +69,13 @@ public class acquisto extends HttpServlet {
             ordineBean ordine = new ordineBean();
             ordine.setIdUtente(utente.getId());
             ordine.setTotale(totale);
+            ordine.setVia(request.getParameter("via"));
+            ordine.setCitta(request.getParameter("citta"));
+            ordine.setCap(request.getParameter("cap"));
+            ordine.setProvincia(request.getParameter("provincia"));
+            ordine.setPaese(request.getParameter("paese"));
+            ordine.setTelefono(request.getParameter("telefono"));
+
             int idOrdine = dao.doSave(ordine);
 
             // Salvataggio prodotti ordine

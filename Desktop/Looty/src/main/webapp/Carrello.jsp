@@ -80,11 +80,13 @@ add
 			<p>
 				Totale Prodotti (comprensivo di IVA): €<%=String.format("%.2f", totale)%></p> <br>
 			<p>Costo di spedizione: €0,00</p> <br>
+			<hr class="separatore">
+			<p> Totale ordine: €<%=String.format("%.2f", totale)%></p> <br><br>
 			<div class="container-button">
 				<!-- <button type="button" onClick="window.location.href='catalogo';">
 					<span class="material-symbols-outlined">arrow_back</span>Torna Indietro
 				</button> -->
-				<form action="acquisto" method="post">
+				<form action="Checkout.jsp" method="post">
 					<button type="submit">
 						<span class="material-symbols-outlined">payments</span> Procedi
 						all'acquisto

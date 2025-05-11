@@ -39,10 +39,6 @@ a {
   text-decoration: none;
 }
 
-ul {
-  list-style: none;
-}
-
 .signup-container {
   background-color: #fff;
   width: 90%;
@@ -115,6 +111,27 @@ input[type=submit]:active {
   display: inline-block;
   font-size: 14px;
 }
+
+.form-row {
+	display: flex;
+	align-items: center;
+	margin-bottom: 12px;
+	gap: 10px;
+	width: 100%;
+	max-width: 600px;
+	margin-inline: auto;
+}
+
+.form-row input {
+	flex: 1;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #fff;
+	box-sizing: border-box;
+}
+
 
 #link-login:hover {
   text-decoration: underline;
