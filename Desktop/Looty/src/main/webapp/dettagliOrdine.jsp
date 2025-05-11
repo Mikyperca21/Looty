@@ -44,6 +44,16 @@
 <p>Data Ordine: <%= new SimpleDateFormat("dd/MM/yyyy").format(ordine.getDataOrdine()) %></p>
 <p>Totale: €<%= ordine.getTotale() %></p>
 
+<hr class="separatore">
+
+<h4>Indirizzo di Spedizione:</h4>
+<p><strong>Via:</strong> <%= ordine.getVia() %></p>
+<p><strong>Città:</strong> <%= ordine.getCitta() %> (<%= ordine.getProvincia() %>)</p>
+<p><strong>CAP:</strong> <%= ordine.getCap() %></p>
+<p><strong>Paese:</strong> <%= ordine.getPaese() %></p>
+<p><strong>Telefono:</strong> <%= ordine.getTelefono() %></p>
+
+<hr class="separatore">
 
     <h4>Dettagli dei Prodotti:</h4>
     <table class="dettagli-table">

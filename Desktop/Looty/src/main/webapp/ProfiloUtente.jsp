@@ -30,7 +30,9 @@ if (utente == null) {
 			<h1>
 				Bentornato
 				<%=utente.getNome() + " " + utente.getCognome()%></h1>
-			<a href="<%=request.getContextPath()%>/logout">Logout</a>
+			<a href="<%=request.getContextPath()%>/logout"><span class="material-symbols-outlined">
+logout
+</span>Esci</a>
 
 		</div>
 	</div>
@@ -51,7 +53,7 @@ if (utente == null) {
     </div>
 
     <div class="box">
-      <a href="#">
+      <a href="ModificaIndirizzo.jsp">
         <span class="material-symbols-outlined">location_on</span>
         <p>I miei indirizzi</p>
       </a>

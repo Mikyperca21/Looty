@@ -1,42 +1,38 @@
 package model;
 
-import java.sql.Timestamp;
-
-
-public class ordineBean {
-
-	private int id; 
+public class indirizzoBean {
+	
+	private int id;
 	private int idUtente;
-	private Timestamp dataOrdine;
-	private double totale;
-	private String immagineProdotto;
+	private String etichetta;
 	private String via;
-	private String citta;
+	private String citta; 
 	private String cap;
 	private String provincia;
 	private String paese;
 	private String telefono;
-
+	private boolean is_preferito;
 	
-	public ordineBean() {
-	
+	public indirizzoBean() {
+		
 	}
 
-	public ordineBean(int id, int idUtente, Timestamp dataOrdine, double totale, String immagineProdotto, String via,
-			String citta, String cap, String provincia, String paese, String telefono) {
+	public indirizzoBean(int id, int idUtente, String etichetta, String via, String citta, String cap, String provincia, String paese,
+			String telefono, boolean is_preferito) {
 		super();
 		this.id = id;
 		this.idUtente = idUtente;
-		this.dataOrdine = dataOrdine;
-		this.totale = totale;
-		this.immagineProdotto = immagineProdotto;
+		this.etichetta = etichetta;
 		this.via = via;
 		this.citta = citta;
 		this.cap = cap;
 		this.provincia = provincia;
 		this.paese = paese;
 		this.telefono = telefono;
+		this.is_preferito = is_preferito;
 	}
+	
+	
 
 	public int getId() {
 		return id;
@@ -54,28 +50,12 @@ public class ordineBean {
 		this.idUtente = idUtente;
 	}
 
-	public Timestamp getDataOrdine() {
-		return dataOrdine;
+	public String getEtichetta() {
+		return etichetta;
 	}
 
-	public void setDataOrdine(Timestamp dataOrdine) {
-		this.dataOrdine = dataOrdine;
-	}
-
-	public double getTotale() {
-		return totale;
-	}
-
-	public void setTotale(double totale) {
-		this.totale = totale;
-	}
-
-	public String getImmagineProdotto() {
-		return immagineProdotto;
-	}
-
-	public void setImmagineProdotto(String immagineProdotto) {
-		this.immagineProdotto = immagineProdotto;
+	public void setEtichetta(String etichetta) {
+		this.etichetta = etichetta;
 	}
 
 	public String getVia() {
@@ -125,8 +105,15 @@ public class ordineBean {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
+	public boolean isIs_preferito() {
+		return is_preferito;
+	}
+
+	public void setIs_preferito(boolean is_preferito) {
+		this.is_preferito = is_preferito;
+	}
 	
 	
-	
-	
+
 }

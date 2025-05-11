@@ -55,6 +55,20 @@ CREATE TABLE utente (
   ruolo BOOLEAN NOT NULL DEFAULT 0
 );
 
+CREATE TABLE indirizzo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_utente INT NOT NULL,
+    etichetta VARCHAR(50),
+    via VARCHAR(100),
+    citta VARCHAR(50),
+    cap VARCHAR(10),
+    provincia VARCHAR(50),
+    paese VARCHAR(50),
+    telefono VARCHAR(20),
+    is_preferito BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE
+);
+
 -- Inserimento utente normale
 INSERT INTO utente (nome, cognome, email, pass, ruolo)
 VALUES ('Mario', 'Rossi', 'mariorossi@gmail.com', '76bb849338db38e0ede3b8ae726373c42992152747c39e484f096b623946c8a265adde3a72c8177a70a8876694b9403f06d44decfcfe44be25f1078be0282239', false);
@@ -71,6 +85,13 @@ CREATE TABLE ordine (
     id_utente INT NOT NULL,
     data_ordine DATETIME DEFAULT CURRENT_TIMESTAMP,
     totale FLOAT(10,2),
+    via VARCHAR(100),
+    citta VARCHAR(50),
+    cap VARCHAR(10),
+    provincia VARCHAR(50),
+    paese VARCHAR(50),
+    telefono VARCHAR(20),
+
     FOREIGN KEY (id_utente) REFERENCES utente(id)
 );
 
@@ -85,15 +106,15 @@ CREATE TABLE OrdineProdotto (
 );
 
 -- Ordine 1
-INSERT INTO ordine (id_utente, data_ordine, totale)
-VALUES (1, '2024-01-15 10:34:21', 99.99);
+INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
+VALUES (1, '2024-01-15 10:34:21', 99.99,  'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (1, 1, 1, 29.99);
 
 -- Ordine 2
-INSERT INTO ordine (id_utente, data_ordine, totale)
-VALUES (1, '2024-03-22 14:12:50', 149.98);
+INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
+VALUES (1, '2024-03-22 14:12:50', 149.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (2, 2, 1, 39.99);
@@ -101,8 +122,8 @@ INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (2, 3, 1, 19.99);
 
 -- Ordine 3
-INSERT INTO ordine (id_utente, data_ordine, totale)
-VALUES (1, '2024-05-03 09:48:10', 59.98);
+INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
+VALUES (1, '2024-05-03 09:48:10', 59.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (3, 4, 1, 10.99);
@@ -110,8 +131,8 @@ INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (3, 5, 1, 49.99);
 
 -- Ordine 4
-INSERT INTO ordine (id_utente, data_ordine, totale)
-VALUES (1, '2024-07-19 19:22:05', 299.97);
+INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
+VALUES (1, '2024-07-19 19:22:05', 299.97, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (4, 6, 1, 99.99);
@@ -121,8 +142,8 @@ INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (4, 8, 1, 99.99);
 
 -- Ordine 5
-INSERT INTO ordine (id_utente, data_ordine, totale)
-VALUES (1, '2024-10-05 16:40:33', 199.98);
+INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
+VALUES (1, '2024-10-05 16:40:33', 199.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (5, 1, 1, 29.99);
@@ -137,11 +158,11 @@ VALUES (5, 5, 1, 49.99);
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (5, 6, 1, 99.99);
 
-INSERT INTO ordine (id, id_utente, data_ordine, totale) VALUES
-(6, 3, '2024-03-05 23:46:00', 39.99),
-(7, 3, '2024-01-04 20:22:00', 329.96),
-(8, 3, '2024-03-16 10:05:00', 59.99),
-(9, 3, '2024-01-21 04:34:00', 219.98);
+INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono) VALUES
+(3, '2024-03-05 23:46:00', 39.99, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567'),
+(3, '2024-01-04 20:22:00', 329.96, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567'),
+(3, '2024-03-16 10:05:00', 59.99, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567'),
+(3, '2024-01-21 04:34:00', 219.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario) VALUES
 (6, 2, 1, 39.99),
@@ -152,5 +173,8 @@ INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario) V
 (9, 10, 1, 109.99),
 (9, 8, 1, 109.99);
 
-
+INSERT INTO indirizzo (id_utente, etichetta, via, citta, cap, provincia, paese, telefono, is_preferito)
+VALUES 
+(1, 'Casa', 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567', true),
+(1, 'Lavoro', 'Via Garibaldi 50', 'Milano', '20122', 'MI', 'Italia', '3399876543', false);
 

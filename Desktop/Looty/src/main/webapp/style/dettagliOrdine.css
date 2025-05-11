@@ -23,6 +23,10 @@ h2 {
     font-size: 28px;
 }
 
+.separatore{
+	margin:20px;
+}
+
 
 .ordine-header {
     display: flex;
