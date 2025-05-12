@@ -53,7 +53,37 @@ CREATE TABLE utente (
   email VARCHAR(20) NOT NULL,
   pass VARCHAR(255) NOT NULL,
   ruolo BOOLEAN NOT NULL DEFAULT 0
+); 
+
+-- Inserimento utente normale
+INSERT INTO utente (nome, cognome, email, pass, ruolo)
+VALUES ('Mario', 'Rossi', 'mariorossi@gmail.com', '76bb849338db38e0ede3b8ae726373c42992152747c39e484f096b623946c8a265adde3a72c8177a70a8876694b9403f06d44decfcfe44be25f1078be0282239', false);
+
+-- Inserimento admin
+INSERT INTO utente (nome, cognome, email, pass, ruolo)
+VALUES ('Laura', 'Bianchi', 'admin@admin.com', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', true);
+
+INSERT INTO utente (nome, cognome, email, pass, ruolo)
+VALUES ('Giulia', 'Verdi', 'utente@gmail.com', 'c7e44f02b10b08a958ce28eec7ea08f455e4cbb38cdf44c340405d0815826733582e588b2435d6caf5316b91626f360e0bdd500420ae0185f4b732db3aff0e0d', false);
+
+
+CREATE TABLE metodoPagamento(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	codiceCarta VARCHAR(255) NOT NULL,
+	titolare VARCHAR (50) NOT NULL,
+	id_utente INT NOT NULL, 
+	CVV INT NOT NULL,
+	mese_scadenza INT NOT NULL,
+	anno_scadenza INT NOT NULL,
+	is_preferito BOOLEAN DEFAULT FALSE,
+	FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE
 );
+
+INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
+VALUES (1111222233334444, 'Mario Rossi', 1, 123, 3, 2027, true);
+
+INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
+VALUES (2222444466668888, 'Mario Rossi', 1, 123, 3, 2024, false);
 
 CREATE TABLE indirizzo (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,17 +98,6 @@ CREATE TABLE indirizzo (
     is_preferito BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE
 );
-
--- Inserimento utente normale
-INSERT INTO utente (nome, cognome, email, pass, ruolo)
-VALUES ('Mario', 'Rossi', 'mariorossi@gmail.com', '76bb849338db38e0ede3b8ae726373c42992152747c39e484f096b623946c8a265adde3a72c8177a70a8876694b9403f06d44decfcfe44be25f1078be0282239', false);
-
--- Inserimento admin
-INSERT INTO utente (nome, cognome, email, pass, ruolo)
-VALUES ('Laura', 'Bianchi', 'admin@admin.com', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', true);
-
-INSERT INTO utente (nome, cognome, email, pass, ruolo)
-VALUES ('Giulia', 'Verdi', 'utente@gmail.com', 'c7e44f02b10b08a958ce28eec7ea08f455e4cbb38cdf44c340405d0815826733582e588b2435d6caf5316b91626f360e0bdd500420ae0185f4b732db3aff0e0d', false);
 
 CREATE TABLE ordine (
     id INT AUTO_INCREMENT PRIMARY KEY,
