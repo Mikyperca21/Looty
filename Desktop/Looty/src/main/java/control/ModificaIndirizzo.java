@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import model.indirizzoBean;
 import model.indirizzoDAO;
+import model.metodoPagamentoBean;
 import model.utenteBean;
 
 /**
@@ -69,7 +70,10 @@ public class ModificaIndirizzo extends HttpServlet {
 	            nuovo.setPaese(request.getParameter("paese"));
 	            nuovo.setTelefono(request.getParameter("telefono"));
 	            nuovo.setIs_preferito(false);
-	            dao.doSave(nuovo);
+	            int idNuovo = dao.doSave(nuovo);
+    		    if (idNuovo > 0) {
+    		        dao.setPreferito(idUtente, idNuovo);
+    		    }
 	        } 
 	        else if(action.equalsIgnoreCase("setPreferito")) {
 	        	int id = Integer.parseInt(request.getParameter("id"));

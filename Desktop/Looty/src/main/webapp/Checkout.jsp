@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.utenteBean, model.Carrello, model.ElementoCarrello, model.indirizzoDAO, model.indirizzoBean" %>
+<%@ page import="model.utenteBean, model.Carrello, model.ElementoCarrello, model.indirizzoDAO, model.indirizzoBean, model.metodoPagamentoDAO, model.metodoPagamentoBean" %>
+
+
 <%
 
 
@@ -69,6 +71,18 @@ if (utente == null) {
             <p><%= indirizzo.getPaese() %></p>
             <p>Telefono: <%= indirizzo.getTelefono() %></p>
             <a href="ModificaIndirizzo.jsp">Modifica Indirizzo</a>
+        </div>
+        <%
+		    metodoPagamentoDAO metodoDAO = new metodoPagamentoDAO();
+		    metodoPagamentoBean metodoPreferito = metodoDAO.doRetrievePreferitoByUtente(utente.getId());
+		
+		    String numeroCarta = metodoPreferito.getCodiceCarta();
+		    String formatoCarta = "xxxx-xxxx-xxxx-" + numeroCarta.substring(numeroCarta.length() - 4);
+		%>
+        <div class="indirizzo">
+            <h3>Metodo di pagamento: </h3>
+            <p><strong>Numero carta:</strong> <%= formatoCarta %></p>
+            <a href="ModificaPagamento.jsp">Modifica metodo di pagamento</a>
         </div>
 
         <div class="totale">

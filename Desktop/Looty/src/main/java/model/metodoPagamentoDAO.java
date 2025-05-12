@@ -68,6 +68,7 @@ public class metodoPagamentoDAO {
 	            metodoPagamento.setCVV(rs.getInt("CVV"));
 	            metodoPagamento.setMeseScadenza(rs.getInt("mese_scadenza"));
 	            metodoPagamento.setAnnoScadenza(rs.getInt("anno_scadenza"));
+	            metodoPagamento.setPreferito(rs.getBoolean("is_preferito"));
 	            metodi.add(metodoPagamento);
 	        }
 	    }
@@ -104,6 +105,7 @@ public class metodoPagamentoDAO {
                     metodo.setCVV(rs.getInt("CVV"));
                     metodo.setMeseScadenza(rs.getInt("mese_scadenza"));
                     metodo.setAnnoScadenza(rs.getInt("anno_scadenza"));
+                    metodo.setPreferito(rs.getBoolean("is_preferito"));
                 }
             }
 

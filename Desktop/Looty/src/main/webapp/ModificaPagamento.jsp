@@ -48,6 +48,16 @@ List<metodoPagamentoBean> metodi = metodoDAO.doRetrieveByUtente(idUtente);
   <i class="fa fa-cc-discover" style="color:orange; font-size: 24px;"></i>
 </div>
 
+<label>
+	<input type="radio" name="preferito"
+	value="<%=metodo.getId()%>"
+	<%=metodo.isPreferito() ? "checked" : "" %>
+	onchange="impostaPreferito(<%=metodo.getId()%>)">
+Metodo di pagamento preferito
+
+</label>
+
+
 
             
             <p> <strong>Titolare: </strong> <%= metodo.getTitolare() %>
@@ -95,14 +105,14 @@ List<metodoPagamentoBean> metodi = metodoDAO.doRetrieveByUtente(idUtente);
             </div>
         </div>
 
-        <div class="input-row">
+        <div class="input-row-tre">
             <div>
                 <label for="cvv">CVV</label>
                 <input type="text" name="cvv" placeholder="xxx" required maxlength="3"> 
             </div>
             <div>
                 <label for="meseScadenza">Mese di scadenza</label>
-                <input type="number" name="meseScadenza" required min="1" max="12">
+                <input type="number" name="meseScadenza" min="1" max="12" required>
             </div>
             <div>
                 <label for="annoScadenza">Anno di scadenza</label>
@@ -122,4 +132,28 @@ List<metodoPagamentoBean> metodi = metodoDAO.doRetrieveByUtente(idUtente);
 		<%@ include file="Footer.jsp"%>
 	</div>
 </body>
+
+<script>
+		function impostaPreferito(id) {
+			fetch('ModificaPagamento?action=setPreferito&id=' + id, {
+		        method: 'GET'
+		    })
+		    .then(response => {
+		        if (response.ok) {
+		            window.location.href = "ProfiloUtente.jsp"; 
+		        } else {
+		            response.text().then(errorMessage => {
+		                console.error("Errore nel server:", errorMessage);
+		                alert("Errore nell'impostare l'indirizzo preferito.");
+		            });
+		        }
+		    })
+		    .catch(error => {
+		        console.error("Errore nella comunicazione:", error);
+		        alert("Errore nell'impostare l'indirizzo preferito.");
+		    });
+		}
+
+
+</script>
 </html>

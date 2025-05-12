@@ -52,7 +52,6 @@ h2 {
 	color: #b43f3f;
 }
 
-/* Input base */
 .card-indirizzo input[type="text"],
 .card-indirizzo input[type="tel"] {
 	padding: 10px;
@@ -78,7 +77,6 @@ h2 {
 	margin-right: 8px;
 }
 
-/* Button Styles */
 .action-button button{
 	all: unset;
 	display: inline-block;
@@ -178,7 +176,6 @@ h2 {
 	box-sizing: border-box;
 }
 
-/* New address input layout */
 .input-row {
 	display: flex;
 	flex-wrap: wrap;
@@ -199,7 +196,61 @@ h2 {
 	font-size: 14px;
 }
 
-/* Responsive tweaks */
+.input-row-tre {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.input-row-tre > div {
+    flex: 1 1 30%; 
+    min-width: 150px; 
+    display: flex;
+    flex-direction: column;
+}
+
+
+.card-indirizzo {
+    margin: 0 auto 30px auto; 
+}
+
+.card-indirizzo form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.card-indirizzo h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #173b45;
+}
+
+.card-indirizzo input[type="number"] {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #173b45;
+}
+
+.container-aggiungi {
+    display: flex;
+    justify-content: center;
+}
+
+.container-aggiungi button {
+    max-width: 300px;
+}
+
+.input-row > div input {
+    margin-top: 5px;
+}
+
 @media (max-width: 768px) {
 	.input-row > div {
 		flex: 1 1 100%;

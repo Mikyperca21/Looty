@@ -45,17 +45,21 @@ String action = request.getParameter("action");
         	 int id = Integer.parseInt(request.getParameter("id"));
              dao.doDelete(id);
         	 }
-	        else if(action.equalsIgnoreCase("aggiungi")) {
-	        	metodoPagamentoBean nuovo = new metodoPagamentoBean();
-	            nuovo.setIdUtente(idUtente);
-	            nuovo.setTitolare(request.getParameter("titolare"));
-	            nuovo.setCodiceCarta(request.getParameter("codiceCarta"));
-	            nuovo.setCVV(Integer.parseInt(request.getParameter("cvv")));
-	            nuovo.setMeseScadenza(Integer.parseInt(request.getParameter("meseScadenza")));
-	            nuovo.setAnnoScadenza(Integer.parseInt(request.getParameter("annoScadenza")));
-	            nuovo.setPreferito(false);
-	            dao.doSave(nuovo);
-	        } 
+        	 else if(action.equalsIgnoreCase("aggiungi")) {
+        		    metodoPagamentoBean nuovo = new metodoPagamentoBean();
+        		    nuovo.setIdUtente(idUtente);
+        		    nuovo.setTitolare(request.getParameter("titolare"));
+        		    nuovo.setCodiceCarta(request.getParameter("codiceCarta"));
+        		    nuovo.setCVV(Integer.parseInt(request.getParameter("cvv")));
+        		    nuovo.setMeseScadenza(Integer.parseInt(request.getParameter("meseScadenza")));
+        		    nuovo.setAnnoScadenza(Integer.parseInt(request.getParameter("annoScadenza")));
+        		    nuovo.setPreferito(false);
+
+        		    int idNuovo = dao.doSave(nuovo);
+        		    if (idNuovo > 0) {
+        		        dao.setPreferito(idUtente, idNuovo);
+        		    }
+        		}
 	        else if(action.equalsIgnoreCase("setPreferito")) {
 	        	int id = Integer.parseInt(request.getParameter("id"));
                 dao.setPreferito(idUtente, id);
