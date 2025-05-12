@@ -60,7 +60,7 @@ logout
     </div>
 
     <div class="box">
-      <a href="#">
+      <a href="ModificaPagamento.jsp">
         <span class="material-symbols-outlined">payments</span>
         <p>Metodi di pagamento</p>
       </a>

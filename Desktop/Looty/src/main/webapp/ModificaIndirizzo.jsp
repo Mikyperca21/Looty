@@ -103,6 +103,7 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
 						</button>
 					</div>
 				</form>
+				<div class="container-delete">
 				<form method="post" action="ModificaIndirizzo?action=elimina"
 					onsubmit="return confirm('Sicuro di eliminare?')">
 					<input type="hidden" name="id" value="<%=i.getId()%>">
@@ -110,6 +111,7 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
 						<span class="material-symbols-outlined">delete</span> Elimina indirizzo
 					</button>
 				</form>
+				</div>
 			</div>
 		</div>
 
@@ -156,8 +158,9 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
                 <input type="text" name="telefono" placeholder="Telefono" required>
             </div>
         </div>
-
+		<div class="container-aggiungi">
         <button type="submit">Aggiungi Indirizzo</button>
+        </div>
     </form>
 </div>
 
