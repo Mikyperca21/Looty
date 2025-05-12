@@ -8,18 +8,17 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
     background-color: #f5f9ff;
-    color: #333;
+    color: #173b45;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
 h2 {
+    margin-top: 20px;
     text-align: center;
     color: #173b45;
-    margin-top: 20px;
-    font-size: 28px;
 }
 
 /* Layout container per il riepilogo affiancato */
@@ -82,11 +81,11 @@ h2 {
     margin-bottom: 20px;
 }
 
-form {
+form,chechount-form {
     width: 100%;
 }
 
-form button {
+form.checkout-form button {
     width: 100%;
     padding: 16px;
     background-color: #173b45;

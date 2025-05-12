@@ -29,9 +29,10 @@ if (utente == null) {
 <link rel="icon" href="images/LogoLooty_resized.png">
 </head>
 <body>
-<div class="container-header">
+	<div class="container-header">
 		<%@ include file="Header.jsp"%>
 	</div>
+
     <h2>Riepilogo Ordine</h2>
 
 <div class="checkout-container">
@@ -74,7 +75,7 @@ if (utente == null) {
             <p><strong>Totale ordine:</strong> €<%= String.format("%.2f", totale) %></p>
         </div>
 
-        <form action="acquisto" method="post">
+        <form class="checkout-form" action="acquisto" method="post">
             <input type="hidden" name="via" value="<%= indirizzo.getVia() %>">
             <input type="hidden" name="citta" value="<%= indirizzo.getCitta() %>">
             <input type="hidden" name="cap" value="<%= indirizzo.getCap() %>">
