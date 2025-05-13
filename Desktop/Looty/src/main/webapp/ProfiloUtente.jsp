@@ -28,7 +28,7 @@ if (utente == null) {
 	<div class="user-container">
 		<div class="user-content">
 			<h1>
-				Bentornato
+				Bentornato/a
 				<%=utente.getNome() + " " + utente.getCognome()%></h1>
 			<a href="<%=request.getContextPath()%>/logout"><span class="material-symbols-outlined">
 logout
@@ -45,26 +45,50 @@ logout
       </a>
     </div>
 
-    <div class="box">
-      <a href="storicoOrdini.jsp">
-        <span class="material-symbols-outlined">local_shipping</span>
-        <p>I miei ordini</p>
-      </a>
-    </div>
+	<% if(!utente.getRuolo()){ %>
 
-    <div class="box">
-      <a href="ModificaIndirizzo.jsp">
-        <span class="material-symbols-outlined">location_on</span>
-        <p>I miei indirizzi</p>
-      </a>
-    </div>
-
-    <div class="box">
-      <a href="ModificaPagamento.jsp">
-        <span class="material-symbols-outlined">payments</span>
-        <p>Metodi di pagamento</p>
-      </a>
-    </div>
+	    <div class="box">
+	      <a href="storicoOrdini.jsp">
+	        <span class="material-symbols-outlined">local_shipping</span>
+	        <p>I miei ordini</p>
+	      </a>
+	    </div>
+	
+	    <div class="box">
+	      <a href="ModificaIndirizzo.jsp">
+	        <span class="material-symbols-outlined">location_on</span>
+	        <p>I miei indirizzi</p>
+	      </a>
+	    </div>
+	
+	    <div class="box">
+	      <a href="ModificaPagamento.jsp">
+	        <span class="material-symbols-outlined">payments</span>
+	        <p>Metodi di pagamento</p>
+	      </a>
+	    </div>
+    
+	<% }else if(utente.getRuolo()){%>
+		<div class=box>
+			<a href = "">
+				<span class="material-symbols-outlined">trolley</span>
+				<p>Visualizza tutti gli ordini.</p>
+			</a>
+			
+		</div>
+		<div class="box">
+			<a href = "#">
+				<span class="material-symbols-outlined">groups</span>
+				<p>Visualizza tutti gli utenti.</p>
+			</a>
+		</div>
+		<div class="box">
+			<a href = "CatalogoAdmin.jsp">
+				<span class="material-symbols-outlined">edit_square</span>
+				<p>Aggiungi, rimuovi o modifica prodotti.</p>
+			</a>
+		</div> 
+	<% } %>
   </div>
 </div>
 

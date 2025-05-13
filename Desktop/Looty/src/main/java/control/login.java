@@ -46,18 +46,13 @@ public class login extends HttpServlet {
 
 		String hashedPassword = utenteBean.toHash(password);
 		
-
-		
 		utenteDAO dao = new utenteDAO();
 		utenteBean utente;
 		try {
 		    utente = dao.doRetrieveByEmail(email);
 
-		    
-
 		    if (utente != null && utente.getPassword().equals(hashedPassword)) {
 		        request.getSession().setAttribute("utenteLoggato", utente);
-		        request.getSession().setAttribute("isAdmin", "admin@admin.com".equals(utente.getEmail()));
 		        response.sendRedirect("ProfiloUtente.jsp");
 		        return;
 		    } else {

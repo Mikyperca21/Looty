@@ -29,7 +29,7 @@
 						</li>
 						<li class="footer-item"><a href="#" class="footer-link">TikTok</a>
 						</li>
-						<li class="footer-item"><a href="Error404.jsp" class="footer-link">Copyright</a>
+						<li class="footer-item"><a href="ciao.jsp" class="footer-link">Copyright</a>
 						</li>
 					</ul>
 				</nav>

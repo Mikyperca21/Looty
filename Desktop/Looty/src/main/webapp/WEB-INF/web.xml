@@ -3,7 +3,7 @@
   <display-name>Looty</display-name>
 	<welcome-file-list>
 	    <!-- <welcome-file>Catalogo.jsp</welcome-file> -->
-	    <welcome-file>CatalogoAdmin.jsp</welcome-file>
+	    <welcome-file>Home.jsp</welcome-file>
 	  </welcome-file-list>
   
   <servlet>
@@ -20,6 +20,8 @@
     <location>/Error404.jsp</location>
 </error-page>
 
-
-  
+<error-page>
+    <error-code>500</error-code>
+    <location>/Error500.jsp</location>
+</error-page>
 </web-app>
