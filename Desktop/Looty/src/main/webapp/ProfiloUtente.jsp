@@ -77,7 +77,7 @@ logout
 			
 		</div>
 		<div class="box">
-			<a href = "#">
+			<a href = "VisualizzaUtenti.jsp">
 				<span class="material-symbols-outlined">groups</span>
 				<p>Visualizza tutti gli utenti.</p>
 			</a>
