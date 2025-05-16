@@ -89,7 +89,7 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
 						</label>
 					</div>
 
-					<div class="action-button">
+					<div class="button-container">
 						<button type="button" onclick="abilitaModifica(<%=i.getId()%>)">
 							<span class="material-symbols-outlined">edit</span> 
 						</button>

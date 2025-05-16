@@ -20,7 +20,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Catalogo Amministratore</title>
-<link rel="stylesheet" href="style/CatalogoAdmin.css">
+<link rel="stylesheet" href="style/storicoOrdini.css">
+<link rel="stylesheet" href="style/ModificaIndirizzo.css">
 <link rel ="icon" href = "images/LogoLooty_resized.png">
 </head>
 <body>
@@ -30,7 +31,7 @@
 	
 
 	<div id="form-container" class="form">
-		<div class="form-content">
+		<div class="card-indirizzo">
 			<h2>Nuovo Prodotto</h2>
 			<form action="<%=request.getContextPath()%>/catalogo" method="post"
 				enctype="multipart/form-data">
@@ -40,25 +41,27 @@
 					<label for="nome">Nome:</label> <input type="text" id="nome"
 						placeholder="Inserisci il nome" name="nome" required>
 				</div>
-
-				<div class="form-group">
-					<label for="prezzoS">Prezzo per la mystery box di taglia S:</label>
-					<input type="number" step="any" id="prezzoS" name="prezzoS"
+				
+				<div class="input-row-tre">
+		            <div>
+		                <label for="prezzoS">Prezzo per la mystery box di taglia S:</label>
+		                <input type="number" step="any" id="prezzoS" name="prezzoS"
 						min="0.01" placeholder="Inserisci il prezzo per la box piccola"
 						required>
-				</div>
-				<div class="form-group">
-					<label for="prezzoM">Prezzo per la mystery box di taglia M:</label>
-					<input type="number" step="any" id="prezzoM" name="prezzoM"
+		            </div>
+		            <div>
+		                <label for="prezzoM">Prezzo per la mystery box di taglia M:</label>
+		               <input type="number" step="any" id="prezzoM" name="prezzoM"
 						min="0.01" placeholder="Inserisci il prezzo per la box media"
 						required>
-				</div>
-				<div class="form-group">
-					<label for="prezzoL">Prezzo per la mystery box di taglia L:</label>
-					<input type="number" step="any" id="prezzoL" name="prezzoL"
+		            </div>
+		            <div>
+		                <label for="prezzoL">Prezzo per la mystery box di taglia L:</label>
+		                <input type="number" step="any" id="prezzoL" name="prezzoL"
 						min="0.01" placeholder="Inserisci il prezzo per la box grande"
 						required>
-				</div>
+		            </div>
+		            </div>
 
 				<div class="form-group">
 					<label for="quantita">Quantità di box disponibili:</label> <input
@@ -82,16 +85,17 @@
 					<img id="preview" src="#" alt="Anteprima immagine">
 				</div>
 
-
+				<div class="container-aggiungi">
 				<button type="submit" value="aggiungi">
 					<span class="material-symbols-outlined">add</span>Inserisci
 					Prodotto
 				</button>
+				</div>
 			</form>
 		</div>
 	</div>
 
-	<div class="table-container">
+	<div class="carrello-container">
 		<%
 		Collection<?> prodotti = (Collection<?>) request.getAttribute("prodotti");
 		if (request.getAttribute("prodotti") == null) {
@@ -100,7 +104,7 @@
 		prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
 		Carrello carrello = (Carrello) session.getAttribute("carrello");
 		%>
-		<table class="product-table">
+		<table class="ordini-table">
 			<thead>
 				<tr>
 					<th>Immagine</th>
@@ -129,20 +133,15 @@
 					<td data-label="Prezzo taglia L"><%=bean.getPrezzoL()%> €</td>
 					<td data-label="Descrizione"><%=bean.getDescrizione()%></td>
 					<td data-label="Quantità disponibili"><%=bean.getQuantita()%></td>
-					<td data-label="Dimensione">
-						<form id="form-<%=bean.getCodice()%>" action="catalogo"
-							method="post" class="carrello-form">
+					<td data-label="Modifica">
 							
-							<a href="catalogo?action=delete&id=<%=bean.getCodice()%>">
-								<button type="button" class="action-button">
-									<span class="material-symbols-outlined">delete</span>
-								</button>
-							</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>">
-								<button type="button" class="action-button">
-									<span class="material-symbols-outlined">edit</span>
-								</button>
-							</a>
-						</form>
+							<a href="catalogo?action=delete&id=<%=bean.getCodice()%>"
+							class="action-button"> <span
+								class="material-symbols-outlined">delete</span>
+						</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>"
+							class="action-button"> <span
+								class="material-symbols-outlined">edit</span>
+						</a>
 					</td>
 				</tr>
 				<%

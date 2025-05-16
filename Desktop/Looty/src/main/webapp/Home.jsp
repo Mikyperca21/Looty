@@ -45,7 +45,7 @@
 		
 		<div class = "box-container">
 			<div class = "box-content">
-				<a href = "Catalogo.jsp" class = "btn">Inizia ad acquistare</a>
+				<a href="${pageContext.request.contextPath}/Catalogo.jsp" class="btn">Inizia ad acquistare</a>
 			</div>
 		</div>
 		

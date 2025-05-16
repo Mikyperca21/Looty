@@ -41,12 +41,18 @@ public class storicoOrdini extends HttpServlet {
         }
 
         try {
-            ordineDAO ordineDAO = new ordineDAO();
-            List<ordineBean> ordini = ordineDAO.doRetrieveByUser(utente.getId(), null);
-
+        	ordineDAO ordineDAO = new ordineDAO();
+        	if(!utente.getRuolo()) {
+        		List<ordineBean> ordini = ordineDAO.doRetrieveByUser(utente.getId(), null);
+        		request.setAttribute("ordini", ordini);
+        	} else if (utente.getRuolo()) {
+        		List<ordineBean> ordini = ordineDAO.doRetrieveAll();
+        		request.setAttribute("ordini", ordini);
+        	}
             // Passo gli ordini alla pagina JSP
-            request.setAttribute("ordini", ordini);
-            request.getRequestDispatcher("storicoOrdini.jsp").forward(request, response);
+            
+        	request.getRequestDispatcher("storicoOrdini.jsp").forward(request, response);
+
 
         } catch (SQLException e) {
             throw new ServletException("Errore durante il recupero degli ordini.", e);

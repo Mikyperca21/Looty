@@ -105,12 +105,16 @@ public class ordineDAO {
         }
     }
 
-    public List<ordineBean> doRetrieveAll(Connection con) throws SQLException {
+    public List<ordineBean> doRetrieveAll() throws SQLException {
+    	Connection connection = null; 
+    	PreparedStatement preparedStatement = null;
         List<ordineBean> ordini = new ArrayList<>();
         String sql = "SELECT * FROM ordine ORDER BY data_ordine DESC";
 
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
+        try {
+        	connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 ordineBean ordine = new ordineBean();
                 ordine.setId(rs.getInt("id"));
@@ -125,7 +129,11 @@ public class ordineDAO {
                 ordine.setTelefono(rs.getString("telefono"));
                 ordini.add(ordine);
             }
-        }
+    	}finally {
+                if (preparedStatement != null) preparedStatement.close();
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        
         return ordini;
     }
 

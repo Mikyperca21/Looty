@@ -19,6 +19,7 @@ import model.Carrello;
 import model.ElementoCarrello;
 import model.prodottoBean;
 import model.prodottoDAO;
+import model.utenteBean;
 
 //@WebServlet("/catalogo")
 @MultipartConfig
@@ -184,12 +185,21 @@ public class catalogo extends HttpServlet {
 		request.setAttribute("carrello", carrello);
 
 		try {
+			
+			utenteBean quale = (utenteBean) request.getSession().getAttribute("utenteLoggato");
+			
 			Collection<prodottoBean> prodotti = dao.doRetrieveAll();
 			request.setAttribute("prodotti", prodotti);
 
-			// Inserire quello che interessa al momento
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Catalogo.jsp");
-			dispatcher.forward(request, response);
+			if (quale != null && quale.getRuolo()) {
+			    // Utente loggato ed è un admin
+			    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/CatalogoAdmin.jsp");
+			    dispatcher.forward(request, response);
+			} else {
+			    // Utente non loggato o non è un admin
+			    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Catalogo.jsp");
+			    dispatcher.forward(request, response);
+			}
 
 		} catch (SQLException e) {
 			throw new ServletException("Errore nel recupero dei prodotti " + e);

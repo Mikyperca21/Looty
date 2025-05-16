@@ -77,12 +77,12 @@ h2 {
 	margin-right: 8px;
 }
 
-.action-button button{
+.button-container button{
 	all: unset;
 	display: inline-block;
 }
 
-.action-button span {
+.button-container span {
 	border: none;
 	border-radius: 50%;
 	padding: 12px;
@@ -93,12 +93,12 @@ h2 {
 	font-size: 20px;
 }
 
-.action-button span:hover {
+.button-container span:hover {
   background-color: #6295a3;
   transform: translateY(-2px);
 }
 
-.action-button span:active {
+.button-container span:active {
   background-color: #5a8d9e;
   transform: translateY(0);
 }  

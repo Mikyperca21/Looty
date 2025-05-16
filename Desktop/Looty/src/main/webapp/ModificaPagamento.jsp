@@ -11,13 +11,13 @@ if (utente == null) {
 %>
 <!DOCTYPE html>
 
-<html>
 
 <%
 int idUtente = utente.getId();
 metodoPagamentoDAO metodoDAO = new metodoPagamentoDAO();
 List<metodoPagamentoBean> metodi = metodoDAO.doRetrieveByUtente(idUtente);
 %>
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Modifica metodo di pagamento</title>

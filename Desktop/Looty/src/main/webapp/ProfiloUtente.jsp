@@ -48,7 +48,7 @@ logout
 	<% if(!utente.getRuolo()){ %>
 
 	    <div class="box">
-	      <a href="storicoOrdini.jsp">
+	      <a href="storicoOrdini">
 	        <span class="material-symbols-outlined">local_shipping</span>
 	        <p>I miei ordini</p>
 	      </a>
@@ -70,7 +70,7 @@ logout
     
 	<% }else if(utente.getRuolo()){%>
 		<div class=box>
-			<a href = "">
+			<a href = "storicoOrdini">
 				<span class="material-symbols-outlined">trolley</span>
 				<p>Visualizza tutti gli ordini.</p>
 			</a>
@@ -101,22 +101,8 @@ logout
 			<p>
 				Nome utente: <strong><%=utente.getNome() + " " + utente.getCognome()%></strong>
 			</p>
-			<p>
-				Email:<%=utente.getEmail()%></p>
-		</div>
-		<div id="orders" class="section">
-			<h2>I tuoi ordini</h2>
-			<p>Qui troverai la lista dei tuoi ordini recenti.</p>
-		</div>
-		<div id="addresses" class="section">
-			<h2>📍 Indirizzi salvati</h2>
-			<p>Gestisci i tuoi indirizzi di spedizione.</p>
-		</div>
-		<div id="payments" class="section">
-			<h2>Metodi di pagamento</h2>
-			<p>Aggiungi o rimuovi carte di credito o altri metodi di
-				pagamento.</p>
-		</div>
+			<p> Email: <%=utente.getEmail() %></p>
+	</div>
 	</div>
 
 	<div class="container-footer">
