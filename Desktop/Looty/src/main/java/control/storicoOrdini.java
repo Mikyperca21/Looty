@@ -43,7 +43,7 @@ public class storicoOrdini extends HttpServlet {
         try {
         	ordineDAO ordineDAO = new ordineDAO();
         	if(!utente.getRuolo()) {
-        		List<ordineBean> ordini = ordineDAO.doRetrieveByUser(utente.getId(), null);
+        		List<ordineBean> ordini = ordineDAO.doRetrieveByUser(utente.getId());
         		request.setAttribute("ordini", ordini);
         	} else if (utente.getRuolo()) {
         		List<ordineBean> ordini = ordineDAO.doRetrieveAll();

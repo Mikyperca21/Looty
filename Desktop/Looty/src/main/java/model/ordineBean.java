@@ -6,127 +6,74 @@ import java.sql.Timestamp;
 public class ordineBean {
 
 	private int id; 
-	private int idUtente;
+	private int id_metodoPgamento;
+	private int id_indirizzo;
 	private Timestamp dataOrdine;
 	private double totale;
-	private String immagineProdotto;
-	private String via;
-	private String citta;
-	private String cap;
-	private String provincia;
-	private String paese;
-	private String telefono;
-
+	private String immagine;
 	
 	public ordineBean() {
 	
 	}
 
-	public ordineBean(int id, int idUtente, Timestamp dataOrdine, double totale, String immagineProdotto, String via,
-			String citta, String cap, String provincia, String paese, String telefono) {
-		super();
-		this.id = id;
-		this.idUtente = idUtente;
-		this.dataOrdine = dataOrdine;
-		this.totale = totale;
-		this.immagineProdotto = immagineProdotto;
-		this.via = via;
-		this.citta = citta;
-		this.cap = cap;
-		this.provincia = provincia;
-		this.paese = paese;
-		this.telefono = telefono;
-	}
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getIdUtente() {
-		return idUtente;
+
+	public int getId_metodoPgamento() {
+		return id_metodoPgamento;
 	}
 
-	public void setIdUtente(int idUtente) {
-		this.idUtente = idUtente;
+
+	public void setId_metodoPgamento(int id_metodoPgamento) {
+		this.id_metodoPgamento = id_metodoPgamento;
 	}
+
+
+	public int getId_indirizzo() {
+		return id_indirizzo;
+	}
+
+
+	public void setId_indirizzo(int id_indirizzo) {
+		this.id_indirizzo = id_indirizzo;
+	}
+
 
 	public Timestamp getDataOrdine() {
 		return dataOrdine;
 	}
 
+
 	public void setDataOrdine(Timestamp dataOrdine) {
 		this.dataOrdine = dataOrdine;
 	}
+
 
 	public double getTotale() {
 		return totale;
 	}
 
+
 	public void setTotale(double totale) {
 		this.totale = totale;
 	}
 
-	public String getImmagineProdotto() {
-		return immagineProdotto;
+
+	public String getImmagine() {
+		return immagine;
 	}
 
-	public void setImmagineProdotto(String immagineProdotto) {
-		this.immagineProdotto = immagineProdotto;
-	}
 
-	public String getVia() {
-		return via;
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
 	}
-
-	public void setVia(String via) {
-		this.via = via;
-	}
-
-	public String getCitta() {
-		return citta;
-	}
-
-	public void setCitta(String citta) {
-		this.citta = citta;
-	}
-
-	public String getCap() {
-		return cap;
-	}
-
-	public void setCap(String cap) {
-		this.cap = cap;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
-	public String getPaese() {
-		return paese;
-	}
-
-	public void setPaese(String paese) {
-		this.paese = paese;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	
-	
-	
-	
+		
 }

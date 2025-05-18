@@ -25,8 +25,10 @@
 <link rel ="icon" href = "images/LogoLooty_resized.png">
 </head>
 <body>
+<div class="container-header">
 	<%@ include file="Header.jsp"%>
-	<h1>Catalogo Amministratore:</h1>
+	<div>
+	<h2>Catalogo Amministratore:</h2>
 	
 	
 
@@ -37,44 +39,51 @@
 				enctype="multipart/form-data">
 				<input type="hidden" name="action" value="inserisci">
 
+
+				<div class="input-row">
 				<div class="form-group">
 					<label for="nome">Nome:</label> <input type="text" id="nome"
 						placeholder="Inserisci il nome" name="nome" required>
 				</div>
+				<div class="form-group">
+					<label for="quantita">Quantità di box disponibili:</label> <input
+						type="number" id="quantita" name="quantita" min="1"
+						placeholder="Inserisci la quantità di box disponibili" required>
+				</div>
+				</div>
 				
 				<div class="input-row-tre">
 		            <div>
-		                <label for="prezzoS">Prezzo per la mystery box di taglia S:</label>
+		                <label for="prezzoS">Prezzo taglia S:</label>
 		                <input type="number" step="any" id="prezzoS" name="prezzoS"
 						min="0.01" placeholder="Inserisci il prezzo per la box piccola"
 						required>
 		            </div>
 		            <div>
-		                <label for="prezzoM">Prezzo per la mystery box di taglia M:</label>
+		                <label for="prezzoM">Prezzo taglia M:</label>
 		               <input type="number" step="any" id="prezzoM" name="prezzoM"
 						min="0.01" placeholder="Inserisci il prezzo per la box media"
 						required>
 		            </div>
 		            <div>
-		                <label for="prezzoL">Prezzo per la mystery box di taglia L:</label>
+		                <label for="prezzoL">Prezzo taglia L:</label>
 		                <input type="number" step="any" id="prezzoL" name="prezzoL"
 						min="0.01" placeholder="Inserisci il prezzo per la box grande"
 						required>
 		            </div>
 		            </div>
 
+				
+				<div class ="input-row">
 				<div class="form-group">
-					<label for="quantita">Quantità di box disponibili:</label> <input
-						type="number" id="quantita" name="quantita" min="1"
-						placeholder="Inserisci la quantità di box disponibili" required>
-				</div>
-
-				<div class="form-group">
-					<label for="descrizione">Descrizione (Nota: per l'acquisto della box di dimensione S verrà scalata una quantità dal magazzino, per l'acquisto di una box di taglia media 
-					verranno scalate due unità dal magazzino e per l'acquisto della box di dimensione L verranno scalate tre unità dal magazzino):</label>
-					<textarea id="descrizione" name="descrizione"
+					<label for="descrizione">Descrizione:</label><br>
+					<textarea id="descrizione" name="descrizione" style="width: 100%; height: 100px;"
 						placeholder="Inserisci una descrizione della box" required></textarea>
 				</div>
+				</div>
+				
+				<p>Nota: per l'acquisto della box di dimensione S verrà scalata una quantità dal magazzino, per l'acquisto di una box di taglia media 
+					verranno scalate due unità dal magazzino e per l'acquisto della box di dimensione L verranno scalate tre unità dal magazzino</p>
 
 				<div class="form-group">
 					<label for="immagine">Inserire immagine del prodotto:</label> <input
@@ -143,6 +152,7 @@
 								class="material-symbols-outlined">edit</span>
 						</a>
 					</td>
+					
 				</tr>
 				<%
 				}

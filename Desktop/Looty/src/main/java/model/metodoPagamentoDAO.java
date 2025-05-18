@@ -75,13 +75,40 @@ public class metodoPagamentoDAO {
 	    
 	    return metodi;
 	}
+	
+	public metodoPagamentoBean doRetrieveByID(int id) throws SQLException {
+	    metodoPagamentoBean metodo = new metodoPagamentoBean();
+	    String selectSQL = "SELECT * FROM metodoPagamento WHERE id = ?";
+	    
+	    try (
+	        Connection con = DriverManagerConnectionPool.getConnection();
+	        PreparedStatement ps = con.prepareStatement(selectSQL)
+	    ) {
+	        ps.setInt(1, id);
+	        ResultSet rs = ps.executeQuery();
+	        
+	        while (rs.next()) {
+	            
+	        	metodo.setId(rs.getInt("id"));
+	        	metodo.setCodiceCarta(rs.getString("codiceCarta"));
+	        	metodo.setTitolare(rs.getString("titolare"));
+	            metodo.setIdUtente(rs.getInt("id_utente"));
+	            metodo.setCVV(rs.getInt("CVV"));
+	            metodo.setMeseScadenza(rs.getInt("mese_scadenza"));
+	            metodo.setAnnoScadenza(rs.getInt("anno_scadenza"));
+	            metodo.setPreferito(rs.getBoolean("is_preferito"));
+	        }
+	    }
+	    
+	    return metodo;
+	}
 
 	
 	public void doDelete(int codiceCarta) throws SQLException{
-		String deleteSQL = "DELETE FROM metodoPagamento WHERE id = ?";
+		String sql = "UPDATE metodoPagamento SET valido = false, is_preferito = false WHERE id = ?";
 		
 		try (Connection con = DriverManagerConnectionPool.getConnection();
-             PreparedStatement ps = con.prepareStatement(deleteSQL)) {
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, codiceCarta);
             ps.executeUpdate();
 		}
@@ -101,7 +128,7 @@ public class metodoPagamentoDAO {
                     metodo.setId(rs.getInt("id"));
                     metodo.setCodiceCarta(rs.getString("codiceCarta"));
                     metodo.setTitolare(rs.getString("titolare"));
-                    metodo.setIdUtente(rs.getInt("idUtente"));
+                    metodo.setIdUtente(rs.getInt("id_utente"));
                     metodo.setCVV(rs.getInt("CVV"));
                     metodo.setMeseScadenza(rs.getInt("mese_scadenza"));
                     metodo.setAnnoScadenza(rs.getInt("anno_scadenza"));
@@ -115,6 +142,15 @@ public class metodoPagamentoDAO {
 
         return metodo;
     }
+	
+	public void setValido(int codiceCarta)  throws SQLException {
+		String sql = "UPDATE metodoPagamento SET valido = true WHERE codiceCarta = ?";
+		try (Connection con = DriverManagerConnectionPool.getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+	            ps.setInt(1, codiceCarta);
+	            ps.executeUpdate();
+			}
+	}
 	
 	public void setPreferito(int idUtente, int id) throws SQLException {
         try (Connection con = DriverManagerConnectionPool.getConnection()) {

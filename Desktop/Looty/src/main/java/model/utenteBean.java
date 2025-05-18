@@ -8,7 +8,7 @@ public class utenteBean {
 	private String cognome;
 	private String email;
 	private String password;
-	private int ordini;
+//	private int ordini;
 	private boolean ruolo; // forse è un ENUM
 	
 	public utenteBean(){
@@ -56,13 +56,13 @@ public class utenteBean {
 		this.password = pass;
 	}
 
-	public int getOrdini() {
-		return ordini;
-	}
-
-	public void setOrdini(int ordini) {
-		this.ordini = ordini;
-	}
+//	public int getOrdini() {
+//		return ordini;
+//	}
+//
+//	public void setOrdini(int ordini) {
+//		this.ordini = ordini;
+//	}
 
 	public boolean getRuolo() {
 		return ruolo;

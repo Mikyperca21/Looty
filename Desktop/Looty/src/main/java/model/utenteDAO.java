@@ -140,7 +140,7 @@ public class utenteDAO {
 		
 		Collection<utenteBean> prodotti = new LinkedList<utenteBean>();
 		
-		String selectSQL = "SELECT * FROM utente";
+		String selectSQL = "SELECT * FROM utente WHERE ruolo = false";
 		
 		/*
 		* if (order != null && !order.equals("")) { selectSQL += " ORDER BY " + order;

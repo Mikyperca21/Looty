@@ -14,19 +14,6 @@ public class prodottoBean {
 	public prodottoBean() {
 	}
 
-	public prodottoBean(int codice, String nome, String descrizione, float prezzoS, float prezzoM, float prezzoL,
-			int quantita, String immagine) {
-		super();
-		this.codice = codice;
-		this.nome = nome;
-		this.descrizione = descrizione;
-		this.prezzoS = prezzoS;
-		this.prezzoM = prezzoM;
-		this.prezzoL = prezzoL;
-		this.quantita = quantita;
-		this.immagine = immagine;
-	}
-
 	private String tagliaCarrello;
 
 	public String getTagliaCarrello() {

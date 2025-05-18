@@ -15,6 +15,15 @@
     <url-pattern>/catalogo</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>acquisto</servlet-name>
+    <servlet-class>control.acquisto</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>acquisto</servlet-name>
+    <url-pattern>/acquisto</url-pattern>
+</servlet-mapping>
+
 <error-page>
     <error-code>404</error-code>
     <location>/Error404.jsp</location>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.sql.*, java.text.SimpleDateFormat" %>
-<%@ page import="model.ordineBean, model.ordineDAO, model.ordineProdottoBean, model.prodottoBean, model.prodottoDAO" %>
+<%@ page import="model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,20 +18,12 @@
 <h2>Dettagli Ordine</h2>
 
 <%
-    int idOrdine = Integer.parseInt(request.getParameter("idOrdine"));
-    ordineBean ordine = null;
-    List<ordineProdottoBean> dettagliOrdine = null;
-
-    try {
-        ordineDAO dao = new ordineDAO();
-        ordine = dao.doRetrieveById(idOrdine);
-        dettagliOrdine = dao.doRetrieveByOrdine(idOrdine);
-    } catch (SQLException e) {
-        e.printStackTrace();
-        out.println("<p>Errore nel recupero dei dettagli dell'ordine.</p>");
-    }
-
-    if (ordine != null && dettagliOrdine != null && !dettagliOrdine.isEmpty()) {
+	List<ordineProdottoBean> opb = (List<ordineProdottoBean>) request.getAttribute("prodottiOrdine");
+	indirizzoBean indirizzo = (indirizzoBean) request.getAttribute("indirizzo");
+	metodoPagamentoBean metodoPagamento = (metodoPagamentoBean) request.getAttribute("meotodoPagamento");
+	ordineBean ordine = (ordineBean) request.getAttribute("ordine");
+	
+    if (ordine != null && opb != null && !opb.isEmpty()) {
 %>
 
 <div class="dettagli-ordine">
@@ -42,16 +34,17 @@
     </a>
 </div>
 <p>Data Ordine: <%= new SimpleDateFormat("dd/MM/yyyy").format(ordine.getDataOrdine()) %></p>
-<p>Totale: €<%= ordine.getTotale() %></p>
+
 
 <hr class="separatore">
 
 <h4>Indirizzo di Spedizione:</h4>
-<p><strong>Via:</strong> <%= ordine.getVia() %></p>
-<p><strong>Città:</strong> <%= ordine.getCitta() %> (<%= ordine.getProvincia() %>)</p>
-<p><strong>CAP:</strong> <%= ordine.getCap() %></p>
-<p><strong>Paese:</strong> <%= ordine.getPaese() %></p>
-<p><strong>Telefono:</strong> <%= ordine.getTelefono() %></p>
+<p><strong>Cliente:</strong> <%= metodoPagamento.getTitolare() %></p>
+<p><strong>Via:</strong> <%= indirizzo.getVia() %></p>
+<p><strong>Città:</strong> <%= indirizzo.getCitta() %> (<%= indirizzo.getProvincia() %>)</p>
+<p><strong>CAP:</strong> <%= indirizzo.getCap() %></p>
+<p><strong>Paese:</strong> <%= indirizzo.getPaese() %></p>
+<p><strong>Telefono:</strong> <%= indirizzo.getTelefono() %></p>
 
 <hr class="separatore">
 
@@ -70,7 +63,7 @@
             <%
                 prodottoDAO dao = new prodottoDAO(); 
 
-                for (ordineProdottoBean dettaglio : dettagliOrdine) {
+                for (ordineProdottoBean dettaglio : opb) {
                     prodottoBean prodotto = dao.doRetrieveByKey(dettaglio.getIdProdotto());
 
                     double prezzoUnitario = dettaglio.getPrezzoUnitario();
@@ -89,7 +82,9 @@
             %>
         </tbody>
     </table>
-
+    <br><br>
+    <hr class="separatore"> <br> <br>
+	<strong>Totale ordine: </strong> €<%= ordine.getTotale() %></p>
     
 </div>
 

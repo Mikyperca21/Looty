@@ -84,7 +84,7 @@ public class indirizzoDAO {
     }
 
     public void doDelete(int id) throws SQLException {
-        String sql = "DELETE FROM indirizzo WHERE id = ?";
+        String sql = "UPDATE indirizzo SET valido = false, is_preferito = false WHERE id = ?";
 
         try (Connection con = DriverManagerConnectionPool.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {

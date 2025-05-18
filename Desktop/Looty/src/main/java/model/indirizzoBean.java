@@ -12,27 +12,11 @@ public class indirizzoBean {
 	private String paese;
 	private String telefono;
 	private boolean is_preferito;
+	private boolean valido;
 	
 	public indirizzoBean() {
-		
-	}
-
-	public indirizzoBean(int id, int idUtente, String etichetta, String via, String citta, String cap, String provincia, String paese,
-			String telefono, boolean is_preferito) {
-		super();
-		this.id = id;
-		this.idUtente = idUtente;
-		this.etichetta = etichetta;
-		this.via = via;
-		this.citta = citta;
-		this.cap = cap;
-		this.provincia = provincia;
-		this.paese = paese;
-		this.telefono = telefono;
-		this.is_preferito = is_preferito;
-	}
 	
-	
+	}
 
 	public int getId() {
 		return id;
@@ -113,7 +97,13 @@ public class indirizzoBean {
 	public void setIs_preferito(boolean is_preferito) {
 		this.is_preferito = is_preferito;
 	}
-	
-	
+
+	public boolean isValido() {
+		return valido;
+	}
+
+	public void setValido(boolean valido) {
+		this.valido = valido;
+	}
 
 }

@@ -54,14 +54,14 @@
                             String formattedDate = sdf.format(ordine.getDataOrdine());
                     %>
                     <tr>
-                        <td><img src="<%= ordine.getImmagineProdotto() %>" alt="Immagine prodotto" style="width: 50px; height: 50px;"></td>
+                        <td><img src="<%= ordine.getImmagine() %>" alt="Immagine prodotto" style="width: 50px; height: 50px;"></td>
                         <td><%= formattedDate %></td>
                         <td>€<%= ordine.getTotale() %></td>
                         <td>
-                            <a href="dettagliOrdine.jsp?idOrdine=<%= ordine.getId() %>" class="action-button">
+                            <a href="dettaglioOrdine?idOrdine=<%= ordine.getId() %>" class="action-button">
                                 <span class="material-symbols-outlined">info</span>
                             </a>
-                            <a href="dettagliOrdine.jsp?idOrdine=<%= ordine.getId() %>" class="action-button">
+                            <a href="#" class="action-button">
                                 <span class="material-symbols-outlined">picture_as_pdf</span>
                             </a>
                         </td>

@@ -14,12 +14,16 @@ import javax.servlet.http.HttpSession;
 
 import model.Carrello;
 import model.ElementoCarrello;
+import model.indirizzoBean;
+import model.indirizzoDAO;
+import model.metodoPagamentoBean;
+import model.metodoPagamentoDAO;
 import model.ordineBean;
 import model.ordineDAO;
 import model.ordineProdottoBean;
 import model.utenteBean;
 
-@WebServlet("/acquisto")
+//@WebServlet("/acquisto")
 public class acquisto extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -42,6 +46,7 @@ public class acquisto extends HttpServlet {
             response.sendRedirect("Login.jsp");
             return;
         }
+        int uId = utente.getId();
 
         if (carrello == null || carrello.getProdotti().isEmpty()) {
             response.sendRedirect("carrello.jsp?errore=vuoto");
@@ -49,6 +54,12 @@ public class acquisto extends HttpServlet {
         }
 
         try {
+        	
+        	metodoPagamentoDAO pDAO = new metodoPagamentoDAO();
+        	metodoPagamentoBean mtp = pDAO.doRetrievePreferitoByUtente(uId);
+        	
+        	indirizzoDAO iDAO = new indirizzoDAO();
+        	indirizzoBean ind = iDAO.doRetrievePreferitoByUtente(uId);
             ordineDAO dao = new ordineDAO();
 
             List<ElementoCarrello> prodottiCarrello = carrello.getProdotti();
@@ -67,14 +78,9 @@ public class acquisto extends HttpServlet {
 
             // Salvataggio ordine
             ordineBean ordine = new ordineBean();
-            ordine.setIdUtente(utente.getId());
+            ordine.setId_metodoPgamento(mtp.getId());
+            ordine.setId_indirizzo(ind.getId());
             ordine.setTotale(totale);
-            ordine.setVia(request.getParameter("via"));
-            ordine.setCitta(request.getParameter("citta"));
-            ordine.setCap(request.getParameter("cap"));
-            ordine.setProvincia(request.getParameter("provincia"));
-            ordine.setPaese(request.getParameter("paese"));
-            ordine.setTelefono(request.getParameter("telefono"));
 
             int idOrdine = dao.doSave(ordine);
 
@@ -85,6 +91,7 @@ public class acquisto extends HttpServlet {
                 op.setIdProdotto(item.getProdotto().getCodice());
                 op.setQuantita(item.getQuantita());
                 op.setPrezzoUnitario(item.getProdotto().getPrezzoByTagliaCarrello());
+                op.setDimensione(item.getDimensione());
                 prodottiOrdine.add(op);
             }
             dao.salvaProdottiOrdine(prodottiOrdine, idOrdine);

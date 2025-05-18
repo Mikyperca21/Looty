@@ -6,6 +6,7 @@
 		<meta charset="UTF-8">
 		<title>Looty</title>
 		<link rel = "stylesheet" href = "style/Home.css">
+    <link rel="icon" href="images/LogoLooty_resized.png">
 	</head>
 	<body>
 		<div class = "container-header">

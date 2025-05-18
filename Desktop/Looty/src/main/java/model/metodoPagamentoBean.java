@@ -10,25 +10,11 @@ public class metodoPagamentoBean {
 	private int meseScadenza;
 	private int annoScadenza;
 	private boolean isPreferito;
+	private boolean valido;
 	
 	public metodoPagamentoBean ()
 	{}
 
-	public metodoPagamentoBean(int id, String codiceCarta, String titolare, int idUtente, int cVV, int meseScadenza,
-			int annoScadenza, boolean isPreferito) {
-		super();
-		this.id = id;
-		this.codiceCarta = codiceCarta;
-		this.titolare = titolare;
-		this.idUtente = idUtente;
-		CVV = cVV;
-		this.meseScadenza = meseScadenza;
-		this.annoScadenza = annoScadenza;
-		this.isPreferito = isPreferito;
-	}
-
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -93,5 +79,12 @@ public class metodoPagamentoBean {
 		this.isPreferito = isPreferito;
 	}
 
+	public boolean isValido() {
+		return valido;
+	}
+
+	public void setValido(boolean valido) {
+		this.valido = valido;
+	}
 	
 }

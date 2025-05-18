@@ -6,19 +6,12 @@ public class ordineProdottoBean {
 	private int idOrdine;
 	private int idProdotto;
 	private int quantita; 
+	private String dimensione;
 	private double prezzoUnitario;
+	private String immagine;
 	
 	public ordineProdottoBean() {
 		
-	}
-	
-	public ordineProdottoBean(int id, int idOrdine, int idProdotto, int quantita, double prezzoUnitario) {
-		super();
-		this.id = id;
-		this.idOrdine = idOrdine;
-		this.idProdotto = idProdotto;
-		this.quantita = quantita;
-		this.prezzoUnitario = prezzoUnitario;
 	}
 
 	public int getId() {
@@ -53,6 +46,14 @@ public class ordineProdottoBean {
 		this.quantita = quantita;
 	}
 
+	public String getDimensione() {
+		return dimensione;
+	}
+
+	public void setDimensione(String dimensione) {
+		this.dimensione = dimensione;
+	}
+
 	public double getPrezzoUnitario() {
 		return prezzoUnitario;
 	}
@@ -60,8 +61,12 @@ public class ordineProdottoBean {
 	public void setPrezzoUnitario(double prezzoUnitario) {
 		this.prezzoUnitario = prezzoUnitario;
 	}
-	
-	
-	
-	
+
+	public String getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
+	}
 }

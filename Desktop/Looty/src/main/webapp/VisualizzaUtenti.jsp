@@ -14,6 +14,8 @@
 		response.sendRedirect("Error500.jsp");
 		return;
 	}
+	
+	List<utenteBean> listaUtenti = (List<utenteBean>) request.getAttribute("listaUtenti");
 %>
     
 <!DOCTYPE html>
@@ -32,15 +34,8 @@
 		
 		<div class = "carrello-container">
 		<%
-			Collection<utenteBean> utenti = null; 
-			try {
-				utenteDAO dao = new utenteDAO();
-				utenti = dao.doRetrieveAll();
-			}catch (SQLException e) {
-				e.printStackTrace();
-				out.println("<p>Errore nel recupero degli utenti</p>");
-			}
-		if(utenti ==  null){
+			
+		if(listaUtenti ==  null){
 		%>
 			<p>Ancora nessun cliente</p>
 		<%
@@ -54,7 +49,7 @@
     			<th>Email</th>
   			</tr>
 			<%
-			for(utenteBean ut : utenti){
+			for(utenteBean ut : listaUtenti){
 				
 			%>
 			<tr>
