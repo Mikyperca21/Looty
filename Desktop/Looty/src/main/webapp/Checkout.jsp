@@ -66,23 +66,32 @@ if (utente == null) {
     <div class="col-right">
         <div class="indirizzo">
             <h3>Indirizzo di Spedizione</h3>
-            <p><strong>Destinatario:</strong> <%= utente.getNome() %> <%= utente.getCognome() %></p>
-            <p><%= indirizzo.getVia() %>, <%= indirizzo.getCitta() %> (<%= indirizzo.getProvincia() %>), <%= indirizzo.getCap() %></p>
-            <p><%= indirizzo.getPaese() %></p>
-            <p>Telefono: <%= indirizzo.getTelefono() %></p>
-            <a href="ModificaIndirizzo.jsp">Modifica Indirizzo</a>
+            <%if (indirizzo == null ) { %>
+            	<a href="ModificaIndirizzo.jsp">Inserisci un indirizzo</a>	
+            <% } else { %>>
+            	<p><strong>Destinatario:</strong> <%= utente.getNome() %> <%= utente.getCognome() %></p>
+	            <p><%= indirizzo.getVia() %>, <%= indirizzo.getCitta() %> (<%= indirizzo.getProvincia() %>), <%= indirizzo.getCap() %></p>
+	            <p><%= indirizzo.getPaese() %></p>
+	            <p>Telefono: <%= indirizzo.getTelefono() %></p>
+	            <a href="ModificaIndirizzo.jsp">Modifica Indirizzo</a>
+            <%} %>
         </div>
         <%
 		    metodoPagamentoDAO metodoDAO = new metodoPagamentoDAO();
 		    metodoPagamentoBean metodoPreferito = metodoDAO.doRetrievePreferitoByUtente(utente.getId());
-		
-		    String numeroCarta = metodoPreferito.getCodiceCarta();
-		    String formatoCarta = "xxxx-xxxx-xxxx-" + numeroCarta.substring(numeroCarta.length() - 4);
 		%>
         <div class="indirizzo">
             <h3>Metodo di pagamento: </h3>
+            <% if (metodoPreferito == null) {%>
+            	<a href="ModificaPagamento.jsp">Inserisci un metodo di pagamento</a>
+            <% } else {    		
+		    String numeroCarta = metodoPreferito.getCodiceCarta();
+		    String formatoCarta = "xxxx-xxxx-xxxx-" + numeroCarta.substring(numeroCarta.length() - 4);
+            %>
             <p><strong>Numero carta:</strong> <%= formatoCarta %></p>
-            <a href="ModificaPagamento.jsp">Modifica metodo di pagamento</a>
+            <a href="ModificaPagamento.jsp">Modifica metodo di pagamento</a>%>
+            	
+            <% } %>
         </div>
 
         <div class="totale">

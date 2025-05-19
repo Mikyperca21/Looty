@@ -105,7 +105,13 @@ public class ordineDAO {
     	Connection connection = null; 
     	PreparedStatement preparedStatement = null;
         List<ordineBean> ordini = new ArrayList<>();
-        String sql = "SELECT * FROM ordine ORDER BY data_ordine DESC";
+        String sql = "SELECT ordine.*, p.immagine " +
+                "FROM prodotti AS p " +
+                "INNER JOIN ordineProdotto AS op ON p.codice = op.id_prodotto " +
+                "INNER JOIN ordine ON op.id_ordine = ordine.id " +
+                "INNER JOIN metodoPagamento AS mp ON mp.id = ordine.id_metodoPagamento " +
+                "INNER JOIN utente AS u ON mp.id_utente = u.id " +
+                "WHERE u.ruolo = false";
 
         try {
         	connection = DriverManagerConnectionPool.getConnection();
@@ -118,6 +124,7 @@ public class ordineDAO {
                 ordine.setId_indirizzo(rs.getInt("id_indirizzo"));
                 ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
                 ordine.setTotale(rs.getDouble("totale"));
+                ordine.setImmagine(rs.getString("immagine"));
                 ordini.add(ordine);
             }
     	}finally {
