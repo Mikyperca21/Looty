@@ -21,35 +21,48 @@
 		
 		<div class = "signup-container">
 			<div class = "signup-content">
-				<form action = "<%=request.getContextPath()%>/registrazione" method = "post">
-				<% if (request.getAttribute("errore") != null) { %>
-    <div class="errore"><%= request.getAttribute("errore") %></div>
-<% } %>
-				
+			<h2>Registrati ora!</h2>
+			<br>
+			<p style="color:red;" id="nome-error"></p>
+			<p style="color:red;" id="email-error"></p>
+			<p style="color:red;" id="citta-error"></p>
+			<p style="color:red;" id="via-error"></p>
+			<p style="color:red;" id="cap-error"></p>
+			<p style="color:red;" id="provincia-error"></p>
+			<p style="color:red;" id="paese-error"></p>
+			<p style="color:red;" id="telefono-error"></p>
+			
+				<form action = "<%=request.getContextPath()%>/registrazione" method = "post" onsubmit="event.preventDefault(); validate(this)">				
 					<div class="form-row">
+						<input class = "signup" type = "text" name="Nome" placeholder = "Nome" required/>
+						<input class = "signup" type = "text" name="Cognome" placeholder = "Cognome" required/>
 						
-						<input class = "signup" type = "text" name="Nome" placeholder = "Nome" required = "true"/>
-						<input class = "signup" type = "text" name="Cognome" placeholder = "Cognome" required = "true"/>
 					</div>
 					
 					<div class="form-row">
-						<input class = "signup" type = "text" name="Email" placeholder = "E-mail" required = "true"/>
-						<input class = "signup" type = "password" name="Password" placeholder = "Password" required = "true"/>
+						<input class = "signup" type = "text" name="Email" placeholder = "E-mail" required/>
+						
+						<input class = "signup" type = "password" name="Password" placeholder = "Password" required/>
 					</div>
 					<h3>Inserisci il tuo indirizzo</h3> <br>
 
 					<div class="form-row">
 					    <input class = "signup" type="text" name="Citta" placeholder = "Città" required>
-			
+						
 					    <input class = "signup" type="text" name="Via" placeholder = "Via" required >
+					   
 					</div><br>
 					<div class="form-row">
 					    <input class = "signup" type="text" name="Provincia" placeholder = "Provincia" required>
+					    
 					    <input class = "signup" type="text" name="Cap" placeholder = "CAP" required>
+					    
 					</div><br>
 					<div class="form-row">
 					    <input class = "signup" type="text" name="Paese" placeholder = "Paese" required>
+					    
 					    <input class = "signup" type="text" name="Telefono" placeholder = "Telefono" required>
+					    
 					</div><br>
 
 						<input class = "signup" type = "submit" value = "Registrati"/>
@@ -62,5 +75,134 @@
 		<div class="container-footer">
 			<%@ include file="Footer.jsp"%>
 		</div>
+		
+		<script>
+		
+		function checkTel(input){
+			var tel = /^\d{10}$/;
+			
+			if(input.value.match(tel)){
+				return true;
+			}
+			
+			return false;
+		}
+		
+		function checkCap(input){
+			var cap = /^\d{5}$/;
+			
+			if(input.value.match(cap)){
+				return true;
+			}
+			
+			return false;
+		}
+		
+		function checkVia(inputtxt){
+			var via = /^[a-zA-Z0-9\s]+$/;
+			
+			if(inputtxt.value.match(via)){
+				return true;
+			}
+			
+			return false;
+		}
+		
+		function checkOnlyText(inputtxt) {
+			var name = /^[A-Za-z]+$/;;
+			if(inputtxt.value.match(name)) 
+				return true;
+
+			return false;	
+		}
+		
+		function checkEmail(inputtxt) {
+			var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			if(inputtxt.value.match(email)){
+				return true;
+			} 
+
+			return false;	
+		}
+
+		
+		function validate(obj) {	
+			var valid = true;	
+			
+			const emailError = document.getElementById("email-error"); // v
+			const nomeError = document.getElementById("nome-error"); // testo v
+			const paeseError = document.getElementById("paese-error");	// testo v
+			const cittaError = document.getElementById("citta-error");	// testo v
+			const capError = document.getElementById("cap-error");
+			const viaError = document.getElementById("via-error");
+			const telefonoError = document.getElementById("telefono-error");
+			const provinciaError = document.getElementById("provincia-error");
+			
+			emailError.textContent = "";
+			nomeError.textContent = "";
+			paeseError.textContent = "";
+			cittaError.textContent = "";
+			capError.textContent = "";
+			viaError.textContent = "";
+			telefonoError.textContent = "";
+			provinciaError.textContent = "";
+						
+			var email = document.getElementsByName("Email")[0];		
+			var nome = document.getElementsByName("Nome")[0];
+			var cognome = document.getElementsByName("Cognome")[0];
+			var paese = document.getElementsByName("Paese")[0];
+			var citta = document.getElementsByName("Citta")[0];
+			var cap = document.getElementsByName("Cap")[0];
+			var via = document.getElementsByName("Via")[0];
+			var telefono = document.getElementsByName("Telefono")[0];
+			var provincia = document.getElementsByName("Provincia")[0];
+			
+			if(!checkEmail(email)) {
+				valid = false;
+				emailError.textContent = "Inserisci un'email valida";
+			}
+			
+			if(!checkOnlyText(nome) || !checkOnlyText(cognome)) {
+				valid = false;
+				nomeError.textContent = "Inserisci un nome valido";
+			}
+			
+			if(!checkOnlyText(paese)) {
+				valid = false;
+				paeseError.textContent = "Inserisci un Paese valido";
+			}
+			
+			if(!checkOnlyText(citta)) {
+				valid = false;
+				cittaError.textContent = "Inserisci una citta valida";
+			}
+			
+			if(!checkOnlyText(provincia)) {
+				valid = false;
+				provinciaError.textContent = "Inserisci una provincia valida";
+			}
+			
+			if(!checkCap(cap)){
+				valid = false;
+				capError.textContent = "Inserisci un CAP valido";
+			}
+			
+			if(!checkTel(telefono)){
+				valid = false;
+				telefonoError.textContent = "Inserisci un telefono valido";
+			}
+			
+			if(!checkVia(via)){
+				valid = false;
+				viaError.textContent = "Inserisci una via valida";
+			}
+
+			if(valid){
+				obj.submit();
+			} 
+		}
+		
+		
+		</script>
 	</body>
 </html>

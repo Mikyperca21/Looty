@@ -38,7 +38,7 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
 		%>
 		<div class="container-form">
 			<div class="card-indirizzo" id="card-<%=i.getId()%>">
-				<form method="post" action="ModificaIndirizzo?action=modifica">
+				<form method="post" action="ModificaIndirizzo?action=modifica" onsubmit="event.preventDefault(); validate(this)">
 					<div class="form-row">
 					    <label for="etichetta">Etichetta</label>
 					    <input type="text" id="etichetta" name="etichetta" 
@@ -124,9 +124,17 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
 
 		<div class="card-indirizzo">
     <h3>Aggiungi un nuovo indirizzo</h3>
-    <form method="post" action="ModificaIndirizzo?action=aggiungi">
-        
+    <form method="post" action="ModificaIndirizzo?action=aggiungi" onsubmit="event.preventDefault(); validate(this)">
+        	<p style="color:red;" id="citta-error"></p>
+			<p style="color:red;" id="via-error"></p>
+			<p style="color:red;" id="cap-error"></p>
         <div class="input-row">
+			
+        
+        	<div>
+                <label for="etichetta">Etichetta</label>
+                <input type="text" name="etichetta" placeholder="Casa, lavoro, ... ">
+            </div>
             <div>
                 <label for="via">Via</label>
                 <input type="text" name="via" placeholder="Via" required>
@@ -158,6 +166,10 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
                 <input type="text" name="telefono" placeholder="Telefono" required>
             </div>
         </div>
+        
+			<p style="color:red;" id="provincia-error"></p>
+			<p style="color:red;" id="paese-error"></p>
+			<p style="color:red;" id="telefono-error"></p>
 		<div class="container-aggiungi">
         <button type="submit">Aggiungi Indirizzo</button>
         </div>
@@ -224,6 +236,108 @@ function annullaModifica(id) {
 
     salvaBtn.style.display = "none";
     annullaBtn.style.display = "none";
+}
+</script>
+
+<script>
+
+function checkTel(input){
+	var tel = /^\d{10}$/;
+	
+	if(input.value.match(tel)){
+		return true;
+	}
+	
+	return false;
+}
+
+function checkCap(input){
+	var cap = /^\d{5}$/;
+	
+	if(input.value.match(cap)){
+		return true;
+	}
+	
+	return false;
+}
+
+function checkVia(inputtxt){
+	var via = /^[a-zA-Z0-9\s]+$/;
+	
+	if(inputtxt.value.match(via)){
+		return true;
+	}
+	
+	return false;
+}
+
+function checkOnlyText(inputtxt) {
+	var name = /^[A-Za-z]+$/;
+	if(inputtxt.value.match(name)) 
+		return true;
+
+	return false;	
+}
+
+
+function validate(obj) {
+    var valid = true;
+
+    const paeseError = document.getElementById("paese-error");
+    const cittaError = document.getElementById("citta-error");
+    const capError = document.getElementById("cap-error");
+    const viaError = document.getElementById("via-error");
+    const telefonoError = document.getElementById("telefono-error");
+    const provinciaError = document.getElementById("provincia-error");
+
+    // Reset errori
+    paeseError.textContent = "";
+    cittaError.textContent = "";
+    capError.textContent = "";
+    viaError.textContent = "";
+    telefonoError.textContent = "";
+    provinciaError.textContent = "";
+    
+    var paese = document.getElementsByName("paese")[0];
+    var citta = document.getElementsByName("citta")[0];
+    var cap = document.getElementsByName("cap")[0];
+    var via = document.getElementsByName("via")[0];
+    var telefono = document.getElementsByName("telefono")[0];
+    var provincia = document.getElementsByName("provincia")[0];
+
+    if(!checkOnlyText(paese)) {
+        valid = false;
+        paeseError.textContent = "Inserisci un Paese valido";
+    }
+
+    if(!checkOnlyText(citta)) {
+        valid = false;
+        cittaError.textContent = "Inserisci una città valida";
+    }
+
+    if(!checkOnlyText(provincia)) {
+        valid = false;
+        provinciaError.textContent = "Inserisci una provincia valida";
+    }
+
+    if(!checkCap(cap)){
+        valid = false;
+        capError.textContent = "Inserisci un CAP valido";
+    }
+
+    if(!checkTel(telefono)){
+        valid = false;
+        telefonoError.textContent = "Inserisci un telefono valido";
+    }
+
+    if(!checkVia(via)){
+        valid = false;
+        viaError.textContent = "Inserisci una via valida";
+    }
+
+    if(valid){
+		obj.submit();
+	}
 }
 </script>
 </body>

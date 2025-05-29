@@ -36,7 +36,7 @@
 		<div class="card-indirizzo">
 			<h2>Nuovo Prodotto</h2>
 			<form action="<%=request.getContextPath()%>/catalogo" method="post"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data"  onsubmit="event.preventDefault(); validate(this)">
 				<input type="hidden" name="action" value="inserisci">
 
 
@@ -44,15 +44,18 @@
 				<div class="form-group">
 					<label for="nome">Nome:</label> <input type="text" id="nome"
 						placeholder="Inserisci il nome" name="nome" required>
+						<p class="errore" id="nome-error"></p>
 				</div>
 				<div class="form-group">
 					<label for="quantita">Quantità di box disponibili:</label> <input
 						type="number" id="quantita" name="quantita" min="1"
 						placeholder="Inserisci la quantità di box disponibili" required>
+						<p class="errore" id="quantita-error"></p>
 				</div>
 				</div>
 				
 				<div class="input-row-tre">
+				<p class="errore" id="prezzo-error"></p>
 		            <div>
 		                <label for="prezzoS">Prezzo taglia S:</label>
 		                <input type="number" step="any" id="prezzoS" name="prezzoS"
@@ -189,6 +192,74 @@
 						preview.style.display = "none";
 					}
 				});
+		
+		function checkOnlyText(inputtxt) {
+			var name = /^[A-Za-z]+$/;;
+			if(inputtxt.value.match(name)) 
+				return true;
+
+			return false;	
+		}
+		
+		function checkOnlyNumber(input) {
+			var soloNumeri = /^\d+$/;
+			if(input.value.match(soloNumeri))
+				return true;
+			return  false;
+		}
+		
+		function checkOnlyPrice(input) {
+			var prezzo = /^\d+(\.\d{1,2})?$/;
+			if(input.value.match(prezzo))
+				return true;
+			return  false;
+		}
+		
+		function validate(obj) {	
+			var valid = true;	
+			
+			const nomeError = document.getElementById("nome-error");
+			const quantitaError = document.getElementById("quantita-error");
+			const prezzoError = document.getElementById("prezzo-error");
+			
+						
+			var nome = document.getElementById("nome");
+			var quantita = document.getElementById("quantita");
+			var prezzoS = document.getElementById("prezzoS");
+			var prezzoM = document.getElementById("prezzoM");
+			var prezzoL = document.getElementById("prezzoL");
+
+			
+			if(!checkOnlyText(nome)) {
+				valid = false;
+				nomeError.textContent = "Inserisci un nome valido";
+			}
+			
+			if(!checkOnlyNumber(quantita)) {
+				valid = false;
+				quantitaError.textContent = "Inserisci un numero valido";
+			}
+			
+			if(!checkOnlyPrice(prezzoS)) {
+				valid = false;
+				prezzoError.textContent = "Inserisci un prezzo valido";
+			}
+			
+			if(!checkOnlyPrice(prezzoM)) {
+				valid = false;
+				prezzoError.textContent = "Inserisci un prezzo valido";
+			}
+			
+			if(!checkOnlyPrice(prezzoL)) {
+				valid = false;
+				prezzoError.textContent = "Inserisci un prezzo valido";
+			}
+
+			if(valid){
+				obj.submit();
+			} 
+		}
+		
 	</script>
 
 </body>

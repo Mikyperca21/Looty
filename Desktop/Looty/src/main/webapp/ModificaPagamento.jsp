@@ -92,31 +92,36 @@ Metodo di pagamento preferito
 	
 	<div class="card-indirizzo">
     <h3>Aggiungi un nuovo metodo di pagamento</h3>
-    <form method="post" action="ModificaPagamento?action=aggiungi">
+    <form method="post" action="ModificaPagamento?action=aggiungi"  onsubmit="event.preventDefault(); validate(this)">
         
         <div class="input-row">
             <div>
                 <label for="titolare">Titolare della carta:</label>
-                <input type="text" name="titolare" placeholder="Titolare della carta" required>
+                <input type="text" name="titolare" placeholder="Titolare della carta" id="titolare" required>
+                <p class="errore" id="titolare-error" style="color:red;"></p>
             </div>
             <div>
                 <label for="codiceCarta">Inserire il codice della carta</label>
-                <input type="text" name="codiceCarta" placeholder="xxxx-xxxx-xxxx-xxxx" required maxlength="16">
+                <input type="text" name="codiceCarta" placeholder="xxxx-xxxx-xxxx-xxxx" id="codice" required maxlength="16">
+                <p class="errore" id="codice-error" style="color:red;"></p>
             </div>
         </div>
 
         <div class="input-row-tre">
             <div>
                 <label for="cvv">CVV</label>
-                <input type="text" name="cvv" placeholder="xxx" required maxlength="3"> 
+                <input type="text" name="cvv" placeholder="xxx" id="cvv" required maxlength="3"> 
+                <p class="errore" id="cvv-error" style="color:red;"></p>
             </div>
             <div>
                 <label for="meseScadenza">Mese di scadenza</label>
-                <input type="number" name="meseScadenza" min="1" max="12" required>
+                <input type="number" name="meseScadenza" id="mese" required>
+                <p class="errore" id="mese-error" style="color:red;"></p>
             </div>
             <div>
                 <label for="annoScadenza">Anno di scadenza</label>
-                <input type="number" name="annoScadenza" required min="2025" max="2030">
+                <input type="number" name="annoScadenza" id="anno" required >
+                <p class="errore" id="anno-error" style="color:red;"></p>
             </div>
         </div>
         <div class="container-aggiungi">
@@ -152,6 +157,90 @@ Metodo di pagamento preferito
 		        console.error("Errore nella comunicazione:", error);
 		        alert("Errore nell'impostare l'indirizzo preferito.");
 		    });
+		}
+		
+		function checkTitolare(input) {
+			var titolare = /^[A-Za-z\s]+$/;
+			if(input.value.match(titolare)){
+				return true;
+			} 
+
+			return false;	
+		}
+		
+		function checkOnlyNumber(input){
+			var numeri = /^\d+$/;
+			if(input.value.match(numeri)){
+				return true;
+			} 
+			return false;
+		}
+		
+		function checkMese(input) {
+			var mese = /^([1-9]|1[0-2])$/;
+			if(input.value.match(mese)){
+				return true;
+			} 
+
+			return false;	
+		}
+		
+		function checkAnno(input){
+			var anno = /^(202[6-9]|20[3-9][0-9]|2[1-9][0-9]{2}|[3-9][0-9]{3})$/;
+			if(input.value.match(anno)){
+				return true;
+			} 
+
+			return false;	
+		}
+		
+		function validate(obj) {	
+			var valid = true;	
+			
+			const titolareError = document.getElementById("titolare-error");
+			const codiceError = document.getElementById("codice-error");
+			const cvvError = document.getElementById("cvv-error");
+			const meseError = document.getElementById("mese-error");
+			const annoError = document.getElementById("anno-error");
+			
+
+						
+			var titolare = document.getElementById("titolare");
+			var codice = document.getElementById("codice");
+			var cvv = document.getElementById("cvv");
+			var mese = document.getElementById("mese");
+			var anno = document.getElementById("anno");
+
+			
+			
+			if(!checkTitolare(titolare)) {
+				valid = false;
+				titolareError.textContent = "Inserisci un nome valido";
+			}
+			
+			if(!checkOnlyNumber(codice)) {
+				valid = false;
+				codiceError.textContent = "Inserisci un codice valido";
+			}
+			
+			if(!checkOnlyNumber(cvv)) {
+				valid = false;
+				cvvError.textContent = "Inserisci un cvv valido";
+			}
+			
+			if(!checkMese(mese)) {
+				valid = false;
+				meseError.textContent = "Inserisci un mese valido";
+			}
+			
+			if(!checkAnno(anno)) {
+				valid = false;
+				annoError.textContent = "Inserisci un anno valido";
+			}
+
+			if(valid){
+				obj.submit();
+			} 
 		}
 
 

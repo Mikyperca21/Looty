@@ -17,10 +17,7 @@ CREATE TABLE prodotti (
   prezzoM FLOAT DEFAULT 0,
   prezzoL FLOAT DEFAULT 0,
   quantita INT DEFAULT 0,
-  immagine VARCHAR(255),
-  id_categoria INT NOT NULL DEFAULT 1,
-  
-  FOREIGN KEY(id_categoria) REFERENCES categoria(id)
+  immagine VARCHAR(255)
 );
 
 CREATE TABLE appartiene (

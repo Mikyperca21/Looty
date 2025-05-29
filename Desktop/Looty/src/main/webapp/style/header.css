@@ -1,16 +1,17 @@
-@charset "ISO-8859-1";
+@charset "UTF-8";
 
 /* stile "totale" per decorazioni linke ecc. */
 
-#categorieOutput{
-	position: absolute; 
- 	background: white; 
-  	border: 1px solid #ccc; 
-  	display: none; 
-  	width: 100%; 
-  	z-index: 1000;
-  	padding: 10px;
-  	box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+#categorieOutput {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    min-width: 200px;
 }
 
 *{

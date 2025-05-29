@@ -42,6 +42,12 @@ VALUES ('Laura', 'Bianchi', 'admin@admin.com', 'c7ad44cbad762a5da0a452f9e854fdc1
 INSERT INTO utente (nome, cognome, email, pass, ruolo)
 VALUES ('Giulia', 'Verdi', 'utente@gmail.com', 'c7e44f02b10b08a958ce28eec7ea08f455e4cbb38cdf44c340405d0815826733582e588b2435d6caf5316b91626f360e0bdd500420ae0185f4b732db3aff0e0d', false);
 
+ -- Insert indirizzi
+INSERT INTO indirizzo (id_utente, etichetta, via, citta, cap, provincia, paese, telefono, is_preferito)
+VALUES 
+(1, 'Casa', 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567', true),
+(1, 'Lavoro', 'Via Garibaldi 50', 'Milano', '20122', 'MI', 'Italia', '3399876543', false);
+
 -- Insert metodi di pagamento
 INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
 VALUES (1111222233334444, 'Mario Rossi', 1, 123, 3, 2027, true);
@@ -51,24 +57,24 @@ VALUES (2222444466668888, 'Mario Rossi', 1, 123, 3, 2024, false);
 
 -- Insert ordini + dettagli
 -- Ordine 1
-INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
-VALUES (1, '2024-01-15 10:34:21', 99.99,  'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (1, 2, '2024-01-15 10:34:21', 99.99);
 
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (1, 1, 1, 29.99);
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES (1, 1, 1, 'S', 29.99);
 
 -- Ordine 2
-INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
-VALUES (1, '2024-03-22 14:12:50', 149.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (1, 2, '2024-03-22 14:12:50', 149.98);
 
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (2, 2, 1, 39.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (2, 3, 1, 19.99);
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES (2, 2, 1, 'M', 39.99);
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES (2, 3, 1, 'L', 19.99);
 
 -- Ordine 3
-INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
-VALUES (1, '2024-05-03 09:48:10', 59.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (2, 1, '2024-05-03 09:48:10', 59.98);
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (3, 4, 1, 10.99);
@@ -76,53 +82,41 @@ INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
 VALUES (3, 5, 1, 49.99);
 
 -- Ordine 4
-INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
-VALUES (1, '2024-07-19 19:22:05', 299.97, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (2, 1, '2024-07-19 19:22:05', 299.97);
 
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (4, 6, 1, 99.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (4, 7, 1, 99.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (4, 8, 1, 99.99);
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES (4, 6, 1, 'M', 99.99),
+(4, 7, 1, 'L', 99.99),
+(4, 8, 1, 'S', 99.99);
 
 -- Ordine 5
-INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono)
-VALUES (1, '2024-10-05 16:40:33', 199.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (2, 1, '2024-10-05 16:40:33', 199.98);
 
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (5, 1, 1, 29.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (5, 2, 1, 39.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (5, 3, 1, 19.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (5, 4, 1, 10.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (5, 5, 1, 49.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (5, 6, 1, 99.99);
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES (5, 1, 1, 'M', 29.99),
+ (5, 2, 1, 'M', 39.99),
+ (5, 3, 1, 'S', 19.99),
+ (5, 4, 1,'S', 10.99),
+ (5, 5, 1,'M', 49.99),
+ (5, 6, 1,'L', 99.99);
 
-INSERT INTO ordine (id_utente, data_ordine, totale, via, citta, cap, provincia, paese, telefono) VALUES
-(3, '2024-03-05 23:46:00', 39.99, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567'),
-(3, '2024-01-04 20:22:00', 329.96, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567'),
-(3, '2024-03-16 10:05:00', 59.99, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567'),
-(3, '2024-01-21 04:34:00', 219.98, 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567');
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale) VALUES
+(1, 2, '2024-03-05 23:46:00', 39.99),
+(2,1, '2024-01-04 20:22:00', 329.96),
+(2,1, '2024-03-16 10:05:00', 59.99),
+(1,2 , '2024-01-21 04:34:00', 219.98);
 
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario) VALUES
-(6, 2, 1, 39.99),
-(7, 8, 1, 99.99),
-(7, 1, 1, 29.99),
-(7, 9, 2, 99.99),
-(8, 4, 1, 59.99),
-(9, 10, 1, 109.99),
-(9, 8, 1, 109.99);
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario) VALUES
+(6, 2, 1,'M', 39.99),
+(7, 8, 1,'M', 99.99),
+(7, 1, 1,'S', 29.99),
+(7, 9, 2,'M', 99.99),
+(8, 4, 1,'L', 59.99),
+(9, 10, 1,'M', 109.99),
+(9, 8, 1,'L', 109.99);
 
- -- Insert indirizzi
-INSERT INTO indirizzo (id_utente, etichetta, via, citta, cap, provincia, paese, telefono, is_preferito)
-VALUES 
-(1, 'Casa', 'Via Roma 12', 'Milano', '20100', 'MI', 'Italia', '3331234567', true),
-(1, 'Lavoro', 'Via Garibaldi 50', 'Milano', '20122', 'MI', 'Italia', '3399876543', false);
 
 -- Insert categorie
 INSERT INTO categoria (nome)

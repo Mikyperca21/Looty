@@ -35,7 +35,8 @@
 					<nav class = "top-nav">
 						<ul class = "nav-ul">
 							<li class = "nav-item" id = "catBtn">
-								<a href= "#" class = "nav-link"><span class="material-symbols-outlined">category</span></a>
+								<a href= "Catalogo.jsp" class = "nav-link"><span class="material-symbols-outlined">category</span></a>
+								
 								<!-- <a href= "#" class = "nav-link">Categoria</a> -->
 							</li>
 							<li class = "nav-item">
@@ -49,9 +50,8 @@
 					</nav>
 				</div>
 			</div>
+			<div id = "categorieOutput"></div>
 			
-			<div id = "categorieOutput">
-			</div>
 		</header>
 		
 		<script type="text/javascript">

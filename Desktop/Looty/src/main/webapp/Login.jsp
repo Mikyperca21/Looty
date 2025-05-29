@@ -23,25 +23,53 @@
 	
 		<div class = "login-container">
 			<div class = "login-content">
-				<form action = "<%=request.getContextPath()%>/login" method = "post">
-				<% if (request.getAttribute("errore") != null) { %>
-    <div class="errore"><%= request.getAttribute("errore") %></div>
-<% } %>
+				<form action = "<%=request.getContextPath()%>/login" method = "post" onsubmit="event.preventDefault(); validate(this)">
+						
+						<p style="color:red;" id="email-error"></p>
 						<div class="form-row">
-						<input name = "email" class = "login" type = "text" placeholder = "E-mail" required = "true"/>
+						<input id = "email" name = "email" class = "login" type = "text" placeholder = "E-mail" required/>
+						
 						</div>
 						<div class="form-row">
-						<input name = "password" class = "login" type = "password" placeholder = "Password" required = "true"/>
+						<input id = "password" name = "password" class = "login" type = "password" placeholder = "Password" required/>
 						</div>
 						<input class = "login" type = "submit" value = "Login"/>
 						<i><a id = "link-registrati" href = "Registrazione.jsp">Altrimenti registrati</a></i>
 					
 				</form>
 			</div>
-		</div>
+		</div>	
 		
 		<div class="container-footer">
 			<%@ include file="Footer.jsp"%>
 		</div>
+		
+		<script>
+		function checkEmail(inputtxt) {
+			var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			if(inputtxt.value.match(email)){
+				return true;
+			} 
+
+			return false;	
+		}
+
+		
+		function validate(obj) {	
+			var valid = true;	
+			
+			const emailError = document.getElementById("email-error");
+						
+			var email = document.getElementById("email");
+			if(!checkEmail(email)) {
+				valid = false;
+				emailError.textContent = "Inserisci un'email valida";
+			}
+
+			if(valid){
+				obj.submit();
+			} 
+		}
+		</script>
 	</body>
 </html>

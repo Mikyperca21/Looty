@@ -56,7 +56,7 @@ public class login extends HttpServlet {
 		        response.sendRedirect("ProfiloUtente.jsp");
 		        return;
 		    } else {
-		    	request.setAttribute("errore", "Username o password non validi!");
+		    	//request.setAttribute("errore", "Username o password non validi!");
 		        dispatcherToLoginPage.forward(request, response);
 		    }
 
