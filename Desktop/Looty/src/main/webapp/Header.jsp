@@ -34,7 +34,7 @@
 										
 					<nav class = "top-nav">
 						<ul class = "nav-ul">
-							<li class = "nav-item">
+							<li class = "nav-item" id = "catBtn">
 								<a href= "#" class = "nav-link"><span class="material-symbols-outlined">category</span></a>
 								<!-- <a href= "#" class = "nav-link">Categoria</a> -->
 							</li>
@@ -49,6 +49,65 @@
 					</nav>
 				</div>
 			</div>
+			
+			<div id = "categorieOutput">
+			</div>
 		</header>
+		
+		<script type="text/javascript">
+			const btn = document.getElementById("catBtn");
+		  const output = document.getElementById("categorieOutput");
+
+		  // Funzione per posizionare output sotto il bottone
+		  function posizionaOutput() {
+		    const rect = btn.getBoundingClientRect();
+		    output.style.top = (rect.bottom + window.scrollY) + "px";
+		    output.style.left = (rect.left + window.scrollX) + "px";
+		    output.style.width = rect.width + "px";  // stessa larghezza del bottone (opzionale)
+		  }
+
+		  // Variabile per tracciare se il mouse è dentro bottone o output
+		  let mouseInside = false;
+
+		  // Mostra e carica dati
+		  btn.addEventListener("mouseenter", () => {
+		    mouseInside = true;
+		    posizionaOutput();
+		    output.style.display = "block";
+
+		    const xhr = new XMLHttpRequest();
+		    xhr.open("GET", "categorie", true);
+		    xhr.onreadystatechange = function () {
+		      if (xhr.readyState === 4 && xhr.status === 200) {
+		        output.innerHTML = xhr.responseText;
+		      }
+		    };
+		    xhr.send();
+		  });
+
+		  // Nascondi se esci da bottone e output
+		  function checkHide(e) {
+		    // Se mouse esce da bottone o output, aspetta e nascondi solo se mouse non entra in nessuno dei due
+		    setTimeout(() => {
+		      if (!mouseInside) {
+		        output.style.display = "none";
+		      }
+		    }, 100); // piccolo delay per lasciare tempo a mouse di passare tra i due elementi
+		  }
+
+		  btn.addEventListener("mouseleave", () => {
+		    mouseInside = false;
+		    checkHide();
+		  });
+
+		  output.addEventListener("mouseenter", () => {
+		    mouseInside = true;
+		  });
+
+		  output.addEventListener("mouseleave", () => {
+		    mouseInside = false;
+		    checkHide();
+		  });
+		</script>
 	</body>
 </html>

@@ -5,13 +5,21 @@
 	import="java.util.*, model.categoriaBean"%>
  
 <%
- List<categoriaBean> categorie = (List<categoriaBean>) request.getAttribute("categorie");
+ 	List<categoriaBean> categorie = (List<categoriaBean>) request.getAttribute("categorie");
+ 	
+ 	if(categorie == null){
+%>
+ 	<p>Ancora nessuna categoria</p>		
+<%
+		return;
+ 	}
 %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<link rel = "stylesheet" href = "style/TabellaCat.css"/>
 	</head>
 	<body>
 		<table border = "1">
