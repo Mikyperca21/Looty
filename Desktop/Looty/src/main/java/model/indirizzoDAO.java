@@ -30,7 +30,7 @@ public class indirizzoDAO {
     }
 
     public indirizzoBean doRetrieveById(int id) throws SQLException {
-        String sql = "SELECT * FROM indirizzo WHERE id = ?";
+        String sql = "SELECT * FROM indirizzo WHERE id = ? ";
         indirizzoBean indirizzo = null;
 
         try (Connection con = DriverManagerConnectionPool.getConnection();
@@ -57,7 +57,7 @@ public class indirizzoDAO {
 
     public List<indirizzoBean> doRetrieveByUtente(int idUtente) throws SQLException {
         List<indirizzoBean> indirizzi = new ArrayList<>();
-        String sql = "SELECT * FROM indirizzo WHERE id_utente = ?";
+        String sql = "SELECT * FROM indirizzo WHERE id_utente = ? AND valido=true";
 
         try (Connection con = DriverManagerConnectionPool.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {

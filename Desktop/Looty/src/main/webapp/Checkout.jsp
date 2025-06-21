@@ -68,7 +68,7 @@ if (utente == null) {
             <h3>Indirizzo di Spedizione</h3>
             <%if (indirizzo == null ) { %>
             	<a href="ModificaIndirizzo.jsp">Inserisci un indirizzo</a>	
-            <% } else { %>>
+            <% } else { %>
             	<p><strong>Destinatario:</strong> <%= utente.getNome() %> <%= utente.getCognome() %></p>
 	            <p><%= indirizzo.getVia() %>, <%= indirizzo.getCitta() %> (<%= indirizzo.getProvincia() %>), <%= indirizzo.getCap() %></p>
 	            <p><%= indirizzo.getPaese() %></p>
@@ -89,7 +89,7 @@ if (utente == null) {
 		    String formatoCarta = "xxxx-xxxx-xxxx-" + numeroCarta.substring(numeroCarta.length() - 4);
             %>
             <p><strong>Numero carta:</strong> <%= formatoCarta %></p>
-            <a href="ModificaPagamento.jsp">Modifica metodo di pagamento</a>%>
+            <a href="ModificaPagamento.jsp">Modifica metodo di pagamento</a>
             	
             <% } %>
         </div>
@@ -98,14 +98,20 @@ if (utente == null) {
             <p><strong>Totale ordine:</strong> €<%= String.format("%.2f", totale) %></p>
         </div>
 
-        <form class="checkout-form" action="acquisto" method="post">
-            <input type="hidden" name="via" value="<%= indirizzo.getVia() %>">
-            <input type="hidden" name="citta" value="<%= indirizzo.getCitta() %>">
-            <input type="hidden" name="cap" value="<%= indirizzo.getCap() %>">
-            <input type="hidden" name="provincia" value="<%= indirizzo.getProvincia() %>">
-            <input type="hidden" name="paese" value="<%= indirizzo.getPaese() %>">
-            <input type="hidden" name="telefono" value="<%= indirizzo.getTelefono() %>">
-            <button type="submit">Conferma e Acquista</button>
+        <% if (indirizzo != null && metodoPreferito!= null) { %>
+    <form class="checkout-form" action="acquisto" method="post">
+        <input type="hidden" name="via" value="<%= indirizzo.getVia() %>">
+        <input type="hidden" name="citta" value="<%= indirizzo.getCitta() %>">
+        <input type="hidden" name="cap" value="<%= indirizzo.getCap() %>">
+        <input type="hidden" name="provincia" value="<%= indirizzo.getProvincia() %>">
+        <input type="hidden" name="paese" value="<%= indirizzo.getPaese() %>">
+        <input type="hidden" name="telefono" value="<%= indirizzo.getTelefono() %>">
+        <button type="submit">Conferma e Acquista</button>
+    </form>
+<% } else { %>
+    <p style="color:red;">Devi inserire un indirizzo ed il metodo di pagamento prima di poter concludere l'acquisto.</p>
+<% } %>
+
         </form>
     </div>
 </div>

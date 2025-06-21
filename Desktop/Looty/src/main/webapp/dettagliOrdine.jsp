@@ -13,6 +13,15 @@
 <div class="container-header">
 		<%@ include file="Header.jsp"%>
 	</div>
+	
+	<div class="only-print">
+  <h4>Looty s.r.l.</h4>
+<p>Fisciano - Italia</p>
+<p>P. IVA: 00000000000</p>
+<p>Telefono: 123123123 </p>
+<p>Email: lootysrl@gmail.com</p>
+  
+</div>
 
 
 <h2>Dettagli Ordine</h2>
@@ -29,7 +38,7 @@
 <div class="dettagli-ordine">
     <div class="ordine-header">
     <h3>Codice ordine: <%= ordine.getId() %></h3>
-    <a href="generarePDF.jsp?idOrdine=<%= ordine.getId() %>" class="action-button" title="Scarica Fattura">
+    <a onclick="window.print()" class="action-button" title="Scarica Fattura">
         <span class="material-symbols-outlined">picture_as_pdf</span>
     </a>
 </div>

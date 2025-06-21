@@ -16,6 +16,10 @@ body {
     padding: 0;
 }
 
+.only-print {
+  display: none;
+}
+
 h2 {
     text-align: center;
     color: #173b45;
@@ -160,3 +164,22 @@ h2 {
         padding: 6px;
     }
 }
+
+ @media print {
+    header, footer, nav {
+      display: none !important;
+    }
+    
+    .only-print {
+    display: block !important;
+    margin-bottom: 20px;
+  }
+
+    body {
+      margin: 0;
+    }
+
+    #fattura {
+      page-break-after: always;
+    }
+  }

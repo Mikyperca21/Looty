@@ -69,5 +69,6 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 	<div class="container-footer">
 		<%@ include file="Footer.jsp"%>
 	</div>
+	
 </body>
 </html>

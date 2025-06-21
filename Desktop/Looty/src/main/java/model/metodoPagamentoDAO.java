@@ -50,7 +50,7 @@ public class metodoPagamentoDAO {
 
 	public List<metodoPagamentoBean> doRetrieveByUtente(int idUtente) throws SQLException {
 	    List<metodoPagamentoBean> metodi = new ArrayList<>();
-	    String selectSQL = "SELECT * FROM metodoPagamento WHERE id_utente = ?";
+	    String selectSQL = "SELECT * FROM metodoPagamento WHERE id_utente = ? AND valido=true";
 	    
 	    try (
 	        Connection con = DriverManagerConnectionPool.getConnection();

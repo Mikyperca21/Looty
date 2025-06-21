@@ -86,5 +86,29 @@
 	<div class="container-footer">
 		<%@ include file="Footer.jsp"%>
 	</div>
+	<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const forms = document.querySelectorAll(".carrello-form");
+
+    forms.forEach(form => {
+        form.addEventListener("submit", function(e) {
+            const button = form.querySelector(".action-button");
+            const icon = button.querySelector(".material-symbols-outlined");
+
+            // Cambia colore bottone
+            icon.style.backgroundColor = "#4CAF50"; 
+            icon.style.color = "#FFFFFF"
+            icon.textContent = "check"; 
+            button.disabled = true;
+
+            setTimeout(() => {
+                icon.textContent = "add_shopping_cart"; 
+                button.disabled = false;
+            }, 5000);
+        });
+    });
+});
+</script>
+	
 </body>
 </html>

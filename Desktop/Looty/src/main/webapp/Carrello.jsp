@@ -32,8 +32,8 @@ double totale = 0.0;
 			%>
 			<div class="card">
 				<div class="product-image">
-					<img src="<%=prodCarr.getProdotto().getImmagine()%>"
-						alt="Immagine prodotto">
+					<a href="dettaglioProdotto?action=getProdotto&id=<%=prodCarr.getProdotto().getCodice()%>"><img src="<%=prodCarr.getProdotto().getImmagine()%>"
+						alt="Immagine prodotto"> </a>
 				</div>
 				<div class="product-details">
 					<h3><%=prodCarr.getProdotto().getNome()%></h3>
