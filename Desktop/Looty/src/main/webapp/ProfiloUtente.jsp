@@ -88,6 +88,12 @@ logout
 				<p>Aggiungi, rimuovi o modifica prodotti.</p>
 			</a>
 		</div> 
+		<div class="box">
+			<a href = "categorieAdmin">
+				<span class="material-symbols-outlined">category</span>
+				<p>Aggiungi, rimuovi o modifica categorie.</p>
+			</a>
+		</div> 
 	<% } %>
   </div>
 </div>

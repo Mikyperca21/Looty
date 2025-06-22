@@ -23,7 +23,7 @@ if (utente == null) {
 	<div class="container-form">
 	<form action="ModificaUtente" method="post" id="modificaForm">
 		
-		 <label for="nome">Nome:</label>
+	<label for="nome">Nome:</label>
     <input type="text" name="nome" value="<%=utente.getNome()%>" required readonly><br>
     
     <label for="cognome">Cognome:</label>

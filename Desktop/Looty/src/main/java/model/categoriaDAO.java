@@ -112,4 +112,28 @@ public class categoriaDAO {
 		}
 		return (result != 0);
 	}
+	
+	public synchronized void doUpdate(categoriaBean categoria) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    String updateSQL = "UPDATE categoria SET nome=? WHERE id = ?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(updateSQL);
+	        preparedStatement.setString(1, categoria.getNome());
+	        preparedStatement.setInt(2, categoria.getId());
+	        
+
+	        preparedStatement.executeUpdate();
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null) preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
 }
