@@ -94,18 +94,19 @@ public class indirizzoDAO {
     }
     
     public void doUpdate(indirizzoBean indirizzo) throws SQLException {
-        String sql = "UPDATE indirizzo SET via = ?, citta = ?, cap = ?, provincia = ?, paese = ?, telefono = ? WHERE id = ?";
+        String sql = "UPDATE indirizzo SET etichetta = ?, via = ?, citta = ?, cap = ?, provincia = ?, paese = ?, telefono = ? WHERE id = ?";
 
         try (Connection con = DriverManagerConnectionPool.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, indirizzo.getVia());
-            ps.setString(2, indirizzo.getCitta());
-            ps.setString(3, indirizzo.getCap());
-            ps.setString(4, indirizzo.getProvincia());
-            ps.setString(5, indirizzo.getPaese());
-            ps.setString(6, indirizzo.getTelefono());
-            ps.setInt(7, indirizzo.getId());
+        	
+        	ps.setString(1, indirizzo.getEtichetta());
+            ps.setString(2, indirizzo.getVia());
+            ps.setString(3, indirizzo.getCitta());
+            ps.setString(4, indirizzo.getCap());
+            ps.setString(5, indirizzo.getProvincia());
+            ps.setString(6, indirizzo.getPaese());
+            ps.setString(7, indirizzo.getTelefono());
+            ps.setInt(8, indirizzo.getId());
 
             ps.executeUpdate();
         }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, model.prodottoBean, model.Carrello"%>
+<%@ page import="java.util.*, model.prodottoBean, model.Carrello, model.categoriaBean"%>
 
 <%
 	utenteBean utente = (utenteBean) session.getAttribute("utenteLoggato");
@@ -84,6 +84,25 @@
 						placeholder="Inserisci una descrizione della box" required></textarea>
 				</div>
 				</div>
+				
+				<div class="input-row-tre">
+					<p class="errore" id="prezzo-error"></p>
+					
+					<%	Collection<categoriaBean> cats = (Collection<categoriaBean>) request.getAttribute("categorie");				
+						
+					if (cats != null && cats.size() != 0) {
+						Iterator<?> it = cats.iterator();
+						while (it.hasNext()) {
+							categoriaBean categoria = (categoriaBean) it.next();
+					%>
+							<label for = "categoria<%= categoria.getId() %>"><%= categoria.getNome() %></label>
+							<input type="checkbox" id="categoria<%= categoria.getId() %>" name="categoriaID" value="<%= categoria.getId() %>">
+					<%
+						}
+						
+					}
+					%>
+		        </div>
 				
 				<p>Nota: per l'acquisto della box di dimensione S verrà scalata una quantità dal magazzino, per l'acquisto di una box di taglia media 
 					verranno scalate due unità dal magazzino e per l'acquisto della box di dimensione L verranno scalate tre unità dal magazzino</p>

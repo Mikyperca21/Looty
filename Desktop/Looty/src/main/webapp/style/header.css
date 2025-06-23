@@ -5,13 +5,13 @@
 #categorieOutput {
     position: absolute;
     background-color: white;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     padding: 10px;
     z-index: 1000;
     display: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
-    min-width: 200px;
+    min-width: 200px;	
 }
 
 *{

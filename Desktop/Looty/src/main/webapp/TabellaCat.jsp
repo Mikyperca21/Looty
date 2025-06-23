@@ -9,7 +9,7 @@
  	
  	if(categorie == null){
 %>
- 	<p>Ancora nessuna categoria</p>		
+ 		<p>Ancora nessuna categoria</p>		
 <%
 		return;
  	}
@@ -19,12 +19,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<link rel = "stylesheet" href = "style/TabellaCat.css"/>
 	</head>
 	<body>
-		<table border = "1">
+		<table>
 			<% for(categoriaBean cat : categorie){ %>
-				<tr><th><%= cat.getNome() %></th></tr>
+				<tr><th><a href = "catalogo?categoria=<%= cat.getId() %>"><%= cat.getNome() %></a></th></tr>
 			<% } %>
 		</table>
 	</body>

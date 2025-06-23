@@ -17,6 +17,9 @@ import javax.servlet.http.Part;
 
 import model.Carrello;
 import model.ElementoCarrello;
+import model.appartieneDAO;
+import model.categoriaBean;
+import model.categoriaDAO;
 import model.prodottoBean;
 import model.prodottoDAO;
 import model.utenteBean;
@@ -27,7 +30,7 @@ public class catalogo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	prodottoDAO dao = new prodottoDAO();
-
+	categoriaDAO cat = new categoriaDAO();
 	public catalogo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -49,6 +52,8 @@ public class catalogo extends HttpServlet {
 			if (action != null) {
 				if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
+					appartieneDAO categorie = new appartieneDAO();
+					categorie.doDeleteProdotto(id);
 					dao.doDelete(id);
 				}
 				if (action.equalsIgnoreCase("inserisci")) {
@@ -60,7 +65,8 @@ public class catalogo extends HttpServlet {
 					int quantita = Integer.parseInt(request.getParameter("quantita"));
 					Part filePart = request.getPart("immagine");
 			        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-
+			        String[] categorie = request.getParameterValues("categoriaID");
+			    
 			       
 			        String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
 			        File uploadDir = new File(uploadPath);
@@ -81,7 +87,22 @@ public class catalogo extends HttpServlet {
 					bean.setPrezzoL(prezzoL);
 					bean.setQuantita(quantita);
 					bean.setImmagine(relativePath);
-					dao.doSave(bean);
+					int prodottoID = dao.doSave(bean);
+					System.out.println("ID prodotto generato: " + prodottoID);
+
+					
+					appartieneDAO assegnaDAO = new appartieneDAO();
+					
+			        if (categorie != null) {
+			            for (String catID : categorie) {
+			                int categoryId = Integer.parseInt(catID);
+			                //System.out.println(categoryId);
+			                System.out.println("Associo categoria " + categoryId + " al prodotto " + prodottoID);
+			                assegnaDAO.doSave(categoryId, prodottoID);
+			            }
+			        }
+			        response.sendRedirect("catalogo");
+			        return;
 				}
 				
 				if(action.equalsIgnoreCase("modify")) {
@@ -189,8 +210,10 @@ public class catalogo extends HttpServlet {
 			utenteBean quale = (utenteBean) request.getSession().getAttribute("utenteLoggato");
 			
 			Collection<prodottoBean> prodotti = dao.doRetrieveAll();
+			Collection<categoriaBean> cats = cat.doRetrieveAll();
 			request.setAttribute("prodotti", prodotti);
-
+			request.setAttribute("categorie", cats);
+			
 			if (quale != null && quale.getRuolo()) {
 			    // Utente loggato ed è un admin
 			    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/CatalogoAdmin.jsp");

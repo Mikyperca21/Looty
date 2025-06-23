@@ -11,7 +11,7 @@ public class appartieneDAO {
 		PreparedStatement ps = null; 
 		ResultSet rs = null;
 		
-		String insertSQL = "INSERT INTO appartiene (id_categoria, id_ prodotto) VALUES (?, ?)";
+		String insertSQL = "INSERT INTO appartiene (id_categoria, id_prodotti) VALUES (?, ?)";
 		
 		try {
             connection = DriverManagerConnectionPool.getConnection();
@@ -19,7 +19,7 @@ public class appartieneDAO {
             ps.setInt(1, id_categoria);
             ps.setInt(2, id_prodotto);
             
-
+            
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -46,6 +46,31 @@ public class appartieneDAO {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, id);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
+	}
+	public synchronized boolean doDeleteProdotto(int idProdotto) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "DELETE FROM appartiene" + " WHERE id_prodotti = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, idProdotto);
 
 			result = preparedStatement.executeUpdate();
 

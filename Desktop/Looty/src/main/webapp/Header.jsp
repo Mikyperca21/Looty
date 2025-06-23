@@ -50,6 +50,7 @@
 					</nav>
 				</div>
 			</div>
+			
 			<div id = "categorieOutput"></div>
 			
 		</header>

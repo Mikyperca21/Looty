@@ -35,7 +35,7 @@ public class DriverManagerConnectionPool
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", username, password);
 
-		newConnection.setAutoCommit(true);
+		newConnection.setAutoCommit(false);//era true, non so se sarà da cambiare
 		return newConnection;
 	}
 

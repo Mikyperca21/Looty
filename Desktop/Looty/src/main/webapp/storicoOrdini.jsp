@@ -61,9 +61,9 @@
                             <a href="dettaglioOrdine?idOrdine=<%= ordine.getId() %>" class="action-button">
                                 <span class="material-symbols-outlined">info</span>
                             </a>
-                            <a href="#" class="action-button">
+                           <!--  <a onclick="window.print()" href="#" class="action-button">
                                 <span class="material-symbols-outlined">picture_as_pdf</span>
-                            </a>
+                            </a> -->
                         </td>
                     </tr>
                     <% } %>

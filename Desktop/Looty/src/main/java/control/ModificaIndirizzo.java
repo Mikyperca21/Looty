@@ -52,12 +52,15 @@ public class ModificaIndirizzo extends HttpServlet {
 	        else if(action.equalsIgnoreCase("modifica")) {
 	        	int id = Integer.parseInt(request.getParameter("id"));
 	            indirizzoBean indirizzo = dao.doRetrieveById(id);
+	            
+	            indirizzo.setEtichetta(request.getParameter("etichetta"));
 	            indirizzo.setVia(request.getParameter("via"));
 	            indirizzo.setCitta(request.getParameter("citta"));
 	            indirizzo.setCap(request.getParameter("cap"));
 	            indirizzo.setProvincia(request.getParameter("provincia"));
 	            indirizzo.setPaese(request.getParameter("paese"));
 	            indirizzo.setTelefono(request.getParameter("telefono"));
+	            
 	            dao.doUpdate(indirizzo);
 	        }
 	        else if(action.equalsIgnoreCase("aggiungi")) {

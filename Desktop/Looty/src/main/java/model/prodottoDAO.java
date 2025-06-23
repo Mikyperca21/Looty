@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 
 public class prodottoDAO {
 
-	public synchronized void doSave(prodottoBean prodotto) throws SQLException {
+	public synchronized int doSave(prodottoBean prodotto) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -19,7 +20,7 @@ public class prodottoDAO {
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, prodotto.getNome());
 			preparedStatement.setString(2, prodotto.getDescrizione());
 			preparedStatement.setFloat(3, prodotto.getPrezzoS());
@@ -30,7 +31,15 @@ public class prodottoDAO {
 
 			preparedStatement.executeUpdate();
 			
-			connection.commit();
+			ResultSet  rs = preparedStatement.getGeneratedKeys();
+		        if (rs.next()) {
+		            int generatedId = rs.getInt(1); // recupera l'ID generato
+		            connection.commit(); // commit dopo l'inserimento
+		            return generatedId;
+		        } else {
+		            connection.commit();
+		            return -1; // nessun ID generato
+		        }
 		} finally {
 			try {
 				if (preparedStatement != null)
