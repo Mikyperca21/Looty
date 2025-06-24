@@ -39,6 +39,8 @@ List<indirizzoBean> indirizzi = indirizzoDao.doRetrieveByUtente(idUtente);
 		<div class="container-form">
 			<div class="card-indirizzo" id="card-<%=i.getId()%>">
 				<form method="post" action="ModificaIndirizzo?action=modifica" onsubmit="event.preventDefault(); validate(this)">
+				<input type="hidden" name="id" value="<%= i.getId() %>">
+				
 					<div class="form-row">
 					    <label for="etichetta">Etichetta</label>
 					    <input type="text" id="etichetta" name="etichetta" 

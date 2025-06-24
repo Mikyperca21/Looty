@@ -88,6 +88,16 @@ input[type="submit"]:active {
 input::placeholder {
     font-family: 'Montserrat', Sans-serif;
 }
+.prezzo {
+    font-size: 18px;
+    color: #173b45;
+    margin-top: 10px;
+    background-color: #d8f1fa;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
 .container-footer {
     margin-top: 40px;

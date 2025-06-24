@@ -24,7 +24,7 @@
 		<table>
 			<% for(prodottoBean prod : prodotti){ %>
 				<!-- catalogo?categoria=%= cat.getId() %>  --> 
-				<tr><th><a href = "#"><%= prod.getNome() %></a></th></tr>
+				<tr><th><a href = "dettaglioProdotto?action=getProdotto&id=<%=prod.getCodice()%>"><%= prod.getNome() %></a></th></tr>
 			<% } %>
 		</table>
 	</body>

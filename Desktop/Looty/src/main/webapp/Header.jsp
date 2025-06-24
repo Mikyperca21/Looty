@@ -26,11 +26,7 @@
 					</a>
 					
 					<div class="search-container">
-						<form action="#">
-							<input id = "ricerca" onkeyup = "searchData()" type="text" placeholder="Cerca prodotti..." name="cerca">
-							<button type="submit"><i class="fa fa-search"></i></button>
-						</form>
-						
+						<input id = "ricerca" onkeyup = "searchData()" type="text" placeholder="Cerca prodotti..." name="cerca">
 						<div id="risultati"></div>
 					</div>
 				
@@ -53,34 +49,46 @@
 				</div>
 			</div>
 			
-			<div id = "categorieOutput"></div>
+			
 			
 		</header>
 		
+		<div id = "categorieOutput"></div>
+		
 		<script type="text/javascript">
+			// barra di ricerca	
+						
 			function searchData(){
 				var prodotto = document.getElementById("ricerca").value;
-				
-				if(prodotto.trim().length){
-					document.getElementById("risultati").innerHTML = "";
-					risultati.style.display = "none";
-					return;
-				}
-				
-				var xhr = new XMLHttpRequest();
-				xhr.open("GET", "search?query="+prodotto, true);
-				
-				xhr.onreadystatechange = function(){
-					if(xhr.status === 200 && xhr.readyState === 4){
-						document.getElementById("risultati").innerHTML = xhr.responseText;
-						risultati.style.display = "block";
-					}
-				};
-				
-				xhr.send();
+			    var risultati = document.getElementById("risultati");
+
+			    if(prodotto.trim().length == 0){
+			        risultati.innerHTML = "";
+			        risultati.style.display = "none";
+			        return;
+			    }
+
+			    var input = document.getElementById("ricerca");
+			    var rect = input.getBoundingClientRect();
+
+			    risultati.style.top = (rect.bottom) + "px";
+			    risultati.style.left = (rect.left) + "px";
+			    risultati.style.width = rect.width + "px";
+
+			    var xhr = new XMLHttpRequest();
+			    xhr.open("GET", "search?query=" + encodeURIComponent(prodotto), true);
+
+			    xhr.onreadystatechange = function(){
+			        if(xhr.status === 200 && xhr.readyState === 4){
+			            risultati.innerHTML = xhr.responseText;
+			            risultati.style.display = "block";
+			        }
+			    };
+
+			    xhr.send();
 			}
 		
-		
+		// categorie
 			const btn = document.getElementById("catBtn");
 		  const output = document.getElementById("categorieOutput");
 

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.*, model.prodottoBean, model.Carrello"%>
+<%@ page import="java.util.*, model.prodottoBean, model.Carrello, model.categoriaBean"%>
 
 <%
 prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
 Carrello carrello = (Carrello) session.getAttribute("carrello");
+Collection<categoriaBean> categorie = (Collection<categoriaBean>) request.getAttribute("categorieProdotto");
 %>
 
 <!doctype html>
@@ -27,6 +28,17 @@ Carrello carrello = (Carrello) session.getAttribute("carrello");
 			<div class="text">
 				<h1><%=prodotto.getNome()%></h1>
 				<p><%=prodotto.getDescrizione()%></p>
+				
+				<% if (categorie != null && !categorie.isEmpty()) { %>
+				   
+				    <% for (categoriaBean cat : categorie) { %>
+				    <p class="prezzo">
+						<%= cat.getNome() %>
+					</p>
+				    <% }} else { %>
+				    <p><em>Nessuna categoria assegnata a questo prodotto.</em></p>
+				<% } %>
+				
 				<form action="catalogo" method="post">
 					<%
 					if (prodotto.getQuantita() > 0) {

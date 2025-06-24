@@ -10,13 +10,6 @@ if (utente == null) {
 }
 %>
 <!DOCTYPE html>
-
-
-<%
-int idUtente = utente.getId();
-metodoPagamentoDAO metodoDAO = new metodoPagamentoDAO();
-List<metodoPagamentoBean> metodi = metodoDAO.doRetrieveByUtente(idUtente);
-%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -31,69 +24,59 @@ List<metodoPagamentoBean> metodi = metodoDAO.doRetrieveByUtente(idUtente);
 	</div>
 
 	<h2>Metodi di pagamento</h2>
-
-	
-		<%
-		for (metodoPagamentoBean metodo : metodi) {
-		%>
-		<div class="container-form">
-		
-	
-			<div class="card-indirizzo" id="card-<%=metodo.getId()%>">
-			
-			<div style="display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 10px;">
-  <i class="fa fa-cc-visa" style="color:navy; font-size: 24px;"></i>
-  <i class="fa fa-cc-amex" style="color:blue; font-size: 24px;"></i>
-  <i class="fa fa-cc-mastercard" style="color:red; font-size: 24px;"></i>
-  <i class="fa fa-cc-discover" style="color:orange; font-size: 24px;"></i>
-</div>
-
-<label>
-	<input type="radio" name="preferito"
-	value="<%=metodo.getId()%>"
-	<%=metodo.isPreferito() ? "checked" : "" %>
-	onchange="impostaPreferito(<%=metodo.getId()%>)">
-Metodo di pagamento preferito
-
-</label>
-
-
-
-            
-            <p> <strong>Titolare: </strong> <%= metodo.getTitolare() %>
-				<p>
-					<strong>Codice carta:</strong>
-					<%=metodo.getCodiceCarta()%>
-				</p>
-				<p>
-					<strong>Data scadenza: </strong>
-					<%=metodo.getMeseScadenza()%>
-					/
-					<%=metodo.getAnnoScadenza()%>
-				</p>
-				
-				<div class="container-delete">
-				<form method="post" action="ModificaPagamento?action=elimina"
-					onsubmit="return confirm('Sicuro di eliminare?')">
-					<input type="hidden" name="id" value="<%=metodo.getId()%>">
-					<button type="submit">
-						<span class="material-symbols-outlined">delete</span> Elimina
-						metodo di pagamento
-					</button>
-				</form>
-				</div>
-			</div>
-		</div>
-
-
 	<%
-	}
-	%>
-	
+Collection<?> metodi = (Collection<?>) request.getAttribute("metodi");
+if (metodi == null) {
+    response.sendRedirect(request.getContextPath() + "/ModificaPagamento");
+    return;
+}
+
+if (metodi.isEmpty()) {
+%>
+    
+<%
+} else {
+    for (Object obj : metodi) {
+        metodoPagamentoBean metodo = (metodoPagamentoBean) obj;
+%>
+        <div class="container-form">
+            <div class="card-indirizzo" id="card-<%=metodo.getId()%>">
+                <!-- Icone carte -->
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 10px;">
+                    <i class="fa fa-cc-visa" style="color:navy; font-size: 24px;"></i>
+                    <i class="fa fa-cc-amex" style="color:blue; font-size: 24px;"></i>
+                    <i class="fa fa-cc-mastercard" style="color:red; font-size: 24px;"></i>
+                    <i class="fa fa-cc-discover" style="color:orange; font-size: 24px;"></i>
+                </div>
+                <label>
+                    <input type="radio" name="preferito" value="<%=metodo.getId()%>"
+                        <%=metodo.isPreferito() ? "checked" : "" %>
+                        onchange="impostaPreferito(<%=metodo.getId()%>)">
+                    Metodo di pagamento preferito
+                </label>
+                <p><strong>Titolare: </strong> <%= metodo.getTitolare() %></p>
+                <p><strong>Codice carta:</strong> <%=metodo.getCodiceCarta()%></p>
+                <p><strong>Data scadenza: </strong> <%=metodo.getMeseScadenza()%> / <%=metodo.getAnnoScadenza()%></p>
+                <div class="container-delete">
+                    <form method="post" action="ModificaPagamento?"
+                          onsubmit="return confirm('Sicuro di eliminare?')">
+                          <input type="hidden" name="action" value="elimina" />
+    <input type="hidden" name="id" value="<%=metodo.getId()%>" />
+                        <button type="submit">
+                            <span class="material-symbols-outlined">delete</span> Elimina metodo di pagamento
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+<%
+    }
+}
+%>
 	<div class="card-indirizzo">
     <h3>Aggiungi un nuovo metodo di pagamento</h3>
-    <form method="post" action="ModificaPagamento?action=aggiungi"  onsubmit="event.preventDefault(); validate(this)">
-        
+    <form method="post" action="ModificaPagamento"  onsubmit="event.preventDefault(); validate(this)">
+         <input type="hidden" name="action" value="aggiungi" />
         <div class="input-row">
             <div>
                 <label for="titolare">Titolare della carta:</label>
@@ -239,8 +222,8 @@ Metodo di pagamento preferito
 			}
 
 			if(valid){
-				obj.submit();
-			} 
+		        obj.submit(); 
+		    }  
 		}
 
 

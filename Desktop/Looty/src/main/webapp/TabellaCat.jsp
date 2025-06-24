@@ -23,7 +23,7 @@
 	<body>
 		<table>
 			<% for(categoriaBean cat : categorie){ %>
-				<tr><th><a href = "catalogo?categoria=<%= cat.getId() %>"><%= cat.getNome() %></a></th></tr>
+				<tr><th><a href = "catalogo?action=perCategoria&idCat=<%= cat.getId() %>"><%= cat.getNome() %></a></th></tr>
 			<% } %>
 		</table>
 	</body>
