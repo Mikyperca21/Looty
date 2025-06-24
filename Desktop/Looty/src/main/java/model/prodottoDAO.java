@@ -187,5 +187,52 @@ public class prodottoDAO {
 		}
 		return prodotti;
 	}
-
+	
+	
+	public synchronized Collection<prodottoBean> doRetrieveByName(String name) throws SQLException { // aggiungere come parametro:
+					// String order per ordinare
+					// prodotti
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+			
+		Collection<prodottoBean> prodotti = new LinkedList<prodottoBean>();
+		
+		String selectSQL = "SELECT * FROM prodotti WHERE nome LIKE ?";
+			
+			/*
+			* if (order != null && !order.equals("")) { selectSQL += " ORDER BY " + order;
+			* }
+			*/
+			
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, name + "%");	 // % è la wildcard di mysql che prende name + altri infiniti caratteri che possono venir dopo		
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				prodottoBean bean = new prodottoBean();
+				
+				bean.setCodice(rs.getInt("codice"));
+				bean.setNome(rs.getString("nome"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setPrezzoS(rs.getInt("prezzoS"));
+				bean.setPrezzoM(rs.getFloat("prezzoM"));
+				bean.setPrezzoL(rs.getFloat("prezzoL"));
+				bean.setQuantita(rs.getInt("quantita"));
+				bean.setImmagine(rs.getString("immagine"));
+				prodotti.add(bean);
+			}
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+						preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
+		return prodotti;
+	}
 }

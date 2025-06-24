@@ -27,11 +27,13 @@
 					
 					<div class="search-container">
 						<form action="#">
-							<input type="text" placeholder="Cerca prodotti..." name="cerca">
+							<input id = "ricerca" onkeyup = "searchData()" type="text" placeholder="Cerca prodotti..." name="cerca">
 							<button type="submit"><i class="fa fa-search"></i></button>
 						</form>
-					 </div>
-										
+						
+						<div id="risultati"></div>
+					</div>
+				
 					<nav class = "top-nav">
 						<ul class = "nav-ul">
 							<li class = "nav-item" id = "catBtn">
@@ -56,6 +58,29 @@
 		</header>
 		
 		<script type="text/javascript">
+			function searchData(){
+				var prodotto = document.getElementById("ricerca").value;
+				
+				if(prodotto.trim().length){
+					document.getElementById("risultati").innerHTML = "";
+					risultati.style.display = "none";
+					return;
+				}
+				
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", "search?query="+prodotto, true);
+				
+				xhr.onreadystatechange = function(){
+					if(xhr.status === 200 && xhr.readyState === 4){
+						document.getElementById("risultati").innerHTML = xhr.responseText;
+						risultati.style.display = "block";
+					}
+				};
+				
+				xhr.send();
+			}
+		
+		
 			const btn = document.getElementById("catBtn");
 		  const output = document.getElementById("categorieOutput");
 

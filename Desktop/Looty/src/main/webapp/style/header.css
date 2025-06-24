@@ -2,6 +2,19 @@
 
 /* stile "totale" per decorazioni linke ecc. */
 
+#risultati	{ /* stile per i suggerimenti della barra di ricerca */
+	position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+
 #categorieOutput {
     position: absolute;
     background-color: white;
