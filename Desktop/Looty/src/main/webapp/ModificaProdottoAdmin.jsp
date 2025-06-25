@@ -18,9 +18,8 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 <link rel="icon" href="images/LogoLooty_resized.png">
 </head>
 <body>
-<div class="container-header">
+
 		<%@ include file="Header.jsp"%>
-	</div>
 	
 	
 	<h2>Modifica Prodotto</h2>

@@ -25,9 +25,9 @@
 </head>
 <body>
 
-	<div class="container-header">
+
 		<%@ include file="Header.jsp"%>
-	<div>
+	
 	<h2>Modifica categorie</h2>
 	
 	 

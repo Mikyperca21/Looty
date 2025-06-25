@@ -219,13 +219,11 @@ input[type="number"]:disabled {
 @media (max-width: 1024px) {
     .carrello-container {
         flex-direction: column;
-        padding: 0 10px;
     }
 
     .articoli,
     .riepilogo {
         width: 100%;
-        padding: 10px;
     }
 }
 

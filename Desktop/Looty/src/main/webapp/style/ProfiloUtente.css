@@ -44,6 +44,7 @@ body {
 	padding: 8px 25px;
 	border-radius: 30px;
 	transition: all 0.3s ease;
+	align-items: center;
 }
 
 .user-content a:hover {
