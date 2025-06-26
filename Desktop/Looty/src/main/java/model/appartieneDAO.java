@@ -22,6 +22,7 @@ public class appartieneDAO {
             
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
+            connection.commit();
             if (rs.next()) {
                 return rs.getInt(1);
             } else {
@@ -48,6 +49,7 @@ public class appartieneDAO {
 			preparedStatement.setInt(1, id);
 
 			result = preparedStatement.executeUpdate();
+			connection.commit();
 
 		} finally {
 			try {
@@ -73,6 +75,7 @@ public class appartieneDAO {
 			preparedStatement.setInt(1, idProdotto);
 
 			result = preparedStatement.executeUpdate();
+			connection.commit();
 
 		} finally {
 			try {

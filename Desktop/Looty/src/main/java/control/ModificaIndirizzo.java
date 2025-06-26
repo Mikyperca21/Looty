@@ -66,6 +66,7 @@ public class ModificaIndirizzo extends HttpServlet {
 	        else if(action.equalsIgnoreCase("aggiungi")) {
 	        	indirizzoBean nuovo = new indirizzoBean();
 	            nuovo.setIdUtente(idUtente);
+	            nuovo.setEtichetta(request.getParameter("etichetta"));
 	            nuovo.setVia(request.getParameter("via"));
 	            nuovo.setCitta(request.getParameter("citta"));
 	            nuovo.setCap(request.getParameter("cap"));

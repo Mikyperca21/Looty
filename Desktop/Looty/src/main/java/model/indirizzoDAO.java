@@ -7,20 +7,22 @@ import java.util.List;
 public class indirizzoDAO {
 
     public synchronized int doSave(indirizzoBean indirizzo) throws SQLException {
-        String sql = "INSERT INTO indirizzo (id_utente, via, citta, cap, provincia, paese, telefono) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO indirizzo (id_utente, etichetta, via, citta, cap, provincia, paese, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManagerConnectionPool.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, indirizzo.getIdUtente());
-            ps.setString(2, indirizzo.getVia());
-            ps.setString(3, indirizzo.getCitta());
-            ps.setString(4, indirizzo.getCap());
-            ps.setString(5, indirizzo.getProvincia());
-            ps.setString(6, indirizzo.getPaese());
-            ps.setString(7, indirizzo.getTelefono());
+            ps.setString(2, indirizzo.getEtichetta());
+            ps.setString(3, indirizzo.getVia());
+            ps.setString(4, indirizzo.getCitta());
+            ps.setString(5, indirizzo.getCap());
+            ps.setString(6, indirizzo.getProvincia());
+            ps.setString(7, indirizzo.getPaese());
+            ps.setString(8, indirizzo.getTelefono());
 
             ps.executeUpdate();
+            con.commit();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) return rs.getInt(1);
@@ -30,18 +32,20 @@ public class indirizzoDAO {
     }
 
     public indirizzoBean doRetrieveById(int id) throws SQLException {
-        String sql = "SELECT * FROM indirizzo WHERE id = ? ";
+        String sql = "SELECT * FROM indirizzo WHERE id = ? AND valido=true ";
         indirizzoBean indirizzo = null;
 
         try (Connection con = DriverManagerConnectionPool.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, id);
+            con.commit();
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     indirizzo = new indirizzoBean();
                     indirizzo.setId(rs.getInt("id"));
                     indirizzo.setIdUtente(rs.getInt("id_utente"));
+                    indirizzo.setEtichetta(rs.getString("etichetta"));
                     indirizzo.setVia(rs.getString("via"));
                     indirizzo.setCitta(rs.getString("citta"));
                     indirizzo.setCap(rs.getString("cap"));
@@ -63,11 +67,13 @@ public class indirizzoDAO {
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idUtente);
+            con.commit();
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     indirizzoBean indirizzo = new indirizzoBean();
                     indirizzo.setId(rs.getInt("id"));
                     indirizzo.setIdUtente(rs.getInt("id_utente"));
+                    indirizzo.setEtichetta(rs.getString("etichetta"));
                     indirizzo.setVia(rs.getString("via"));
                     indirizzo.setCitta(rs.getString("citta"));
                     indirizzo.setCap(rs.getString("cap"));
@@ -90,6 +96,7 @@ public class indirizzoDAO {
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
+            con.commit();
         }
     }
     
@@ -109,6 +116,7 @@ public class indirizzoDAO {
             ps.setInt(8, indirizzo.getId());
 
             ps.executeUpdate();
+            con.commit();
         }
     }
     
@@ -120,6 +128,7 @@ public class indirizzoDAO {
                      "SELECT * FROM indirizzo WHERE id_utente = ? AND is_preferito = 1 LIMIT 1")) {
 
             ps.setInt(1, idUtente);
+            con.commit();
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -149,11 +158,13 @@ public class indirizzoDAO {
             try (PreparedStatement ps = con.prepareStatement("UPDATE indirizzo SET is_preferito = 0 WHERE id_utente = ?")) {
                 ps.setInt(1, idUtente);
                 ps.executeUpdate();
+                con.commit();
             }
 
             try (PreparedStatement ps = con.prepareStatement("UPDATE indirizzo SET is_preferito = 1 WHERE id = ?")) {
                 ps.setInt(1, idIndirizzoPreferito);
                 ps.executeUpdate();
+                con.commit();
             }
         }
     }

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -52,8 +54,7 @@ public class catalogo extends HttpServlet {
 			if (action != null) {
 				if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					appartieneDAO categorie = new appartieneDAO();
-					categorie.doDeleteProdotto(id);
+					dao.doDeleteCatByProdotto(id);
 					dao.doDelete(id);
 				}
 				if (action.equalsIgnoreCase("inserisci")) {
@@ -155,6 +156,7 @@ public class catalogo extends HttpServlet {
 				    prodottoBean prodotto = dao.doRetrieveByKey(id);
 				    ElementoCarrello elemento = new ElementoCarrello(prodotto, dimensione, quantita);
 				    carrello.aggiungiProdotto(elemento);
+				    
 				}
 				if(action.equalsIgnoreCase("rimuoviCarrello")) {
 					int id = Integer.parseInt(request.getParameter("id"));
@@ -165,7 +167,21 @@ public class catalogo extends HttpServlet {
 					carrello.eliminaProdotto(elemento);;
 					 RequestDispatcher dispatcher = request.getRequestDispatcher("Carrello.jsp");
 				     dispatcher.forward(request, response);
+				     
 				}
+				if(action.equalsIgnoreCase("perCategoria")) {
+					int idCat = Integer.parseInt(request.getParameter("idCat"));
+					Collection<prodottoBean> prodotti = new LinkedList<prodottoBean>();
+					
+					prodotti = dao.doRetrieveByCategoria(idCat);
+					
+					request.setAttribute("prodotti", prodotti);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("Catalogo.jsp");
+				    dispatcher.forward(request, response);
+				    
+				    return;
+				}								
 				if (action.equalsIgnoreCase("modificaQuantitaCarrello")) {
 				    int id = Integer.parseInt(request.getParameter("id"));
 				    String dimensione = request.getParameter("dimensione");

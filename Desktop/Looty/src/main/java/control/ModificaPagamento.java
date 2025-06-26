@@ -27,54 +27,57 @@ public class ModificaPagamento extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-String action = request.getParameter("action");
-		
-		HttpSession session = request.getSession();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        HttpSession session = request.getSession();
         utenteBean utente = (utenteBean) session.getAttribute("utenteLoggato");
 
         if (utente == null) {
             response.sendRedirect("Login.jsp");
             return;
         }
-        
+
         int idUtente = utente.getId();
         try {
-        	 if(action.equalsIgnoreCase("elimina")) {
-        	 int id = Integer.parseInt(request.getParameter("id"));
-             dao.doDelete(id);
-        	 }
-        	 else if(action.equalsIgnoreCase("aggiungi")) {
-        		    metodoPagamentoBean nuovo = new metodoPagamentoBean();
-        		    nuovo.setIdUtente(idUtente);
-        		    nuovo.setTitolare(request.getParameter("titolare"));
-        		    nuovo.setCodiceCarta(request.getParameter("codiceCarta"));
-        		    nuovo.setCVV(Integer.parseInt(request.getParameter("cvv")));
-        		    nuovo.setMeseScadenza(Integer.parseInt(request.getParameter("meseScadenza")));
-        		    nuovo.setAnnoScadenza(Integer.parseInt(request.getParameter("annoScadenza")));
-        		    nuovo.setPreferito(false);
+            if (action == null || action.equalsIgnoreCase("carica")) {
+                // Carica i metodi di pagamento per l'utente
+                List<metodoPagamentoBean> metodi = dao.doRetrieveByUtente(idUtente);
+                request.setAttribute("metodi", metodi);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("ModificaPagamento.jsp");
+                dispatcher.forward(request, response);
+                return;
+            } else if (action.equalsIgnoreCase("elimina")) {
+                // Elimina il metodo di pagamento
+                int id = Integer.parseInt(request.getParameter("id"));
+                dao.doDelete(id);
+                response.sendRedirect("ProfiloUtente.jsp");
+            } else if (action.equalsIgnoreCase("aggiungi")) {
+                // Aggiungi il metodo di pagamento
+                metodoPagamentoBean nuovo = new metodoPagamentoBean();
+                nuovo.setIdUtente(idUtente);
+                nuovo.setTitolare(request.getParameter("titolare"));
+                nuovo.setCodiceCarta(request.getParameter("codiceCarta"));
+                nuovo.setCVV(Integer.parseInt(request.getParameter("cvv")));
+                nuovo.setMeseScadenza(Integer.parseInt(request.getParameter("meseScadenza")));
+                nuovo.setAnnoScadenza(Integer.parseInt(request.getParameter("annoScadenza")));
+                nuovo.setPreferito(false);
 
-        		    int idNuovo = dao.doSave(nuovo);
-        		    if (idNuovo > 0) {
-        		        dao.setPreferito(idUtente, idNuovo);
-        		    }
-        		}
-	        else if(action.equalsIgnoreCase("setPreferito")) {
-	        	int id = Integer.parseInt(request.getParameter("id"));
+                int idNuovo = dao.doSave(nuovo);
+                if (idNuovo > 0) {
+                    dao.setPreferito(idUtente, idNuovo);
+                }
+                response.sendRedirect("ProfiloUtente.jsp");
+            } else if (action.equalsIgnoreCase("setPreferito")) {
+                // Imposta il metodo di pagamento preferito
+                int id = Integer.parseInt(request.getParameter("id"));
                 dao.setPreferito(idUtente, id);
                 response.setStatus(HttpServletResponse.SC_OK);
-	        }
-
-             List<metodoPagamentoBean> metodi = dao.doRetrieveByUtente(idUtente);
-             request.setAttribute("metodi", metodi);
-             RequestDispatcher dispatcher = request.getRequestDispatcher("ProfiloUtente.jsp");
-             dispatcher.forward(request, response);
-        }catch (SQLException e) {
+            }
+        } catch (SQLException e) {
             throw new ServletException("Errore nella gestione degli indirizzi", e);
         }
-		
-	}
+    }
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

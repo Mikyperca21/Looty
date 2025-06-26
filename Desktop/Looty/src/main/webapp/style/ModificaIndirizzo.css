@@ -9,6 +9,11 @@ body {
 	padding: 0;
 }
 
+.container-header{
+	overflow: hidden;
+	z-index: 10;
+}
+
 h2 {
 	margin-top: 40px;
 	text-align: center;
@@ -73,6 +78,8 @@ h2 {
 
 
 .card-indirizzo input[type="radio"] {
+	z-index: 1;
+    position: relative;
 	transform: scale(1.2);
 	margin-right: 8px;
 }
@@ -80,6 +87,7 @@ h2 {
 .button-container button{
 	all: unset;
 	display: inline-block;
+	align-items: center;
 }
 
 .button-container span {
@@ -101,9 +109,13 @@ h2 {
 .button-container span:active {
   background-color: #5a8d9e;
   transform: translateY(0);
+  
 }  
 
 .container-delete button {
+	display: flex;
+    align-items: center;   /* Allineamento verticale */
+    justify-content: center; /* Allineamento orizzontale */
     width: 100%;
     padding: 12px;
     background-color: #b43f3f;

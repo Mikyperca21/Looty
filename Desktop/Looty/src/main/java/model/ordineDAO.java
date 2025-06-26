@@ -25,6 +25,7 @@ public class ordineDAO {
 
             preparedStatement.executeUpdate();
             rs = preparedStatement.getGeneratedKeys();
+            connection.commit();
             if (rs.next()) {
                 return rs.getInt(1);
             } else {
@@ -55,6 +56,7 @@ public class ordineDAO {
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
+            connection.commit();
         } finally {
             if (preparedStatement != null) preparedStatement.close();
             DriverManagerConnectionPool.releaseConnection(connection);
@@ -71,6 +73,8 @@ public class ordineDAO {
             preparedStatement = connection.prepareStatement(selectSQL);
             preparedStatement.setInt(1, elem.getProdotto().getCodice());
             ResultSet rs = preparedStatement.executeQuery();
+            
+            connection.commit();
 
             if (rs.next()) {
                 int disponibile = rs.getInt("quantita");
@@ -95,6 +99,7 @@ public class ordineDAO {
             preparedStatement.setInt(1, elem.getQuantitaDaScalare());
             preparedStatement.setInt(2, elem.getProdotto().getCodice());
             preparedStatement.execute();
+            connection.commit();
         } finally {
             if (preparedStatement != null) preparedStatement.close();
             DriverManagerConnectionPool.releaseConnection(connection);
@@ -127,6 +132,7 @@ public class ordineDAO {
                 ordine.setImmagine(rs.getString("immagine"));
                 ordini.add(ordine);
             }
+            connection.commit();
     	}finally {
                 if (preparedStatement != null) preparedStatement.close();
                 DriverManagerConnectionPool.releaseConnection(connection);
@@ -156,6 +162,7 @@ public class ordineDAO {
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idUtente);
+            con.commit();
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     ordineBean ordine = new ordineBean();
@@ -197,6 +204,7 @@ public class ordineDAO {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idOrdine);
             ResultSet rs = preparedStatement.executeQuery();
+            connection.commit();
 
             while (rs.next()) {
                ordineProdottoBean dett = new ordineProdottoBean();
@@ -230,6 +238,7 @@ public class ordineDAO {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idOrdine);
             rs = preparedStatement.executeQuery();
+            connection.commit();
 
             while (rs.next()) {
                 ordineProdottoBean opb = new ordineProdottoBean();
@@ -262,6 +271,7 @@ public class ordineDAO {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
+            con.commit();
 
             if (rs.next()) {
                 ordine = new ordineBean();
@@ -279,4 +289,6 @@ public class ordineDAO {
 
         return ordine;
     }
+    
+    
 }

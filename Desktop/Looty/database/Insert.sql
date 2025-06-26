@@ -24,12 +24,6 @@ VALUES ('Funko pop', 'Da Fare descrizione', 99.99, 109.99, 119.99, 50, 'images/f
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
 VALUES ('Attack on Titan', 'Da fare Descrizione', 99.99, 109.99, 119.99, 50, 'images/attackontitan.png');
 
-INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
-VALUES ('prova', 'prova', 99.99, 109.99, 119.99, 50, 'images/dragonball.png');
-
-INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
-VALUES ('prova', 'prova', 99.99, 109.99, 119.99, 50, 'images/dragonball.png');
-
 -- Insert utenti 
 -- Inserimento utente normale
 INSERT INTO utente (nome, cognome, email, pass, ruolo)
@@ -112,16 +106,51 @@ INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo
 (6, 2, 1,'M', 39.99),
 (7, 8, 1,'M', 99.99),
 (7, 1, 1,'S', 29.99),
-(7, 9, 2,'M', 99.99),
 (8, 4, 1,'L', 59.99),
-(9, 10, 1,'M', 109.99),
 (9, 8, 1,'L', 109.99);
-
 
 -- Insert categorie
 INSERT INTO categoria (nome)
-VALUES ('Gadget');
+VALUES ('Fumetti');
+INSERT INTO categoria (nome)
+VALUES ('Film');
+INSERT INTO categoria (nome)
+VALUES ('Serie TV');
+INSERT INTO categoria (nome)
+VALUES ('Anime');
 INSERT INTO categoria (nome)
 VALUES ('Carte');
-INSERT INTO categoria (nome)
-VALUES ('Vestiti');
+
+-- Insert appartiene
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (2, 1);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (3, 2);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (4, 2);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (2, 3);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (3, 4);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (4, 4);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (5, 5);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (1, 6);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (3, 7);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (3, 8);
+
+INSERT INTO appartiene (id_categoria, id_prodotti)
+VALUES (4, 8);

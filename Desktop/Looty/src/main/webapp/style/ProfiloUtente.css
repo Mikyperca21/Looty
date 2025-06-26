@@ -14,6 +14,9 @@ body {
 }
 
 .user-container {
+	display: flex;
+    align-items: center;   /* Allineamento verticale */
+    justify-content: center; /* Allineamento orizzontale */
 	text-align: center;
 	background-color: white;
 	width: 60%;

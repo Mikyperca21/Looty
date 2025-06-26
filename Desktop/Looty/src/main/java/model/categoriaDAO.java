@@ -24,6 +24,7 @@ public class categoriaDAO {
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
+            connection.commit();
             if (rs.next()) {
                 return rs.getInt(1);
             } else {
@@ -45,6 +46,7 @@ public class categoriaDAO {
         	connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
+            connection.commit();
             while (rs.next()) {
                 categoriaBean categoria = new categoriaBean();
                 categoria.setId(rs.getInt("id"));
@@ -72,6 +74,7 @@ public class categoriaDAO {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
+            con.commit();
 
             if (rs.next()) {
                 categoria = new categoriaBean();
@@ -101,6 +104,7 @@ public class categoriaDAO {
 			preparedStatement.setInt(1, id);
 
 			result = preparedStatement.executeUpdate();
+			connection.commit();
 
 		} finally {
 			try {

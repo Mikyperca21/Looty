@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import model.categoriaDAO;
 import model.prodottoDAO;
+import model.categoriaBean;
 
 /**
  * Servlet implementation class dettaglioProdotto
@@ -48,6 +52,9 @@ public class dettaglioProdotto extends HttpServlet {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("prodotto");
 					request.setAttribute("prodotto", prodDao.doRetrieveByKey(id));
+		             Collection<categoriaBean> categorieProdotto = prodDao.doRetrieveCategorieByProdotto(id);
+		             request.setAttribute("categorieProdotto", categorieProdotto);
+					
 				}
 			}
 		} catch (SQLException e) {

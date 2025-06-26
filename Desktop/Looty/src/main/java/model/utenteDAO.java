@@ -26,6 +26,7 @@ public class utenteDAO {
 	        preparedStatement.setBoolean(5, utente.getRuolo());
 
 	        preparedStatement.executeUpdate();
+	        connection.commit();
 
 	        generatedKeys = preparedStatement.getGeneratedKeys();
 	        if (generatedKeys.next()) {
@@ -85,6 +86,7 @@ public class utenteDAO {
 			preparedStatement.setInt(1, id);
 
 			ResultSet rs = preparedStatement.executeQuery();
+			 connection.commit();
 
 			while (rs.next()) {
 				bean.setId(rs.getInt("id"));
@@ -120,6 +122,7 @@ public class utenteDAO {
 			preparedStatement.setInt(1, id);
 
 			result = preparedStatement.executeUpdate();
+			 connection.commit();
 
 		} finally {
 			try {
@@ -151,7 +154,7 @@ public class utenteDAO {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			ResultSet rs = preparedStatement.executeQuery();
-		
+			 connection.commit();
 			while (rs.next()) {
 				utenteBean bean = new utenteBean();
 				
@@ -190,7 +193,7 @@ public class utenteDAO {
 	        preparedStatement.setString(1, email);
 
 	        ResultSet rs = preparedStatement.executeQuery();
-
+	        connection.commit();
 	        if (rs.next()) {
 	            bean = new utenteBean();
 	            bean.setId(rs.getInt("id"));

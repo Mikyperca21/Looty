@@ -142,6 +142,32 @@ public class prodottoDAO {
 		}
 		return (result != 0);
 	}
+	
+	public synchronized boolean doDeleteCatByProdotto(int codice) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "DELETE FROM appartiene" + " WHERE id_prodotti = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, codice);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
+	}
 
 	public synchronized Collection<prodottoBean> doRetrieveAll() throws SQLException { // aggiungere come parametro:
 																						// String order per ordinare
@@ -235,4 +261,89 @@ public class prodottoDAO {
 		
 		return prodotti;
 	}
+	
+	public synchronized Collection<prodottoBean> doRetrieveByCategoria(int idCat) throws SQLException { // aggiungere come parametro:
+		// String order per ordinare
+		// prodotti
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<prodottoBean> prodotti = new LinkedList<prodottoBean>();
+		
+		String selectSQL = "SELECT DISTINCT prodotti.* FROM (prodotti INNER JOIN appartiene on prodotti.codice = appartiene.id_prodotti) INNER JOIN categoria on appartiene.id_categoria = ?";
+		
+		/*
+		* if (order != null && !order.equals("")) { selectSQL += " ORDER BY " + order;
+		* }
+		*/
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, idCat);	 // % è la wildcard di mysql che prende name + altri infiniti caratteri che possono venir dopo		
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				prodottoBean bean = new prodottoBean();
+				
+				bean.setCodice(rs.getInt("codice"));
+				bean.setNome(rs.getString("nome"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setPrezzoS(rs.getInt("prezzoS"));
+				bean.setPrezzoM(rs.getFloat("prezzoM"));
+				bean.setPrezzoL(rs.getFloat("prezzoL"));
+				bean.setQuantita(rs.getInt("quantita"));
+				bean.setImmagine(rs.getString("immagine"));
+				prodotti.add(bean);
+			}
+		
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}	
+		}
+		
+		return prodotti;
+		}
+	
+	public synchronized Collection<categoriaBean> doRetrieveCategorieByProdotto(int idProdotto) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    Collection<categoriaBean> categorie = new LinkedList<>();
+
+	    String selectSQL = 
+	        "SELECT c.id, c.nome " +
+	        "FROM categoria c " +
+	        "INNER JOIN appartiene a ON c.id = a.id_categoria " +
+	        "WHERE a.id_prodotti = ?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setInt(1, idProdotto);
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            categoriaBean categoria = new categoriaBean();
+	            categoria.setId(rs.getInt("id"));
+	            categoria.setNome(rs.getString("nome"));
+	            categorie.add(categoria);
+	        }
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+
+	    return categorie;
+	}
+
 }

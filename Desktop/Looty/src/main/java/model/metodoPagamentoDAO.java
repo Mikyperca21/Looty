@@ -14,8 +14,8 @@ public class metodoPagamentoDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String insertSQL = "INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito, valido)"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try{
 			conn = DriverManagerConnectionPool.getConnection();
@@ -27,11 +27,13 @@ public class metodoPagamentoDAO {
 			ps.setInt(5, metodo.getMeseScadenza());
 			ps.setInt(6, metodo.getAnnoScadenza());
 			ps.setBoolean(7, metodo.isPreferito());
+			ps.setBoolean(8, true);
 
 			
 			
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
+			conn.commit();
 
 			if(rs.next()){
 				return rs.getInt(1);
@@ -50,7 +52,7 @@ public class metodoPagamentoDAO {
 
 	public List<metodoPagamentoBean> doRetrieveByUtente(int idUtente) throws SQLException {
 	    List<metodoPagamentoBean> metodi = new ArrayList<>();
-	    String selectSQL = "SELECT * FROM metodoPagamento WHERE id_utente = ? AND valido=true";
+	    String selectSQL = "SELECT * FROM metodoPagamento WHERE id_utente = ? AND valido = 1";
 	    
 	    try (
 	        Connection con = DriverManagerConnectionPool.getConnection();
@@ -58,6 +60,7 @@ public class metodoPagamentoDAO {
 	    ) {
 	        ps.setInt(1, idUtente);
 	        ResultSet rs = ps.executeQuery();
+	        con.commit();
 	        
 	        while (rs.next()) {
 	            metodoPagamentoBean metodoPagamento = new metodoPagamentoBean();
@@ -86,6 +89,7 @@ public class metodoPagamentoDAO {
 	    ) {
 	        ps.setInt(1, id);
 	        ResultSet rs = ps.executeQuery();
+	        con.commit();
 	        
 	        while (rs.next()) {
 	            
@@ -104,13 +108,14 @@ public class metodoPagamentoDAO {
 	}
 
 	
-	public void doDelete(int codiceCarta) throws SQLException{
-		String sql = "UPDATE metodoPagamento SET valido = false, is_preferito = false WHERE id = ?";
+	public void doDelete(int id) throws SQLException{
+		String sql = "UPDATE metodoPagamento SET valido=false, is_preferito=false WHERE id=?";
 		
 		try (Connection con = DriverManagerConnectionPool.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, codiceCarta);
+            ps.setInt(1, id);
             ps.executeUpdate();
+            con.commit();
 		}
 	}
 	
@@ -121,6 +126,7 @@ public class metodoPagamentoDAO {
                      "SELECT * FROM metodoPagamento WHERE id_utente = ? AND is_preferito = 1 LIMIT 1")) {
 
             ps.setInt(1, idUtente);
+            con.commit();
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -157,11 +163,13 @@ public class metodoPagamentoDAO {
             try (PreparedStatement ps = con.prepareStatement("UPDATE metodoPagamento SET is_preferito = 0 WHERE id_utente = ?")) {
                 ps.setInt(1, idUtente);
                 ps.executeUpdate();
+                con.commit();
             }
 
             try (PreparedStatement ps = con.prepareStatement("UPDATE metodoPagamento SET is_preferito = 1 WHERE id = ?")) {
                 ps.setInt(1, id);
                 ps.executeUpdate();
+                con.commit();
             }
         }
     }
