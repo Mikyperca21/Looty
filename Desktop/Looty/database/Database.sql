@@ -13,9 +13,9 @@ CREATE TABLE prodotti (
   codice INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(20) NOT NULL,
   descrizione VARCHAR(500),
-  prezzoS FLOAT DEFAULT 0,
-  prezzoM FLOAT DEFAULT 0,
-  prezzoL FLOAT DEFAULT 0,
+  prezzoS DECIMAL(10,2) DEFAULT 0,
+  prezzoM DECIMAL(10,2) DEFAULT 0,
+  prezzoL DECIMAL(10,2) DEFAULT 0,
   quantita INT DEFAULT 0,
   immagine VARCHAR(255)
 );
@@ -73,7 +73,7 @@ CREATE TABLE ordine (
     id_metodoPagamento INT NOT NULL,
     id_indirizzo INT NOT NULL,
     data_ordine DATETIME DEFAULT CURRENT_TIMESTAMP,
-    totale FLOAT(10,2),
+    totale  DECIMAL(10,2) NOT NULL,
 
     FOREIGN KEY (id_metodoPagamento) REFERENCES metodoPagamento(id),
     FOREIGN KEY (id_indirizzo) REFERENCES indirizzo(id)
@@ -85,7 +85,7 @@ CREATE TABLE OrdineProdotto (
     id_prodotto INT,
     quantita INT,
     dimensione varchar(1),
-    prezzo_unitario FLOAT(10,2),
+    prezzo_unitario DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (id_ordine) REFERENCES ordine(id),
     FOREIGN KEY (id_prodotto) REFERENCES prodotti(codice)
 );

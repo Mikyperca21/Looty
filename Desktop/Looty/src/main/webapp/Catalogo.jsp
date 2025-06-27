@@ -37,45 +37,50 @@
 				prodottoBean bean = (prodottoBean) obj;
 		%>
 			<div class="card<%= bean.getQuantita() == 0 ? " disabled" : "" %>">
-				<a href="dettaglioProdotto?action=getProdotto&id=<%=bean.getCodice()%>" style="text-decoration: none;">
-					<img src="<%=bean.getImmagine()%>" />
-				</a>
-				<h2 class="card-title"><%=bean.getNome()%></h2>
-
-				<% if (bean.getQuantita() > 0) { %>
-					<form action="catalogo" method="post" class="carrello-form">
-						<input type="hidden" name="action" value="aggiungiCarrello">
-						<input type="hidden" name="id" value="<%=bean.getCodice()%>">
-
+				<div class="card-img">
+					<a href="dettaglioProdotto?action=getProdotto&id=<%=bean.getCodice()%>" style="text-decoration: none;">
+						<img src="<%=bean.getImmagine()%>" />
+					</a>
+				</div>
+				
+				<div class="card-content">
+					<h2 class="card-title"><%=bean.getNome()%></h2>
+	
+					<% if (bean.getQuantita() > 0) { %>
+						<form action="catalogo" method="post" class="carrello-form">
+							<input type="hidden" name="action" value="aggiungiCarrello">
+							<input type="hidden" name="id" value="<%=bean.getCodice()%>">
+	
+							<div class="form-inline">
+								<select name="dimensione" required>
+									<option value="">Taglia</option>
+									<option value="S">S</option>
+									<option value="M">M</option>
+									<option value="L">L</option>
+								</select>
+								<input type="number" name="quantita" min="1" max="<%=bean.getQuantita()%>" value="1" required />
+								<button type="submit" class="action-button">
+									<span class="material-symbols-outlined">add_shopping_cart</span>
+								</button>
+							</div>
+						</form>
+					<% } else { %>
+						<p class="unavailable-message">Prodotto non disponibile</p>
 						<div class="form-inline">
-							<select name="dimensione" required>
-								<option value="">Taglia</option>
-								<option value="S">S</option>
-								<option value="M">M</option>
-								<option value="L">L</option>
+							<select disabled>
+								<option>Non disponibile</option>
 							</select>
-							<input type="number" name="quantita" min="1" max="<%=bean.getQuantita()%>" value="1" required />
-							<button type="submit" class="action-button">
-								<span class="material-symbols-outlined">add_shopping_cart</span>
+							<input type="number" value="0" disabled />
+							<button disabled class="action-button">
+								<span class="material-symbols-outlined">remove_shopping_cart</span>
 							</button>
 						</div>
-					</form>
-				<% } else { %>
-					<p class="unavailable-message">Prodotto non disponibile</p>
-					<div class="form-inline">
-						<select disabled>
-							<option>Non disponibile</option>
-						</select>
-						<input type="number" value="0" disabled />
-						<button disabled class="action-button">
-							<span class="material-symbols-outlined">remove_shopping_cart</span>
-						</button>
-					</div>
-				<% } %>
-
-				<p class="prezzo">
-					A partire da: <%=bean.getPrezzoS()%> €
-				</p>
+					<% } %>
+	
+					<p class="prezzo">
+						A partire da: <%= String.format("%.2f", bean.getPrezzoS()) %> €
+					</p>
+				</div>
 			</div>
 		<%
 			}

@@ -4,7 +4,6 @@
 
 <%
 
-
 utenteBean utente = (utenteBean) session.getAttribute("utenteLoggato");
 if (utente == null) {
 	response.sendRedirect("Login.jsp");

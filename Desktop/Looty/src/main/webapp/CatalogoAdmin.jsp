@@ -85,24 +85,22 @@
 				</div>
 				</div>
 				
-				<div class="input-row-tre">
-					<p class="errore" id="prezzo-error"></p>
-					
-					<%	Collection<categoriaBean> cats = (Collection<categoriaBean>) request.getAttribute("categorie");				
-						
-					if (cats != null && cats.size() != 0) {
-						Iterator<?> it = cats.iterator();
-						while (it.hasNext()) {
-							categoriaBean categoria = (categoriaBean) it.next();
-					%>
-							<label for = "categoria<%= categoria.getId() %>"><%= categoria.getNome() %></label>
-							<input type="checkbox" id="categoria<%= categoria.getId() %>" name="categoriaID" value="<%= categoria.getId() %>">
-					<%
-						}
-						
-					}
-					%>
-		        </div>
+			<div class="conteiner-categorie">
+				<%
+				    Collection<categoriaBean> cats = (Collection<categoriaBean>) request.getAttribute("categorie");				
+				    if (cats != null && cats.size() != 0) {
+				        Iterator<?> it = cats.iterator();
+				        while (it.hasNext()) {
+				            categoriaBean categoria = (categoriaBean) it.next();
+				%>
+				    <input type="checkbox" id="categoria<%= categoria.getId() %>" name="categoriaID" value="<%= categoria.getId() %>">
+				    <label for="categoria<%= categoria.getId() %>"><%= categoria.getNome() %></label>
+				<%
+				        }
+				    }
+				%>
+			</div>
+
 				
 				<p>Nota: per l'acquisto della box di dimensione S verrà scalata una quantità dal magazzino, per l'acquisto di una box di taglia media 
 					verranno scalate due unità dal magazzino e per l'acquisto della box di dimensione L verranno scalate tre unità dal magazzino</p>
@@ -143,7 +141,7 @@
 					<th>Prezzo taglia S</th>
 					<th>Prezzo taglia M</th>
 					<th>Prezzo taglia L</th>
-					<th>Descrizione</th>
+					<th class="col-descrizione">Descrizione</th>
 					<th>Quantità</th>
 					<th>Modifica</th>
 				</tr>
@@ -156,14 +154,15 @@
 						prodottoBean bean = (prodottoBean) it.next();
 				%>
 				<tr>
-					<td data-label="Immagine"><img src="<%=bean.getImmagine()%>"
-						style="width: 100px;"></td>
+					<td data-label="Immagine"><a href="dettaglioProdotto?action=getProdotto&id=<%=bean.getCodice()%>" ><img src="<%=bean.getImmagine()%>"
+						style="width: 100px;"></a></td>
 					<td data-label="Nome"><%=bean.getNome()%></td>
 					<td data-label="Prezzo taglia S"><%=bean.getPrezzoS()%> €</td>
 					<td data-label="Prezzo taglia M"><%=bean.getPrezzoM()%> €</td>
 					<td data-label="Prezzo taglia L"><%=bean.getPrezzoL()%> €</td>
-					<td data-label="Descrizione"><%=bean.getDescrizione()%></td>
+					<td class="col-descrizione" data-label="Descrizione"><%=bean.getDescrizione()%></td>
 					<td data-label="Quantità disponibili"><%=bean.getQuantita()%></td>
+					
 					<td data-label="Modifica">
 							
 							<a href="catalogo?action=delete&id=<%=bean.getCodice()%>"
@@ -213,11 +212,10 @@
 				});
 		
 		function checkOnlyText(inputtxt) {
-			var name = /^[A-Za-z]+$/;;
-			if(inputtxt.value.match(name)) 
-				return true;
-
-			return false;	
+		    var name = /^[A-Za-z]+$/;
+		    if(inputtxt.value.match(name))
+		        return true;
+		    return false;
 		}
 		
 		function checkOnlyNumber(input) {

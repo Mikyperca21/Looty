@@ -37,8 +37,8 @@ public class ElementoCarrello {
 		this.quantita = quantita;
 	}
 
-	public float getPrezzoTotale() {
-		float prezzoUnitario = 0;
+	public double getPrezzoTotale() {
+		double prezzoUnitario = 0;
 		switch (dimensione) {
 		case "S":
 			prezzoUnitario = prodotto.getPrezzoS();

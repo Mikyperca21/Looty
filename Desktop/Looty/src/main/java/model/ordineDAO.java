@@ -110,13 +110,16 @@ public class ordineDAO {
     	Connection connection = null; 
     	PreparedStatement preparedStatement = null;
         List<ordineBean> ordini = new ArrayList<>();
-        String sql = "SELECT ordine.*, p.immagine " +
-                "FROM prodotti AS p " +
-                "INNER JOIN ordineProdotto AS op ON p.codice = op.id_prodotto " +
-                "INNER JOIN ordine ON op.id_ordine = ordine.id " +
-                "INNER JOIN metodoPagamento AS mp ON mp.id = ordine.id_metodoPagamento " +
-                "INNER JOIN utente AS u ON mp.id_utente = u.id " +
-                "WHERE u.ruolo = false";
+        String sql = "SELECT ordine.*, MIN(p.immagine) AS immagine " +
+        	    "FROM ordine " +
+        	    "INNER JOIN ordineProdotto op ON ordine.id = op.id_ordine " +
+        	    "INNER JOIN prodotti p ON p.codice = op.id_prodotto " +
+        	    "INNER JOIN metodoPagamento mp ON mp.id = ordine.id_metodoPagamento " +
+        	    "INNER JOIN utente u ON mp.id_utente = u.id " +
+        	    "WHERE u.ruolo = false " +
+        	    "GROUP BY ordine.id " +
+        	    "ORDER BY ordine.data_ordine DESC";
+
 
         try {
         	connection = DriverManagerConnectionPool.getConnection();
@@ -143,13 +146,15 @@ public class ordineDAO {
 
     public List<ordineBean> doRetrieveByUser(int idUtente) throws SQLException {
         List<ordineBean> ordini = new ArrayList<>();
-        String sql = "SELECT ordine.*, p.immagine " +
-                "FROM prodotti AS p " +
-                "INNER JOIN ordineProdotto AS op ON p.codice = op.id_prodotto " +
-                "INNER JOIN ordine ON op.id_ordine = ordine.id " +
-                "INNER JOIN metodoPagamento AS mp ON mp.id = ordine.id_metodoPagamento " +
-                "INNER JOIN utente AS u ON mp.id_utente = u.id " +
-                "WHERE u.ruolo = false AND u.id = ?";
+        String sql = "SELECT ordine.*, MIN(p.immagine) AS immagine " +
+                "FROM ordine " +
+                "INNER JOIN ordineProdotto op ON ordine.id = op.id_ordine " +
+                "INNER JOIN prodotti p ON p.codice = op.id_prodotto " +
+                "INNER JOIN metodoPagamento mp ON mp.id = ordine.id_metodoPagamento " +
+                "INNER JOIN utente u ON mp.id_utente = u.id " +
+                "WHERE u.ruolo = false AND u.id = ? " +
+                "GROUP BY ordine.id " +
+                "ORDER BY ordine.data_ordine DESC";
 
         Connection con = null;
         

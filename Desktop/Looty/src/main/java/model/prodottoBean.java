@@ -5,9 +5,9 @@ public class prodottoBean {
 	private int codice;
 	private String nome;
 	private String descrizione;
-	private float prezzoS;
-	private float prezzoM;
-	private float prezzoL;
+	private double prezzoS;
+	private double prezzoM;
+	private double prezzoL;
 	private int quantita;
 	private String immagine;
 
@@ -24,25 +24,14 @@ public class prodottoBean {
 		this.tagliaCarrello = tagliaCarrello;
 	}
 
-	public double getPrezzoByTagliaCarrello() {
-		float prezzo;
-		if (tagliaCarrello == null) {
-			prezzo = prezzoS;
-		} else {
-			switch (tagliaCarrello.toUpperCase()) {
-			case "M":
-				prezzo = prezzoM;
-				break;
-			case "L":
-				prezzo = prezzoL;
-				break;
-			default:
-				prezzo = prezzoS;
-			}
-		}
-		return prezzo;
+	public double getPrezzoByTagliaCarrello(String taglia) {
+	    if (taglia == null) return prezzoS;
+	    switch(taglia.toUpperCase()) {
+	        case "M": return prezzoM;
+	        case "L": return prezzoL;
+	        default: return prezzoS;
+	    }
 	}
-
 	public int getCodice() {
 		return codice;
 	}
@@ -67,27 +56,27 @@ public class prodottoBean {
 		this.descrizione = descrizione;
 	}
 
-	public float getPrezzoS() {
+	public double getPrezzoS() {
 		return prezzoS;
 	}
 
-	public void setPrezzoS(float prezzoS) {
+	public void setPrezzoS(double prezzoS) {
 		this.prezzoS = prezzoS;
 	}
 
-	public float getPrezzoM() {
+	public double getPrezzoM() {
 		return prezzoM;
 	}
 
-	public void setPrezzoM(float prezzoM) {
+	public void setPrezzoM(double prezzoM) {
 		this.prezzoM = prezzoM;
 	}
 
-	public float getPrezzoL() {
+	public double getPrezzoL() {
 		return prezzoL;
 	}
 
-	public void setPrezzoL(float prezzoL) {
+	public void setPrezzoL(double prezzoL) {
 		this.prezzoL = prezzoL;
 	}
 

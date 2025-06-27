@@ -108,6 +108,11 @@
 		    mouseInside = true;
 		    posizionaOutput();
 		    output.style.display = "block";
+		    const rect = btn.getBoundingClientRect();
+		    const outputWidth = output.offsetWidth;
+		    output.style.top = (rect.bottom + window.scrollY) + "px";
+		    output.style.left = (rect.left + window.scrollX + (rect.width / 2) - (outputWidth / 2)) + "px";
+
 
 		    const xhr = new XMLHttpRequest();
 		    xhr.open("GET", "categorie", true);
@@ -125,6 +130,9 @@
 		    setTimeout(() => {
 		      if (!mouseInside) {
 		        output.style.display = "none";
+		        
+		        const newWidth = output.offsetWidth;
+		        output.style.left = (rect.left + window.scrollX + (rect.width / 2) - (newWidth / 2)) + "px";
 		      }
 		    }, 100); // piccolo delay per lasciare tempo a mouse di passare tra i due elementi
 		  }

@@ -90,7 +90,7 @@ public class acquisto extends HttpServlet {
                 ordineProdottoBean op = new ordineProdottoBean();
                 op.setIdProdotto(item.getProdotto().getCodice());
                 op.setQuantita(item.getQuantita());
-                op.setPrezzoUnitario(item.getProdotto().getPrezzoByTagliaCarrello());
+                op.setPrezzoUnitario(item.getProdotto().getPrezzoByTagliaCarrello(item.getDimensione()));
                 op.setDimensione(item.getDimensione());
                 prodottiOrdine.add(op);
             }
@@ -113,7 +113,7 @@ public class acquisto extends HttpServlet {
     private double calcolaTotale(Carrello carrello) {
         double totale = 0;
         for (ElementoCarrello item : carrello.getProdotti()) {
-            totale += item.getProdotto().getPrezzoByTagliaCarrello() * item.getQuantita();
+            totale += item.getProdotto().getPrezzoByTagliaCarrello(item.getDimensione()) * item.getQuantita();
         }
         return totale;
     }

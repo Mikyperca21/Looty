@@ -22,8 +22,9 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 		<%@ include file="Header.jsp"%>
 	
 	
-	<h2>Modifica Prodotto</h2>
+	
 <div class="card-indirizzo">
+<h2>Modifica Prodotto</h2>
 		<div class="form-content">
 			<form action="catalogo" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="action" value="modify"> <input

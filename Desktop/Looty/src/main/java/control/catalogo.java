@@ -60,9 +60,9 @@ public class catalogo extends HttpServlet {
 				if (action.equalsIgnoreCase("inserisci")) {
 					String nome = request.getParameter("nome");
 					String descrizione = request.getParameter("descrizione");
-					Float prezzoS = Float.parseFloat(request.getParameter("prezzoS"));
-					Float prezzoM = Float.parseFloat(request.getParameter("prezzoM"));
-					Float prezzoL = Float.parseFloat(request.getParameter("prezzoL"));
+					Double prezzoS = Double.parseDouble(request.getParameter("prezzoS"));
+					Double prezzoM = Double.parseDouble(request.getParameter("prezzoM"));
+					Double prezzoL = Double.parseDouble(request.getParameter("prezzoL"));
 					int quantita = Integer.parseInt(request.getParameter("quantita"));
 					Part filePart = request.getPart("immagine");
 			        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -110,9 +110,9 @@ public class catalogo extends HttpServlet {
 				    int id = Integer.parseInt(request.getParameter("id"));
 				    String nome = request.getParameter("nome");
 				    String descrizione = request.getParameter("descrizione");
-				    Float prezzoS = Float.parseFloat(request.getParameter("prezzoS"));
-				    Float prezzoM = Float.parseFloat(request.getParameter("prezzoM"));
-				    Float prezzoL = Float.parseFloat(request.getParameter("prezzoL"));
+				    Double prezzoS = Double.parseDouble(request.getParameter("prezzoS"));
+				    Double prezzoM = Double.parseDouble(request.getParameter("prezzoM"));
+				    Double prezzoL = Double.parseDouble(request.getParameter("prezzoL"));
 				    int quantita = Integer.parseInt(request.getParameter("quantita"));
 
 				    Part filePart = request.getPart("immagine");

@@ -23,9 +23,9 @@ public class prodottoDAO {
 			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, prodotto.getNome());
 			preparedStatement.setString(2, prodotto.getDescrizione());
-			preparedStatement.setFloat(3, prodotto.getPrezzoS());
-			preparedStatement.setFloat(4, prodotto.getPrezzoM());
-			preparedStatement.setFloat(5, prodotto.getPrezzoL());
+			preparedStatement.setDouble(3, prodotto.getPrezzoS());
+			preparedStatement.setDouble(4, prodotto.getPrezzoM());
+			preparedStatement.setDouble(5, prodotto.getPrezzoL());
 			preparedStatement.setInt(6, prodotto.getQuantita());
 			preparedStatement.setString(7, prodotto.getImmagine());
 
@@ -61,9 +61,9 @@ public class prodottoDAO {
 	        preparedStatement = connection.prepareStatement(updateSQL);
 	        preparedStatement.setString(1, prodotto.getNome());
 	        preparedStatement.setString(2, prodotto.getDescrizione());
-	        preparedStatement.setFloat(3, prodotto.getPrezzoS());
-	        preparedStatement.setFloat(4, prodotto.getPrezzoM());
-	        preparedStatement.setFloat(5, prodotto.getPrezzoL());
+	        preparedStatement.setDouble(3, prodotto.getPrezzoS());
+	        preparedStatement.setDouble(4, prodotto.getPrezzoM());
+	        preparedStatement.setDouble(5, prodotto.getPrezzoL());
 	        preparedStatement.setInt(6, prodotto.getQuantita());
 	        preparedStatement.setString(7, prodotto.getImmagine());
 	        preparedStatement.setInt(8, prodotto.getCodice()); 
@@ -99,9 +99,9 @@ public class prodottoDAO {
 				bean.setCodice(rs.getInt("codice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzoS(rs.getInt("prezzoS"));
-				bean.setPrezzoM(rs.getFloat("prezzoM"));
-				bean.setPrezzoL(rs.getFloat("prezzoL"));
+				bean.setPrezzoS(rs.getDouble("prezzoS"));
+				bean.setPrezzoM(rs.getDouble("prezzoM"));
+				bean.setPrezzoL(rs.getDouble("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setImmagine(rs.getString("immagine"));
 			}
@@ -195,9 +195,9 @@ public class prodottoDAO {
 				bean.setCodice(rs.getInt("codice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzoS(rs.getInt("prezzoS"));
-				bean.setPrezzoM(rs.getFloat("prezzoM"));
-				bean.setPrezzoL(rs.getFloat("prezzoL"));
+				bean.setPrezzoS(rs.getDouble("prezzoS"));
+				bean.setPrezzoM(rs.getDouble("prezzoM"));
+				bean.setPrezzoL(rs.getDouble("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setImmagine(rs.getString("immagine"));
 				prodotti.add(bean);
@@ -242,9 +242,9 @@ public class prodottoDAO {
 				bean.setCodice(rs.getInt("codice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzoS(rs.getInt("prezzoS"));
-				bean.setPrezzoM(rs.getFloat("prezzoM"));
-				bean.setPrezzoL(rs.getFloat("prezzoL"));
+				bean.setPrezzoS(rs.getDouble("prezzoS"));
+				bean.setPrezzoM(rs.getDouble("prezzoM"));
+				bean.setPrezzoL(rs.getDouble("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setImmagine(rs.getString("immagine"));
 				prodotti.add(bean);
@@ -289,9 +289,9 @@ public class prodottoDAO {
 				bean.setCodice(rs.getInt("codice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzoS(rs.getInt("prezzoS"));
-				bean.setPrezzoM(rs.getFloat("prezzoM"));
-				bean.setPrezzoL(rs.getFloat("prezzoL"));
+				bean.setPrezzoS(rs.getDouble("prezzoS"));
+				bean.setPrezzoM(rs.getDouble("prezzoM"));
+				bean.setPrezzoL(rs.getDouble("prezzoL"));
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setImmagine(rs.getString("immagine"));
 				prodotti.add(bean);

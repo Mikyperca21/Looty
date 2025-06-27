@@ -57,14 +57,12 @@
                     <tr>
                         <td><img src="<%= ordine.getImmagine() %>" alt="Immagine prodotto" style="width: 50px; height: 50px;"></td>
                         <td><%= formattedDate %></td>
-                        <td>€<%= ordine.getTotale() %></td>
+                        <td>€<%= String.format("%.2f",ordine.getTotale()) %></td>
                         <td>
                             <a href="dettaglioOrdine?idOrdine=<%= ordine.getId() %>" class="action-button">
                                 <span class="material-symbols-outlined">info</span>
                             </a>
-                           <!--  <a onclick="window.print()" href="#" class="action-button">
-                                <span class="material-symbols-outlined">picture_as_pdf</span>
-                            </a> -->
+                          
                         </td>
                     </tr>
                     <% } %>

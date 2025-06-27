@@ -64,6 +64,7 @@
                 <th>Immagine</th>
                 <th>Nome Prodotto</th>
                 <th>Prezzo</th>
+                <th>Dimensione</th>
                 <th>Quantità</th>
                 <th>Totale</th>
             </tr>
@@ -82,9 +83,10 @@
             <tr>
                 <td><img src="<%= prodotto.getImmagine() %>" alt="<%= prodotto.getNome() %>" style="width: 50px; height: 50px;"></td>
                 <td><%= prodotto.getNome() %></td>
-                <td>€<%= prezzoUnitario %></td>
+                <td>€<%= String.format("%.2f", dettaglio.getPrezzoUnitario()) %></td>
+                <td><%= dettaglio.getDimensione() %></td>
                 <td><%= quantita %></td>
-                <td>€<%= totaleProdotto %></td>
+                <td>€<%= String.format("%.2f", totaleProdotto)%></td>
             </tr>
             <%
                 }
@@ -93,7 +95,7 @@
     </table>
     <br><br>
     <hr class="separatore"> <br> <br>
-	<strong>Totale ordine: </strong> €<%= ordine.getTotale() %></p>
+	<strong>Totale ordine: </strong> €<%=String.format("%.2f", ordine.getTotale()) %></p>
     
 </div>
 

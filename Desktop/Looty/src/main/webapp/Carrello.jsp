@@ -86,7 +86,7 @@ add
 				<!-- <button type="button" onClick="window.location.href='catalogo';">
 					<span class="material-symbols-outlined">arrow_back</span>Torna Indietro
 				</button> -->
-				<form action="acquisto" method="post">
+				<form action="Checkout.jsp" method="post">
 					<button type="submit">
 						<span class="material-symbols-outlined">payments</span> Procedi
 						all'acquisto
