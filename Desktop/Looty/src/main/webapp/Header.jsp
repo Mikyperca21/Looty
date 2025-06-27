@@ -150,6 +150,18 @@
 		    mouseInside = false;
 		    checkHide();
 		  });
+		  
+		  // NUOVA AGGIUNTA far scomparire i risultati (IL PROBLEMA DEL BANNER SULL'HEADER RIMANE)
+		  
+		  document.addEventListener("click", function(event) {
+			    var ricerca = document.getElementById("ricerca");
+			    var risultati = document.getElementById("risultati");
+			
+			    if (!ricerca.contains(event.target) && !risultati.contains(event.target)) {
+			        risultati.style.display = "none";
+			    }
+			});
+		  
 		</script>
 	</body>
 </html>

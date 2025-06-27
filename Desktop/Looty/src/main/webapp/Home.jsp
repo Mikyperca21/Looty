@@ -15,8 +15,13 @@
 		
 		<div class = "banner-container">
 			<div class = "banner-content">
-				<img id = "banner" src = "images/bannerhome.jpg">
+				<img src="images/BannerLooty.png" class="slider-image" alt="Immagine 1" />
+            	<img src="images/BannerPersonaggi.png" class="slider-image" alt="Immagine 2" />
+            	<img src="images/BannerSpedizione.png" class="slider-image" alt="Immagine 3" />
 			</div>
+			
+			<div class="arrow left-arrow" onclick="prevImage()">&#10094;</div>
+        	<div class="arrow right-arrow" onclick="nextImage()">&#10095;</div>
 		</div>
 		
 		<div class = "frase-container">
@@ -54,4 +59,36 @@
 			<%@ include file="Footer.jsp"%>
 		</div>
 	</body>
+	
+	<script>
+		let currentIndex = 0; 
+		const images = document.querySelectorAll('.slider-image'); // Seleziona tutte le immagini
+		const totalImages = images.length; // Numero totale di immagini
+	
+		function changeImage() {
+		    // Rimuovi la classe 'active' da tutte le immagini
+		    images.forEach((image) => {
+		        image.classList.remove('active');
+		    });
+	
+		    // Aggiungi la classe 'active' all'immagine corrente
+		    images[currentIndex].classList.add('active');
+		}
+	
+		function nextImage() {
+		    currentIndex = (currentIndex + 1) % totalImages; // Incrementa l'indice e torna a 0 se supera il numero totale
+		    changeImage();
+		}
+	
+		function prevImage() {
+		    currentIndex = (currentIndex - 1 + totalImages) % totalImages; // Decrementa l'indice e torna all'ultimo se è negativo
+		    changeImage();
+		}
+	
+		// Mostra la prima immagine all'avvio
+		changeImage();
+	
+		// Imposta l'intervallo per cambiare immagine ogni 5 secondi
+		setInterval(nextImage, 7000);
+	</script>
 </html>
