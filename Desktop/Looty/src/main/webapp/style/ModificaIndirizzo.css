@@ -270,14 +270,14 @@ h2 {
 .input-row > div input {
     margin-top: 5px;
 }
-
+ 
 @media (max-width: 768px) {
 	.input-row > div {
 		flex: 1 1 100%;
 	}
 }
 
-@media (max-width: 480px) {
+@media (max-width: 550px) {
 	.form-row {
 		flex-direction: column;
 		align-items: stretch;
@@ -286,10 +286,10 @@ h2 {
 	.form-row label {
 		text-align: left;
 		width: 100%;
-		margin-bottom: 5px;
+		
+		/*margin-bottom: 5px;*/
 	}
 }
-
 
 .container-footer {
 	margin-top: 40px;

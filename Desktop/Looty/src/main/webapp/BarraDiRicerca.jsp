@@ -7,9 +7,9 @@
 <%
  	List<prodottoBean> prodotti = (List<prodottoBean>) request.getAttribute("prodotti"); // mi prendo i prodotti che ho trovato
  	
- 	if(prodotti == null){
+ 	if(prodotti.size() == 0){
 %>
- 		<p>Prodotto non trovato</p>		
+ 		<p style = "color: #b43f3f;padding: 8px 12px;">Prodotto non trovato</p>		
 <%
 		return;
  	}
@@ -20,6 +20,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<style>
+		
     table {
       width: 100%;
     }

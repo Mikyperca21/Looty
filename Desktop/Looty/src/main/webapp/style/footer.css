@@ -73,3 +73,21 @@ ul{
 	list-style: none;
 }
 
+.logo-text{
+	text-align: center;
+}
+
+@media (max-width: 550px) {
+    .logo-text {
+        display: none;
+    }
+    .top-footer {
+        padding: 0 20px;
+        font-size: 18px; /* eventualmente riduci la dimensione del font */
+        justify-content: center; /* centra il contenuto */
+    }
+    .bot-footer {
+        padding: 0 20px;
+    }
+}
+

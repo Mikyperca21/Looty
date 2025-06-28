@@ -3,7 +3,7 @@
 /* stile "totale" per decorazioni linke ecc. */
 
 #risultati	{ /* stile per i suggerimenti della barra di ricerca */
-	position: fixed;
+	position: absolute; /* MODIFICA: PRIMA ERA FIXED */
   top: 100%;
   left: 0;
   right: 0;
@@ -11,7 +11,7 @@
   border: 1px solid #ccc;
   max-height: 300px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 9999;
   display: none;
   border-radius: 5px;
   align: center;
@@ -62,6 +62,7 @@ body{
 	position: fixed; /* W3school: An element with position: fixed; is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. The top, right, bottom, and left properties are used to position the element.*/
 	width: 100%;
 	top: 0;
+	z-index: 1000;
 }
 
 .navbar{
@@ -124,6 +125,7 @@ body{
 }
 
 .search-container {
+	position: relative; /* MODIFICA */
 	float: right;
 }
 

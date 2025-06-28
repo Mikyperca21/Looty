@@ -10,8 +10,9 @@
  .banner-container {
     width: 100%; /* Larghezza a schermo intero */
     height: 50vh; /* Altezza impostata al 40% della finestra */
-    overflow: hidden;
+    /* overflow: hidden; */
     position: relative;
+    z-index: 1;
 }
 
 .banner-content {
@@ -33,17 +34,24 @@
 
 .arrow {
     position: absolute;
-    top: 50%; 
-    transform: translateY(-50%); 
-    font-size: 30px; 
-    color: rgba(23,59,69, 0.5); 
-    background-color: rgba(255, 255, 255, 0.5); /* Sfondo semi-trasparente */
-    padding: 10px;
-    cursor: pointer; 
-    z-index: 0; 
-    border-radius: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: rgba(23, 59, 69, 0.5);
+    font-size: 24px; /* Un po' più piccola per centratura ottica */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1;
+    border-radius: 50%;
     transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1; /* Evita che il font abbia altezza extra */
 }
+
+
 
 .arrow:hover {
     color: rgba(23,59,69, 1); 
@@ -74,7 +82,7 @@
 }
 
 body {
-  background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+  background: linear-gradient(to right, #f9f9f9, #eaf1f3);;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding-top: 80px;
   color: #333;
@@ -160,4 +168,16 @@ body {
   font-weight: 500;
   margin-right: 50px;
   margin-left: 50px;
+}
+
+@media(max-width: 850px){
+	.item span{
+		font-size: 24px;
+	}
+}
+
+@media(max-width: 550px){
+	.item span{
+		font-size: 14px;
+	}
 }

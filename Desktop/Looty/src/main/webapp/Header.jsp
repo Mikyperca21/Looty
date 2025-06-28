@@ -67,13 +67,13 @@
 			        risultati.style.display = "none";
 			        return;
 			    }
-
-			    var input = document.getElementById("ricerca");
+				
+			    /* var input = document.getElementById("ricerca");
 			    var rect = input.getBoundingClientRect();
 
 			    risultati.style.top = (rect.bottom) + "px";
 			    risultati.style.left = (rect.left) + "px";
-			    risultati.style.width = rect.width + "px";
+			    risultati.style.width = rect.width + "px"; */
 
 			    var xhr = new XMLHttpRequest();
 			    xhr.open("GET", "search?query=" + encodeURIComponent(prodotto), true);
