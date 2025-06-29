@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="model.prodottoDAO, model.prodottoBean"%>
-<%@ page import="java.sql.SQLException"%>
+<%@ page import="model.prodottoDAO, model.prodottoBean, model.categoriaBean"%>
+<%@ page import="java.sql.SQLException, java.util.*"%>
 
 <%
-int id = Integer.parseInt(request.getParameter("id"));
-prodottoDAO dao = new prodottoDAO();
-prodottoBean prodotto = dao.doRetrieveByKey(id);
+prodottoBean prodotto = (prodottoBean) request.getAttribute("prodotto");
+Collection<categoriaBean> categorie = (Collection<categoriaBean>) request.getAttribute("categorieProdotto");
+Collection<categoriaBean> tuttecat = (Collection<categoriaBean>) request.getAttribute("categorieTutte");
 %>
 
 <!DOCTYPE html>
@@ -18,13 +18,13 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 <link rel="icon" href="images/LogoLooty_resized.png">
 </head>
 <body>
-
+		
 		<%@ include file="Header.jsp"%>
 	
-	
+	<h2>Modifica Prodotto</h2>
 	
 <div class="card-indirizzo">
-<h2>Modifica Prodotto</h2>
+
 		<div class="form-content">
 			<form action="catalogo" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="action" value="modify"> <input
@@ -59,22 +59,44 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="descrizione">Descrizione: </label>
+					<label for="descrizione"><b>Descrizione: </b></label>
 					<textarea style="width: 100%; height: 100px;" id="descrizione" name="descrizione" required><%=prodotto.getDescrizione()%></textarea>
 				</div>
+				
+				<div class="conteiner-categorie">
+					  <p><b>Categorie assegnate:</b></p>
+					  	<% if (tuttecat != null && !tuttecat.isEmpty()) { 
+				            for (categoriaBean cat : tuttecat) { 
+				                boolean checked = false;
+				                
+				                if (categorie != null) {
+				                    for (categoriaBean assegnata : categorie) {
+				                        if (cat.getId() == assegnata.getId()) {
+				                            checked = true;
+				                            break;
+				                        }
+				                    }
+				                }%>
+							  <input type="checkbox" id="categoria<%= cat.getId() %>" name="categorie[]" value="<%= cat.getId() %>" <%= checked ? "checked" : "" %>>
+				    			<label for="categoria<%= cat.getId() %>"><%= cat.getNome() %></label>
 
-				<div class="form-group">
-					<label for="immagine">Immagine attuale:</label>
-					<div class="preview-container">
-						<img id="preview" src="<%=prodotto.getImmagine()%>"
-							alt="Immagine prodotto" style="width: 50px; height:50px;" />
-					</div>
+				        <% 
+				            } // fine ciclo
+				        } else { %>
+				            <p><em>Nessuna categoria disponibile.</em></p>
+				        <% } %>
+					  </div>
+
+
+				<div class="form-group file-upload">
+				  <label for="immagine" class="file-label">Carica nuova immagine prodotto</label>
+				  <input type="file" id="immagine" name="immagine" accept="image/*">
+				</div>
+				
+				<div class="preview-container ">
+				  <img id="preview" src="<%=prodotto.getImmagine()%>" alt="Anteprima immagine prodotto" style="display:block;"/>
 				</div>
 
-				<div class="form-group">
-					<label for="immagine">Sostituisci immagine:</label> <input
-						type="file" id="immagine" name="immagine" accept="image/*">
-				</div>
 
 				<div class="container-aggiungi">
 					<button type="button" onclick="window.history.back()">
@@ -89,9 +111,22 @@ prodottoBean prodotto = dao.doRetrieveByKey(id);
 			</form>
 
 		</div>
-	</div>
+		</div>
 	<div class="container-footer">
 		<%@ include file="Footer.jsp"%>
 	</div>
+	
+<script>
+  const inputFile = document.getElementById('immagine');
+  const previewImg = document.getElementById('preview');
+
+  inputFile.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      previewImg.src = URL.createObjectURL(file);
+    }
+  });
+</script>
+	
 </body>
 </html>

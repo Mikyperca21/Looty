@@ -11,6 +11,7 @@ public class ordineBean {
 	private Timestamp dataOrdine;
 	private double totale;
 	private String immagine;
+	private String nomeUtente;
 	
 	public ordineBean() {
 	
@@ -75,5 +76,17 @@ public class ordineBean {
 	public void setImmagine(String immagine) {
 		this.immagine = immagine;
 	}
+
+
+	public String getNomeUtente() {
+		return nomeUtente;
+	}
+
+
+	public void setNomeUtente(String nomeUtente) {
+		this.nomeUtente = nomeUtente;
+	}
+	
+	
 		
 }

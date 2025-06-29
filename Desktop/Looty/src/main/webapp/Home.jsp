@@ -54,7 +54,6 @@
 				<a href="${pageContext.request.contextPath}/Catalogo.jsp" class="btn">Inizia ad acquistare</a>
 			</div>
 		</div>
-		
 		<div class="container-footer">
 			<%@ include file="Footer.jsp"%>
 		</div>

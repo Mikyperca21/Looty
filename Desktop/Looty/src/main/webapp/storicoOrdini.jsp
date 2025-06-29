@@ -37,11 +37,37 @@
 
                 if (ordini != null && !ordini.isEmpty()) {
             %>
+            
+            <% if (isAdmin) { %>
+                
+            <div id="filtri" class="action-button">
+			    <label for="userId">Utente:</label>
+					<select id="userId">
+					    <option value="0">Tutti</option> 
+					</select>
+
+
+			    <!-- <label for="dataInizio">Da:</label>
+			    <input type="date" id="dataInizio" />
+			
+			    <label for="dataFine">A:</label>
+			    <input type="date" id="dataFine" /> -->
+			
+			    <button id="filtraBtn" style="all:unset;"><span class="material-symbols-outlined">
+					filter_alt
+				</span></button>
+			</div>
+           	<% } %>
+            
+            
 
             <table class="ordini-table">
                 <thead>
                     <tr>
                         <th>Anteprima</th>
+                         <% if (isAdmin) { %>
+                			<th>Utente</th>
+           				 <% } %>
                         <th>Data Ordine</th>
                         <th>Totale</th>
                         <th>Dettagli</th>
@@ -56,6 +82,9 @@
                     %>
                     <tr>
                         <td><img src="<%= ordine.getImmagine() %>" alt="Immagine prodotto" style="width: 50px; height: 50px;"></td>
+                        <% if (isAdmin) { %>
+                			<td><%= ordine.getNomeUtente() %></td>  <!-- supponendo ci sia questo metodo -->
+            			<% } %>
                         <td><%= formattedDate %></td>
                         <td>€<%= String.format("%.2f",ordine.getTotale()) %></td>
                         <td>
@@ -81,5 +110,32 @@
         <%@ include file="Footer.jsp" %>
     </div>
 
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("filtriOrdini")
+    .then(response => response.json())
+    .then(utenti => {
+        const select = document.getElementById("userId");
+        utenti.forEach(u => {
+            const option = document.createElement("option");
+            option.value = u.id;
+            option.textContent = u.nome + " " + u.cognome;
+            select.appendChild(option);
+        });
+    })
+    .catch(error => console.error("Errore caricamento utenti:", error));
+});
+
+document.getElementById("filtraBtn").addEventListener("click", function() {
+    const userId = document.getElementById("userId").value;
+    let url = "filtriOrdini";
+    if (userId) {
+        url += "?userId=" + encodeURIComponent(userId);
+    }
+    window.location.href = url;
+});
+
+
+</script>
 </body>
 </html>

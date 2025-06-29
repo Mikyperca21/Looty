@@ -41,9 +41,11 @@
 								<a href= "<%= accountLink %>" class = "nav-link"><span class="material-symbols-outlined">account_circle</span></a>
 								<!-- <a href= "#" class = "nav-link">Account</a> -->
 							</li>
+							<% if(utenteHeader == null || !utenteHeader.getRuolo()){ %>
 							<li class = "nav-item">
 								<a href= "Carrello.jsp" class = "nav-link"><span class="material-symbols-outlined">shopping_cart</span></a>
 							</li>
+							<% } %>
 						</ul>
 					</nav>
 				</div>

@@ -47,6 +47,7 @@
 					<h2 class="card-title"><%=bean.getNome()%></h2>
 	
 					<% if (bean.getQuantita() > 0) { %>
+					<% if(utenteHeader == null || !utenteHeader.getRuolo()){ %>
 						<form action="catalogo" method="post" class="carrello-form">
 							<input type="hidden" name="action" value="aggiungiCarrello">
 							<input type="hidden" name="id" value="<%=bean.getCodice()%>">
@@ -64,7 +65,7 @@
 								</button>
 							</div>
 						</form>
-					<% } else { %>
+					<% }} else { %>
 						<p class="unavailable-message">Prodotto non disponibile</p>
 						<div class="form-inline">
 							<select disabled>

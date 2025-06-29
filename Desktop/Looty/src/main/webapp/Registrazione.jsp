@@ -109,12 +109,12 @@
 		}
 		
 		function checkOnlyText(inputtxt) {
-			var name = /^[A-Za-z]+$/;;
-			if(inputtxt.value.match(name)) 
-				return true;
-
-			return false;	
+		    var name = /^[A-Za-zÀ-ÿ0-9\s]+$/;
+		    if(inputtxt.value.match(name))
+		        return true;
+		    return false;
 		}
+
 		
 		function checkEmail(inputtxt) {
 			var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -204,5 +204,42 @@
 		
 		
 		</script>
+		
+		<script>
+let debounceTimer;
+const emailInput = document.getElementsByName("Email")[0];
+function checkEmailExistence() {
+    clearTimeout(debounceTimer);
+    const email = emailInput.value.trim();
+    if (email === "") {
+        document.getElementById("email-error").textContent = "";
+        return;
+    }
+    debounceTimer = setTimeout(function() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "<%=request.getContextPath()%>/controlloEmail?email=" + encodeURIComponent(email), true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                console.log("XHR status:", xhr.status, "response:", xhr.responseText);
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    const emailError = document.getElementById("email-error");
+                    if (response.exists) {
+                        emailError.textContent = "Questa email è già registrata.";
+                    } else {
+                        emailError.textContent = "";
+                    }
+                }
+            }
+        };
+        xhr.send();
+    }, 500);
+}
+
+emailInput.addEventListener("input", checkEmailExistence);
+emailInput.addEventListener("blur", checkEmailExistence);
+
+</script>
+		
 	</body>
 </html>

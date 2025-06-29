@@ -15,7 +15,8 @@ body {
 }
 
 h2 {
-	margin-top: 40px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	text-align: center;
 	color: #173b45;
 	font-size: 32px;
@@ -58,17 +59,21 @@ h2 {
 	color: #b43f3f;
 }
 
+.card-indirizzo textarea,
 .card-indirizzo input[type="text"],
-.card-indirizzo input[type="tel"] {
-	padding: 10px;
-	font-size: 15px;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	width: 100%;
-	box-sizing: border-box;
-	background-color: #fff;
-	color: #173b45;
+.card-indirizzo input[type="tel"],
+.card-indirizzo input[type="number"] {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #173b45;
+    font-family: inherit; /* usa lo stesso font del body */
 }
+
 
 .container-form input[readonly] {
     background-color: #f2f2f2;
@@ -84,6 +89,40 @@ h2 {
 	transform: scale(1.2);
 	margin-right: 8px;
 }
+
+.file-upload input[type="file"] {
+  display: none;
+  align: center;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f5f9ff;
+  color: #173b45;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s;
+}
+
+.file-label:hover {
+  background-color: #d8f1fa;
+}
+
+
+.preview-container img {
+  display: none; /* default nascosto */
+  width: 250px;
+  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
 
 .button-container button{
 	all: unset;
@@ -267,6 +306,12 @@ h2 {
     max-width: 300px;
 }
 
+.container-aggiungi button span {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+
 .input-row > div input {
     margin-top: 5px;
 }
@@ -286,8 +331,6 @@ h2 {
 	.form-row label {
 		text-align: left;
 		width: 100%;
-		
-		/*margin-bottom: 5px;*/
 	}
 }
 

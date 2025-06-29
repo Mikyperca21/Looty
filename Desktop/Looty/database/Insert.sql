@@ -79,8 +79,8 @@ VALUES ('Looney Tunes', 'Entra nel mondo divertente e scatenato dei Looney Tunes
 All’interno troverai una selezione esclusiva di articoli: magliette, portachiavi, adesivi, tazze, gadget originali, oggetti da collezione e tante altre sorprese pronte a regalarti risate e tanto divertimento.', 9.99, 29.99, 39.99, 25, 'images/looneytunes.png');
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
-VALUES ('Pirati dei Caraibi', 'Entra nel mondo glamour e colorato di Barbie con questa mystery box pensata per tutte le fan della iconica bambola.
-All’interno troverai una selezione esclusiva di articoli: magliette, portachiavi, adesivi, tazze, gadget fashion, oggetti da collezione e tante altre sorprese pronte a rendere il tuo stile ancora più unico e brillante.', 29.99, 39.99, 69.99, 15, 'images/piratideicaraibi.png');
+VALUES ('Pirati dei Caraibi', 'Entra nell’avventuroso mondo dei Pirati dei Caraibi con questa mystery box pensata per tutti i fan di Jack Sparrow e della ciurma di pirati. All’interno troverai articoli esclusivi: magliette, portachiavi, adesivi, tazze, gadget unici e tante altre sorprese pronte a farti vivere i sette mari.'
+, 29.99, 39.99, 69.99, 15, 'images/piratideicaraibi.png');
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
 VALUES ('Topolino', 'Entra nel magico mondo di Topolino con questa mystery box pensata per tutti gli amanti del celebre topo Disney.
@@ -99,8 +99,8 @@ VALUES ('Cars', 'Entra nel mondo veloce e divertente di Cars con questa mystery 
 All’interno troverai una selezione esclusiva di articoli ispirati a Saetta McQueen, Cricchetto e gli altri protagonisti: magliette, portachiavi, adesivi, tazze, gadget originali, oggetti da collezione e tante altre sorprese pronte a farti vivere l’emozione della pista.', 29.99, 59.99, 79.99, 24, 'images/cars.png');
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
-VALUES ('Lupin', 'Entra nel mondo astuto e intrigante di Lupin con questa mystery box pensata per tutti gli amanti del ladro gentiluomo e delle sue avventure.
-All’interno troverai una selezione esclusiva di articoli ispirati alla serie: magliette, portachiavi, adesivi, tazze, gadget unici, oggetti da collezione e tante altre sorprese pronte a farti vivere il brivido del furto perfetto.', 19.99, 29.99, 39.99, 20, 'images/lupin.png');
+VALUES ('Inazuma Eleven', 'Entra nel mondo del calcio insieme a Mark Evans ed Axel con questa mystery box pensata per tutti gli amanti del calcio.
+All’interno troverai una selezione esclusiva di articoli ispirati alla serie: magliette, portachiavi, adesivi, tazze, gadget unici, oggetti da collezione e tante altre sorprese pronte a farti vivere la partita perfetta.', 19.99, 29.99, 39.99, 20, 'images/inazumaeleven.png');
 
 INSERT INTO prodotti (nome, descrizione, prezzoS, prezzoM, prezzoL, quantita, immagine)
 VALUES ('Diabolik', 'Entra nel misterioso e affascinante mondo di Diabolik con questa mystery box pensata per tutti gli appassionati del celebre ladro mascherato.
@@ -252,11 +252,11 @@ VALUES (1, 24);
 INSERT INTO appartiene (id_categoria, id_prodotti)
 VALUES (3, 25);
 
--- Lupin
+-- Inazuma Eleven
 INSERT INTO appartiene (id_categoria, id_prodotti)
-VALUES (5, 26);
+VALUES (1, 26);
 INSERT INTO appartiene (id_categoria, id_prodotti)
-VALUES (6, 26);
+VALUES (7, 26);
 
 -- Diabolik
 INSERT INTO appartiene (id_categoria, id_prodotti)
@@ -276,6 +276,8 @@ INSERT INTO utente (nome, cognome, email, pass, ruolo)
 VALUES ('Mario', 'Rossi', 'mariorossi@gmail.com', '76bb849338db38e0ede3b8ae726373c42992152747c39e484f096b623946c8a265adde3a72c8177a70a8876694b9403f06d44decfcfe44be25f1078be0282239', false);
 INSERT INTO utente (nome, cognome, email, pass, ruolo)
 VALUES ('Giulia', 'Verdi', 'utente@gmail.com', 'c7e44f02b10b08a958ce28eec7ea08f455e4cbb38cdf44c340405d0815826733582e588b2435d6caf5316b91626f360e0bdd500420ae0185f4b732db3aff0e0d', false);
+INSERT INTO utente (nome, cognome, email, pass, ruolo) 
+VALUES ('Luca' , 'Maggio', 'lucamaggio@gmail.com', '33afd882929b8d834fcf0fab7383eed94f4c9fc226a49434a09fb8b0dc7da1dee5116f32c0fe9010cf8ffd0475d8e3ea846fd0b6b5bca0ae9c61355dd2b92f98', false);
 
 -- Inserimento admin
 INSERT INTO utente (nome, cognome, email, pass, ruolo)
@@ -285,71 +287,141 @@ VALUES ('Laura', 'Bianchi', 'admin@admin.com', 'c7ad44cbad762a5da0a452f9e854fdc1
 INSERT INTO indirizzo (id_utente, etichetta, via, citta, cap, provincia, paese, telefono, is_preferito)
 VALUES 
 (1, 'Casa', 'Via Roma 12', 'Salerno', '20100', 'SA', 'Italia', '3333333333', true),
-(1, 'Lavoro', 'Via Garibaldi 50', 'Milano', '20122', 'MI', 'Italia', '3311111111', false);
+(1, 'Lavoro', 'Via Garibaldi 50', 'Milano', '20122', 'MI', 'Italia', '3311111111', false),
+(2, 'Casa', 'Via Dalmazia 2', 'Genova', '17033', 'GE', 'Italia', '2222222222', true),
+(2, 'Lavoro', 'Via Dei Mille 32', 'Milano', '20122', 'MI', 'Italia', '1111111111', false),
+(3, 'Casa', 'Via Antinori 12', 'Fisciano', '84084', 'SA', 'Italia', '8888888888', true),
+(3, 'Lavoro', 'Via Roma 50', 'Salerno', '84084', 'SA', 'Italia', '8888888888', false);
 
 -- Insert metodi di pagamento
+-- Mario
 INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
 VALUES (1111222233334444, 'Mario Rossi', 1, 123, 3, 2027, true);
-
 INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
-VALUES (2222444466668888, 'Mario Rossi', 1, 123, 3, 2024, false);
+VALUES (2222444466668888, 'Mario Rossi', 1, 123, 7, 2029, false);
+-- Giulia
+INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
+VALUES (1111222233334444, 'Giulia Verdi', 2, 123, 2, 2027, true);
+INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
+VALUES (2222444466668888, 'Giulia Verdi', 2, 123, 1, 2029, false);
+-- Luca
+INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
+VALUES (1111222233334444, 'Luca Maggio', 3, 123, 12, 2027, true);
+INSERT INTO metodoPagamento (codiceCarta, titolare, id_utente, CVV, mese_scadenza, anno_scadenza, is_preferito)
+VALUES (2222444466668888, 'Luca Maggio', 3, 123, 9, 2029, false);
 
 -- Insert ordini + dettagli
--- Ordine 1
+-- Primo ordine: Utente 1 (usa metodo pagamento 1 o 2 e indirizzo 1 o 2)
 INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
-VALUES (1, 2, '2024-01-15 10:34:21', 99.99);
+VALUES (1, 1, '2025-06-10 14:23:00', 109.98);
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
-VALUES (1, 1, 1, 'S', 29.99);
+VALUES 
+(1, 2, 1, 'M', 69.99),      -- Pokemon M
+(1, 5, 1, 'S', 39.99);      -- Attack on Titan S
 
--- Ordine 2
+-- Secondo ordine: Utente 2 (metodo pagamento 3 o 4, indirizzo 3 o 4)
 INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
-VALUES (1, 2, '2024-03-22 14:12:50', 149.98);
+VALUES (3, 3, '2025-06-15 09:12:00', 129.98);
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
-VALUES (2, 2, 1, 'M', 39.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
-VALUES (2, 3, 1, 'L', 19.99);
+VALUES
+(2, 6, 1, 'S', 99.99),      -- Fragolina S
+(2, 8, 1, 'M', 29.99);      -- Tom & Jerry M
 
--- Ordine 3
+-- Terzo ordine: Utente 3 (metodo pagamento 3 o 4, indirizzo 5 o 6)
 INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
-VALUES (2, 1, '2024-05-03 09:48:10', 59.98);
-
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (3, 4, 1, 10.99);
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, prezzo_unitario)
-VALUES (3, 5, 1, 49.99);
-
--- Ordine 4
-INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
-VALUES (2, 1, '2024-07-19 19:22:05', 299.97);
+VALUES (4, 5, '2025-06-20 18:45:00', 159.97);
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
-VALUES (4, 6, 1, 'M', 99.99),
-(4, 7, 1, 'L', 99.99),
-(4, 8, 1, 'S', 99.99);
+VALUES
+(3, 1, 1, 'L', 89.99),      -- Marvel L
+(3, 3, 1, 'M', 39.99),      -- Stitch M
+(3, 4, 1, 'S', 19.99);      -- Harry Potter S
 
--- Ordine 5
+-- Quarto ordine: Utente 1
 INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
-VALUES (2, 1, '2024-10-05 16:40:33', 199.98);
+VALUES (2, 2, '2025-06-25 11:30:00', 169.98);
+
 
 INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
-VALUES (5, 1, 1, 'M', 29.99),
- (5, 2, 1, 'M', 39.99),
- (5, 3, 1, 'S', 19.99),
- (5, 4, 1,'S', 10.99),
- (5, 5, 1,'M', 49.99),
- (5, 6, 1,'L', 99.99);
+VALUES
+(4, 20, 1, 'M', 59.99),     -- Holly e Benji M
+(4, 18, 1, 'L', 109.99);    -- Lego L
 
-INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale) VALUES
-(1, 2, '2024-03-05 23:46:00', 39.99),
-(2,1, '2024-01-04 20:22:00', 329.96),
-(2,1, '2024-03-16 10:05:00', 59.99),
-(1,2 , '2024-01-21 04:34:00', 219.98);
+-- Quinto ordine: Utente 3
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (3, 6, '2025-06-27 16:00:00', 99.98);
 
-INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario) VALUES
-(6, 2, 1,'M', 39.99),
-(7, 8, 1,'M', 99.99),
-(7, 1, 1,'S', 29.99),
-(8, 4, 1,'L', 59.99),
-(9, 8, 1,'L', 109.99);
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(5, 17, 2, 'S', 49.99);     -- One Piece S x2
+
+-- Ordine 6 
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (3, 3, '2024-06-15 16:30:00', 199.97);
+
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(6, 6, 1, 'L', 119.99),
+(6, 20, 1, 'M', 39.99),
+(6, 7, 1, 'S', 39.99);
+
+-- Ordine 7
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (2, 2, '2024-06-16 09:45:00', 189.97);
+
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(7, 1, 1, 'M', 59.99),
+(7, 2, 1, 'L', 99.99),
+(7, 3, 1, 'S', 29.99);
+
+-- Ordine 8
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (4, 4, '2024-06-17 13:20:00', 169.97);
+
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(8, 14, 1, 'L', 69.99),
+(8, 19, 1, 'M', 39.99),
+(8, 25, 1, 'S', 59.99);
+
+-- Ordine 9 
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (3, 3, '2024-06-18 18:00:00', 109.97);
+
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(9, 23, 1, 'S', 29.99),
+(9, 5, 1, 'M', 39.99),
+(9, 15, 1, 'S', 39.99);
+
+-- Ordine 10 Mario
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (1, 1, '2024-06-19 11:40:00', 89.97);
+
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(10, 18, 1, 'M', 39.99),
+(10, 21, 1, 'S', 19.99),
+(10, 27, 1, 'S', 29.99);
+
+-- ordine 11
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (6, 6, '2024-06-25 16:40:00', 199.97);
+
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(11, 5, 1, 'L', 59.99),
+(11, 9, 2, 'M', 69.99);
+
+-- ordine 12
+INSERT INTO ordine (id_metodoPagamento, id_indirizzo, data_ordine, totale)
+VALUES (5, 5, '2024-06-20 10:15:00', 124.97);
+
+INSERT INTO OrdineProdotto (id_ordine, id_prodotto, quantita, dimensione, prezzo_unitario)
+VALUES
+(12, 12, 1, 'M', 49.99),
+(12, 18, 1, 'L', 59.99),
+(12, 22, 1, 'S', 29.99);

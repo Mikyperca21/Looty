@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import model.categoriaDAO;
+import model.prodottoBean;
 import model.prodottoDAO;
+import model.utenteBean;
 import model.categoriaBean;
 
 /**
@@ -29,6 +31,7 @@ public class dettaglioProdotto extends HttpServlet {
      */
 	
 	prodottoDAO prodDao = new prodottoDAO();
+	categoriaDAO catDao = new categoriaDAO();
 	
     public dettaglioProdotto() {
         super();
@@ -52,8 +55,22 @@ public class dettaglioProdotto extends HttpServlet {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("prodotto");
 					request.setAttribute("prodotto", prodDao.doRetrieveByKey(id));
-		             Collection<categoriaBean> categorieProdotto = prodDao.doRetrieveCategorieByProdotto(id);
-		             request.setAttribute("categorieProdotto", categorieProdotto);
+		            Collection<categoriaBean> categorieProdotto = prodDao.doRetrieveCategorieByProdotto(id);
+		            request.setAttribute("categorieProdotto", categorieProdotto);
+		            
+		            utenteBean quale = (utenteBean) request.getSession().getAttribute("utenteLoggato");
+					
+					if (quale != null && quale.getRuolo()) {
+					    // Utente loggato ed è un admin
+						 Collection<categoriaBean> tutteCat = catDao.doRetrieveAll();
+				         request.setAttribute("categorieTutte", tutteCat);
+					    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ModificaProdottoAdmin.jsp");
+					    dispatcher.forward(request, response);
+					} else {
+					    // Utente non loggato o non è un admin
+					    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/DettaglioProdotto.jsp");
+					    dispatcher.forward(request, response);
+					}
 					
 				}
 			}
@@ -61,9 +78,7 @@ public class dettaglioProdotto extends HttpServlet {
 			// TODO Auto-generated catch block
 			out.println("<h1><b>ERRORE NEL TROVARE IL PRODOTTO</b></h1>");
 		}
-		
-		RequestDispatcher disp = getServletContext().getRequestDispatcher("/DettaglioProdotto.jsp");
-		disp.forward(request, response);
+	
 	}
 
 	/**

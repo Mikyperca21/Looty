@@ -59,19 +59,19 @@
 		            <div>
 		                <label for="prezzoS">Prezzo taglia S:</label>
 		                <input type="number" step="any" id="prezzoS" name="prezzoS"
-						min="0.01" placeholder="Inserisci il prezzo per la box piccola"
+						min="0.01" placeholder=" €00.00 "
 						required>
 		            </div>
 		            <div>
 		                <label for="prezzoM">Prezzo taglia M:</label>
 		               <input type="number" step="any" id="prezzoM" name="prezzoM"
-						min="0.01" placeholder="Inserisci il prezzo per la box media"
+						min="0.01" placeholder=" €00.00 "
 						required>
 		            </div>
 		            <div>
 		                <label for="prezzoL">Prezzo taglia L:</label>
 		                <input type="number" step="any" id="prezzoL" name="prezzoL"
-						min="0.01" placeholder="Inserisci il prezzo per la box grande"
+						min="0.01" placeholder=" €00.00 "
 						required>
 		            </div>
 		            </div>
@@ -105,10 +105,11 @@
 				<p>Nota: per l'acquisto della box di dimensione S verrà scalata una quantità dal magazzino, per l'acquisto di una box di taglia media 
 					verranno scalate due unità dal magazzino e per l'acquisto della box di dimensione L verranno scalate tre unità dal magazzino</p>
 
-				<div class="form-group">
-					<label for="immagine">Inserire immagine del prodotto:</label> <input
-						type="file" id="immagine" name="immagine">
+				<div class="form-group file-upload">
+				  <label for="immagine" class="file-label">Carica immagine prodotto</label>
+				  <input type="file" id="immagine" name="immagine">
 				</div>
+
 
 				<div class="preview-container">
 					<img id="preview" src="#" alt="Anteprima immagine">
@@ -166,9 +167,11 @@
 					<td data-label="Modifica">
 							
 							<a href="catalogo?action=delete&id=<%=bean.getCodice()%>"
-							class="action-button"> <span
-								class="material-symbols-outlined">delete</span>
-						</a> <a href="ModificaProdottoAdmin.jsp?id=<%=bean.getCodice()%>"
+							   class="action-button"
+							   onclick="return confirm('Sei sicuro di voler eliminare questo prodotto?');">
+							   <span class="material-symbols-outlined">delete</span>
+							</a>
+						 <a href="dettaglioProdotto?action=getprodotto&id=<%=bean.getCodice()%>"
 							class="action-button"> <span
 								class="material-symbols-outlined">edit</span>
 						</a>
@@ -212,7 +215,7 @@
 				});
 		
 		function checkOnlyText(inputtxt) {
-		    var name = /^[A-Za-z]+$/;
+		    var name = /^[A-Za-zÀ-ÿ0-9\s]+$/;
 		    if(inputtxt.value.match(name))
 		        return true;
 		    return false;

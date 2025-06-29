@@ -146,6 +146,20 @@ public class catalogo extends HttpServlet {
 				    bean.setImmagine(relativePath);
 
 				    dao.doUpdate(bean);
+				    
+				 // Cancella tutte le associazioni esistenti
+				    appartieneDAO assegnaDAO = new appartieneDAO();
+				    assegnaDAO.doDeleteProdotto(id);
+
+				    // Inserisci le nuove associazioni se presenti
+				    String[] categorieSelezionate = request.getParameterValues("categorie[]");
+				    if (categorieSelezionate != null) {
+				        for (String catID : categorieSelezionate) {
+				            int categoryId = Integer.parseInt(catID);
+				            assegnaDAO.doSave(categoryId, id);
+				        }
+				    }
+
 				}
 
 				if(action.equalsIgnoreCase("aggiungiCarrello")) {

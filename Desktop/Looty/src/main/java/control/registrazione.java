@@ -54,13 +54,6 @@ public class registrazione extends HttpServlet {
             via != null && citta != null && provincia != null && capStr != null && paese != null && telefono != null) {
 
             try {
-                utenteBean esistente = dao.doRetrieveByEmail(email);
-                if (esistente != null && esistente.getId() != 0) {
-                    request.setAttribute("errore", "Email già registrata");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("Registrazione.jsp");
-                    dispatcher.forward(request, response);
-                    return;
-                }
 
                 // Crea utente
                 utenteBean bean = new utenteBean();

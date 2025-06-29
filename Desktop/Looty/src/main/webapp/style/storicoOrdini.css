@@ -21,8 +21,11 @@ h1, h2, h3 {
 	padding: 20px;
 }
 
-h2 {
-	margin-bottom: 30px;
+.action-button select:disabled {
+	background-color: #f0f0f0;
+	color: #888;
+	cursor: not-allowed;
+	border: 1px solid #ddd;
 }
 
 

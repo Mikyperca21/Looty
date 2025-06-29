@@ -274,12 +274,12 @@ function checkVia(inputtxt){
 }
 
 function checkOnlyText(inputtxt) {
-	var name = /^[A-Za-z]+$/;
-	if(inputtxt.value.match(name)) 
-		return true;
-
-	return false;	
+    var name = /^[A-Za-zÀ-ÿ0-9\s]+$/;
+    if(inputtxt.value.match(name))
+        return true;
+    return false;
 }
+
 
 
 function validate(obj) {

@@ -38,7 +38,7 @@ Collection<categoriaBean> categorie = (Collection<categoriaBean>) request.getAtt
 				    <% }} else { %>
 				    <p><em>Nessuna categoria assegnata a questo prodotto.</em></p>
 				<% } %>
-				
+				<% if(utenteHeader == null || !utenteHeader.getRuolo()){ %>
 				<form action="catalogo" method="post">
 					<%
 					if (prodotto.getQuantita() > 0) {
@@ -71,7 +71,7 @@ Collection<categoriaBean> categorie = (Collection<categoriaBean>) request.getAtt
 					<br> <input type="submit" value="Non disponibile" disabled
 						style="background-color: gray; cursor: not-allowed;">
 					<%
-					}
+					} }
 					%>
 				</form>
 

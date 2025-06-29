@@ -110,7 +110,7 @@ public class ordineDAO {
     	Connection connection = null; 
     	PreparedStatement preparedStatement = null;
         List<ordineBean> ordini = new ArrayList<>();
-        String sql = "SELECT ordine.*, MIN(p.immagine) AS immagine " +
+        String sql = "SELECT ordine.*, MIN(p.immagine) AS immagine, u.nome, u.cognome " +
         	    "FROM ordine " +
         	    "INNER JOIN ordineProdotto op ON ordine.id = op.id_ordine " +
         	    "INNER JOIN prodotti p ON p.codice = op.id_prodotto " +
@@ -133,6 +133,10 @@ public class ordineDAO {
                 ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
                 ordine.setTotale(rs.getDouble("totale"));
                 ordine.setImmagine(rs.getString("immagine"));
+                String nome = rs.getString("nome");
+                String cognome = rs.getString("cognome");
+                ordine.setNomeUtente(nome + " " + cognome);
+
                 ordini.add(ordine);
             }
             connection.commit();
@@ -146,18 +150,17 @@ public class ordineDAO {
 
     public List<ordineBean> doRetrieveByUser(int idUtente) throws SQLException {
         List<ordineBean> ordini = new ArrayList<>();
-        String sql = "SELECT ordine.*, MIN(p.immagine) AS immagine " +
+        String sql = "SELECT ordine.*, MIN(p.immagine) AS immagine, u.nome, u.cognome " +
                 "FROM ordine " +
                 "INNER JOIN ordineProdotto op ON ordine.id = op.id_ordine " +
                 "INNER JOIN prodotti p ON p.codice = op.id_prodotto " +
                 "INNER JOIN metodoPagamento mp ON mp.id = ordine.id_metodoPagamento " +
                 "INNER JOIN utente u ON mp.id_utente = u.id " +
                 "WHERE u.ruolo = false AND u.id = ? " +
-                "GROUP BY ordine.id " +
+                "GROUP BY ordine.id, u.nome, u.cognome " +
                 "ORDER BY ordine.data_ordine DESC";
 
         Connection con = null;
-        
         boolean closeConnection = false;
 
         if (con == null) {
@@ -167,7 +170,6 @@ public class ordineDAO {
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idUtente);
-            con.commit();
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     ordineBean ordine = new ordineBean();
@@ -177,6 +179,10 @@ public class ordineDAO {
                     ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
                     ordine.setTotale(rs.getDouble("totale"));
                     ordine.setImmagine(rs.getString("immagine"));
+                    String nome = rs.getString("nome");
+                    String cognome = rs.getString("cognome");
+                    ordine.setNomeUtente(nome + " " + cognome);
+
                     ordini.add(ordine);
                 }
             }
@@ -188,6 +194,7 @@ public class ordineDAO {
 
         return ordini;
     }
+
 
     
     // aggiornare    
@@ -295,5 +302,71 @@ public class ordineDAO {
         return ordine;
     }
     
+    public List<ordineBean> doRetrieveFiltered(Integer idUtente, Date dataInizio, Date dataFine) throws SQLException {
+        List<ordineBean> ordini = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        StringBuilder sql = new StringBuilder(
+            "SELECT ordine.*, MIN(p.immagine) AS immagine, u.nome, u.cognome " +
+            "FROM ordine " +
+            "INNER JOIN ordineProdotto op ON ordine.id = op.id_ordine " +
+            "INNER JOIN prodotti p ON p.codice = op.id_prodotto " +
+            "INNER JOIN metodoPagamento mp ON mp.id = ordine.id_metodoPagamento " +
+            "INNER JOIN utente u ON mp.id_utente = u.id " +
+            "WHERE u.ruolo = false "
+        );
+
+        List<Object> params = new ArrayList<>();
+
+        if (idUtente != null) {
+            sql.append("AND u.id = ? ");
+            params.add(idUtente);
+        }
+        if (dataInizio != null) {
+            sql.append("AND ordine.data_ordine >= ? ");
+            params.add(new java.sql.Timestamp(dataInizio.getTime()));
+        }
+        if (dataFine != null) {
+            sql.append("AND ordine.data_ordine <= ? ");
+            params.add(new java.sql.Timestamp(dataFine.getTime()));
+        }
+
+        sql.append("GROUP BY ordine.id, u.nome, u.cognome ");
+        sql.append("ORDER BY ordine.data_ordine DESC");
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql.toString());
+
+            for (int i = 0; i < params.size(); i++) {
+                preparedStatement.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                ordineBean ordine = new ordineBean();
+                ordine.setId(rs.getInt("id"));
+                ordine.setId_metodoPgamento(rs.getInt("id_metodoPagamento"));
+                ordine.setId_indirizzo(rs.getInt("id_indirizzo"));
+                ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                ordine.setTotale(rs.getDouble("totale"));
+                ordine.setImmagine(rs.getString("immagine"));
+                String nome = rs.getString("nome");
+                String cognome = rs.getString("cognome");
+                ordine.setNomeUtente(nome + " " + cognome);
+
+                ordini.add(ordine);
+            }
+            connection.commit();
+        } finally {
+            if (preparedStatement != null) preparedStatement.close();
+            DriverManagerConnectionPool.releaseConnection(connection);
+        }
+
+        return ordini;
+    }
+
     
 }

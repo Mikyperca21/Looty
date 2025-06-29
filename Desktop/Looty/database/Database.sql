@@ -17,7 +17,8 @@ CREATE TABLE prodotti (
   prezzoM DECIMAL(10,2) DEFAULT 0,
   prezzoL DECIMAL(10,2) DEFAULT 0,
   quantita INT DEFAULT 0,
-  immagine VARCHAR(255)
+  immagine VARCHAR(255),
+  valido BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE appartiene (

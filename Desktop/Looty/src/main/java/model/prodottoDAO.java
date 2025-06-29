@@ -123,7 +123,7 @@ public class prodottoDAO {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM prodotti" + " WHERE codice = ?";
+		String deleteSQL = "UPDATE prodotti SET valido = false WHERE codice = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -177,7 +177,7 @@ public class prodottoDAO {
 
 		Collection<prodottoBean> prodotti = new LinkedList<prodottoBean>();
 
-		String selectSQL = "SELECT * FROM prodotti";
+		String selectSQL = "SELECT * FROM prodotti WHERE valido = true";
 
 		/*
 		 * if (order != null && !order.equals("")) { selectSQL += " ORDER BY " + order;
@@ -223,7 +223,7 @@ public class prodottoDAO {
 			
 		Collection<prodottoBean> prodotti = new LinkedList<prodottoBean>();
 		
-		String selectSQL = "SELECT * FROM prodotti WHERE nome LIKE ?";
+		String selectSQL = "SELECT * FROM prodotti WHERE valido = true AND nome LIKE ?";
 			
 			/*
 			* if (order != null && !order.equals("")) { selectSQL += " ORDER BY " + order;
