@@ -196,7 +196,7 @@
 				valid = false;
 				viaError.textContent = "Inserisci una via valida";
 			}
-
+					
 			if(valid){
 				obj.submit();
 			} 

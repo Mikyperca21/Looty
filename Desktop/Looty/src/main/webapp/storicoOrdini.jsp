@@ -33,6 +33,7 @@
 
             <%
             List<ordineBean> ordini = (List<ordineBean>) request.getAttribute("ordini");
+            
 
 
                 if (ordini != null && !ordini.isEmpty()) {
@@ -47,11 +48,11 @@
 					</select>
 
 
-			    <!-- <label for="dataInizio">Da:</label>
-			    <input type="date" id="dataInizio" />
-			
-			    <label for="dataFine">A:</label>
-			    <input type="date" id="dataFine" /> -->
+				    <label for="dataInizio">Da:</label>
+				    <input type="date" id="dataInizio" />
+				
+				    <label for="dataFine">A:</label>
+				    <input type="date" id="dataFine" />
 			
 			    <button id="filtraBtn" style="all:unset;"><span class="material-symbols-outlined">
 					filter_alt
@@ -116,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(utenti => {
         const select = document.getElementById("userId");
-        utenti.forEach(u => {
+        utenti.forEach(u =>{
             const option = document.createElement("option");
             option.value = u.id;
             option.textContent = u.nome + " " + u.cognome;
@@ -128,10 +129,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.getElementById("filtraBtn").addEventListener("click", function() {
     const userId = document.getElementById("userId").value;
+    const dataInizio = document.getElementById("dataInizio").value;
+    const dataFine = document.getElementById("dataFine").value;
+    
     let url = "filtriOrdini";
+    
     if (userId) {
         url += "?userId=" + encodeURIComponent(userId);
     }
+
+    if (dataInizio) {
+        url += (url.includes("?") ? "&" : "?") + "dataInizio=" + encodeURIComponent(dataInizio);
+    }
+
+    if (dataFine) {
+        url += (url.includes("?") ? "&" : "?") + "dataFine=" + encodeURIComponent(dataFine);
+    }
+
+    
     window.location.href = url;
 });
 

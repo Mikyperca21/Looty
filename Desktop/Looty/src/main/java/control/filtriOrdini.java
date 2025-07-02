@@ -2,7 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +28,16 @@ public class filtriOrdini extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String userIdStr = request.getParameter("userId");
+            String dataInizio = request.getParameter("dataInizio");
+            String dataFine = request.getParameter("dataFine");
+            
 
+			boolean hasUserId = userIdStr != null && !userIdStr.isEmpty();
+			boolean hasDataInizio = dataInizio != null && !dataInizio.isEmpty();
+			boolean hasDataFine = dataFine != null && !dataFine.isEmpty();
+			
+			Collection<ordineBean> ordini = new ArrayList<ordineBean>();
+            
             if (userIdStr == null || userIdStr.isEmpty()) {
                 // Lista utenti in JSON per select via AJAX
                 response.setContentType("application/json");
@@ -54,15 +63,14 @@ public class filtriOrdini extends HttpServlet {
             } else {
                 // Lista ordini in request e forward a JSP
             	int userId = Integer.parseInt(userIdStr);
-            	if(userId == 0) {
-            	    List<ordineBean> ordini = ordineDao.doRetrieveAll();
-            	  
-            	    request.setAttribute("ordini", ordini);
-            	} else {
-            	    List<ordineBean> ordini = ordineDao.doRetrieveByUser(userId);
-            	    
-            	    request.setAttribute("ordini", ordini);
-            	}
+            	 if (userId == 0 && (!hasDataInizio || !hasDataFine)) {
+            		 ordini = ordineDao.doRetrieveAll();
+            	 } else if (userId != 0 && (!hasDataInizio || !hasDataFine)) {
+            	     ordini = ordineDao.doRetrieveByUser(userId);
+            	 } else {
+            	     ordini = ordineDao.doRetrieveFiltered(userId, dataInizio, dataFine);
+            	 }
+            	 request.setAttribute("ordini", ordini);
             	request.getRequestDispatcher("/storicoOrdini.jsp").forward(request, response);
             }
         } catch (Exception e) {

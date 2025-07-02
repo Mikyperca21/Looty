@@ -302,7 +302,7 @@ public class ordineDAO {
         return ordine;
     }
     
-    public List<ordineBean> doRetrieveFiltered(Integer idUtente, Date dataInizio, Date dataFine) throws SQLException {
+    public List<ordineBean> doRetrieveFiltered(Integer idUtente, String dataInizio, String dataFine) throws SQLException {
         List<ordineBean> ordini = new ArrayList<>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -325,11 +325,11 @@ public class ordineDAO {
         }
         if (dataInizio != null) {
             sql.append("AND ordine.data_ordine >= ? ");
-            params.add(new java.sql.Timestamp(dataInizio.getTime()));
+            params.add(dataInizio);
         }
         if (dataFine != null) {
             sql.append("AND ordine.data_ordine <= ? ");
-            params.add(new java.sql.Timestamp(dataFine.getTime()));
+            params.add(dataFine);
         }
 
         sql.append("GROUP BY ordine.id, u.nome, u.cognome ");

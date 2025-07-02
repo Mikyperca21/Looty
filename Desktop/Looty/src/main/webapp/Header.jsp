@@ -45,6 +45,10 @@
 							<li class = "nav-item">
 								<a href= "Carrello.jsp" class = "nav-link"><span class="material-symbols-outlined">shopping_cart</span></a>
 							</li>
+							<% }else{ // siamo nell'admin %>
+							<li class = "nav-item">
+								<a href="#" class = "nav-link"><span class="material-symbols-outlined">security</span></a>
+							</li>
 							<% } %>
 						</ul>
 					</nav>

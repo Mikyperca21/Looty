@@ -33,17 +33,17 @@
 		<div class = "categoria-container">
 			<div class = "categoria-content">
 				<div class = "item">
-					<img src = "images/cat1.png">
+					<img src = "images/Gadget.png">
 					<span>Non sai cosa aspettarti? È proprio questo il bello! Le lootbox della categoria Gadget nascondono al loro interno oggetti sorprendenti: portachiavi originali, accessori tech, mini figure da collezione, articoli da scrivania e tanto altro!</span>
 				</div>
 				
 				<div class = "item">
 					<span>Per i veri collezionisti e gli appassionati del gioco, le nostre lootbox di Carte sono un tesoro nascosto. Che tu sia un veterano o un neofita, ogni apertura è una nuova possibilità di trovare qualcosa di epico!</span>
-					<img src = "images/cat2.png">
+					<img src = "images/Carte.png">
 				</div>
 				
 				<div class = "item">
-					<img src = "images/cat3.png">
+					<img src = "images/Vestiti.png">
 					<span>Scopri le nostre lootbox dedicate al mondo dell’abbigliamento! Ogni scatola è una sorpresa: potresti trovare t-shirt esclusive, felpe uniche, accessori introvabili e capi limited edition selezionati con cura.</span>
 				</div>
 			</div>

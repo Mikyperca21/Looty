@@ -15,6 +15,23 @@ body {
 	padding: 0;
 }
 
+#filtri input[type="date"], select {
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  min-width: 150px;
+}
+
+#filtri input[type="date"]:focus, select {
+  border-color: #173b45;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
 h1, h2, h3 {
 	text-align: center;
 	color: #173b45;
