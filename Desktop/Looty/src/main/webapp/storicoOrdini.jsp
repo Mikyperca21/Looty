@@ -132,18 +132,22 @@ document.getElementById("filtraBtn").addEventListener("click", function() {
     const dataInizio = document.getElementById("dataInizio").value;
     const dataFine = document.getElementById("dataFine").value;
     
+    const dateIncompleta = (dataInizio && !dataFine) || (!dataInizio && dataFine);
+
+    if (dateIncompleta) {
+        alert("Per filtrare per data devi selezionare sia la data di inizio che di fine.");
+        return; // blocca l'invio
+    }
+    
     let url = "filtriOrdini";
     
     if (userId) {
         url += "?userId=" + encodeURIComponent(userId);
     }
 
-    if (dataInizio) {
+    if(dataInizio && dataFine) {
         url += (url.includes("?") ? "&" : "?") + "dataInizio=" + encodeURIComponent(dataInizio);
-    }
-
-    if (dataFine) {
-        url += (url.includes("?") ? "&" : "?") + "dataFine=" + encodeURIComponent(dataFine);
+        url += "&dataFine=" + encodeURIComponent(dataFine);
     }
 
     

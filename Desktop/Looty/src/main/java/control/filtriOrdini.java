@@ -31,14 +31,21 @@ public class filtriOrdini extends HttpServlet {
             String dataInizio = request.getParameter("dataInizio");
             String dataFine = request.getParameter("dataFine");
             
-
+            // controllo cosa ho
 			boolean hasUserId = userIdStr != null && !userIdStr.isEmpty();
-			boolean hasDataInizio = dataInizio != null && !dataInizio.isEmpty();
-			boolean hasDataFine = dataFine != null && !dataFine.isEmpty();
+			/*
+			 * boolean hasDataInizio = dataInizio != null && !dataInizio.isEmpty(); boolean
+			 * hasDataFine = dataFine != null && !dataFine.isEmpty();
+			 */
+			// ci sono entrambe le date
+			boolean hasFullDateRange = dataInizio != null && !dataInizio.isEmpty() && dataFine != null && !dataFine.isEmpty();
+			
+			// date parziali (o manca l'inizio o la fine)
+			boolean hasPartialDate = (dataInizio != null && !dataInizio.isEmpty()) ^ (dataFine != null && !dataFine.isEmpty());
 			
 			Collection<ordineBean> ordini = new ArrayList<ordineBean>();
             
-            if (userIdStr == null || userIdStr.isEmpty()) {
+            if (!hasUserId && !hasFullDateRange && !hasPartialDate) { // non ha nulla
                 // Lista utenti in JSON per select via AJAX
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
@@ -60,19 +67,38 @@ public class filtriOrdini extends HttpServlet {
                 }
                 json.append("]");
                 response.getWriter().write(json.toString());
+                return;
+            }
+            
+            // manca almeno una delle due date
+            if(hasPartialDate) {
+            	sendBadRequest(response, "Range di date incompleto.");
+                return;
+            }
+            
+            if (!hasUserId && hasFullDateRange) { // ci vengono fornite solo le date
+                ordini = ordineDao.doRetrieveByDate(dataInizio, dataFine);
             } else {
-                // Lista ordini in request e forward a JSP
-            	int userId = Integer.parseInt(userIdStr);
-            	 if (userId == 0 && (!hasDataInizio || !hasDataFine)) {
-            		 ordini = ordineDao.doRetrieveAll();
-            	 } else if (userId != 0 && (!hasDataInizio || !hasDataFine)) {
-            	     ordini = ordineDao.doRetrieveByUser(userId);
-            	 } else {
-            	     ordini = ordineDao.doRetrieveFiltered(userId, dataInizio, dataFine);
-            	 }
-            	 request.setAttribute("ordini", ordini);
+                int userId = Integer.parseInt(userIdStr);
+
+                if (userId == 0 && !hasFullDateRange) { // tutti gli utenti, nessuna data
+                    ordini = ordineDao.doRetrieveAll();
+                } else if (userId == 0 && hasFullDateRange) { // tutti gli utenti con data
+                    ordini = ordineDao.doRetrieveByDate(dataInizio, dataFine);
+                } else if (userId != 0 && !hasFullDateRange) { // utente specifico, nessuna data
+                    ordini = ordineDao.doRetrieveByUser(userId);
+                } else if (userId != 0 && hasFullDateRange) { // utente specifico con date
+                    ordini = ordineDao.doRetrieveFiltered(userId, dataInizio, dataFine);
+                } else {
+                    // Per sicurezza
+                    sendBadRequest(response, "Richiesta non valida.");
+                    return;
+                }
+                
+                request.setAttribute("ordini", ordini);
             	request.getRequestDispatcher("/storicoOrdini.jsp").forward(request, response);
             }
+            
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.setContentType("application/json");
@@ -85,5 +111,12 @@ public class filtriOrdini extends HttpServlet {
     private String escapeJson(String value) {
         if (value == null) return "";
         return value.replace("\"", "\\\"").replace("\n", "").replace("\r", "");
+    }
+    
+    private void sendBadRequest(HttpServletResponse response, String message) throws IOException {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"error\":\"" + escapeJson(message) + "\"}");
     }
 }

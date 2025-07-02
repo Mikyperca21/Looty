@@ -368,5 +368,59 @@ public class ordineDAO {
         return ordini;
     }
 
-    
+    public List<ordineBean> doRetrieveByDate(String dataInizio, String dataFine) throws SQLException {
+        List<ordineBean> ordini = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        StringBuilder sql = new StringBuilder(
+            "SELECT ordine.*, MIN(p.immagine) AS immagine, u.nome, u.cognome " +
+            "FROM ordine " +
+            "INNER JOIN ordineProdotto op ON ordine.id = op.id_ordine " +
+            "INNER JOIN prodotti p ON p.codice = op.id_prodotto " +
+            "INNER JOIN metodoPagamento mp ON mp.id = ordine.id_metodoPagamento " +
+            "INNER JOIN utente u ON mp.id_utente = u.id " +
+            "WHERE ordine.data_ordine >= ? AND ordine.data_ordine <= ? " +
+            "GROUP BY ordine.id, u.nome, u.cognome " +
+            "ORDER BY ordine.data_ordine DESC"
+        );
+
+        List<Object> params = new ArrayList<>();
+        params.add(dataInizio);
+        params.add(dataFine);
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql.toString());
+
+            for (int i = 0; i < params.size(); i++) {
+                preparedStatement.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                ordineBean ordine = new ordineBean();
+                ordine.setId(rs.getInt("id"));
+                ordine.setId_metodoPgamento(rs.getInt("id_metodoPagamento"));
+                ordine.setId_indirizzo(rs.getInt("id_indirizzo"));
+                ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                ordine.setTotale(rs.getDouble("totale"));
+                ordine.setImmagine(rs.getString("immagine"));
+
+                String nome = rs.getString("nome");
+                String cognome = rs.getString("cognome");
+                ordine.setNomeUtente(nome + " " + cognome);
+
+                ordini.add(ordine);
+            }
+
+            // connection.commit(); // Rimuovibile se non in transazione
+        } finally {
+            if (preparedStatement != null) preparedStatement.close();
+            DriverManagerConnectionPool.releaseConnection(connection);
+        }
+
+        return ordini;
+    }
 }
