@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.ElementoCarrello;
+import model.appartieneDAO;
 import model.categoriaBean;
 import model.categoriaDAO;
 import model.prodottoBean;
@@ -32,6 +33,7 @@ public class categorieAdmin extends HttpServlet {
     }
     
     categoriaDAO dao = new categoriaDAO();
+    appartieneDAO appDao = new appartieneDAO();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -62,24 +64,11 @@ public class categorieAdmin extends HttpServlet {
 				}
 			 	if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
+					appDao.doDeleteCategoria(id);
 					dao.doDelete(id);
 					response.sendRedirect(request.getContextPath() + "/categorieAdmin");
 		            return;
 				}
-			 	if(action.equalsIgnoreCase("modifica")) {
-			 		String nuovoNome = request.getParameter("nome");
-//			 		int id = Integer.parseInt(request.getParameter("id"));
-
-			        if (nuovoNome == null) {
-			            request.setAttribute("errorMessage", "Tutti i campi sono obbligatori!");
-			            request.getRequestDispatcher("categorieAdmin.jsp").forward(request, response);
-			            return;
-			        }
-			        
-			        categoriaBean bean = new categoriaBean();
-			        bean.setNome(nuovoNome);
-			        dao.doUpdate(bean);
-			 	}
 			}	
 
 		} catch (SQLException e) {

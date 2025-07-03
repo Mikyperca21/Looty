@@ -2,6 +2,13 @@
 <%@ page import="java.util.*, java.sql.*, java.text.SimpleDateFormat" %>
 <%@ page import="model.*" %>
 <!DOCTYPE html>
+<%
+utenteBean utente = (utenteBean) session.getAttribute("utenteLoggato");
+if (utente == null) {
+	response.sendRedirect("Login.jsp");
+	return;
+}
+%>
 <html>
 <head>
     <title>Dettagli Ordine</title>

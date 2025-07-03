@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+utenteBean utente = (utenteBean) session.getAttribute("utenteLoggato");
+if (utente == null) {
+	response.sendRedirect("Login.jsp");
+	return;
+}
+%>
 <html>
 <head>
     <title>Ordine Confermato</title>

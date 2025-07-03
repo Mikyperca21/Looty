@@ -380,7 +380,7 @@ public class ordineDAO {
             "INNER JOIN prodotti p ON p.codice = op.id_prodotto " +
             "INNER JOIN metodoPagamento mp ON mp.id = ordine.id_metodoPagamento " +
             "INNER JOIN utente u ON mp.id_utente = u.id " +
-            "WHERE ordine.data_ordine >= ? AND ordine.data_ordine <= ? " +
+            "WHERE DATE(ordine.data_ordine) >= ? AND DATE(ordine.data_ordine) <= ?" + // formato DATE per troncare l'orario
             "GROUP BY ordine.id, u.nome, u.cognome " +
             "ORDER BY ordine.data_ordine DESC"
         );
@@ -388,6 +388,7 @@ public class ordineDAO {
         List<Object> params = new ArrayList<>();
         params.add(dataInizio);
         params.add(dataFine);
+        //params.add(dataInizio); // per il terzo param
 
         try {
             connection = DriverManagerConnectionPool.getConnection();

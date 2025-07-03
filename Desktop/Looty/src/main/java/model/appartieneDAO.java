@@ -88,6 +88,33 @@ public class appartieneDAO {
 		return (result != 0);
 	}
 	
+	public synchronized boolean doDeleteCategoria(int idCategoria) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "DELETE FROM appartiene" + " WHERE id_categoria = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, idCategoria);
+
+			result = preparedStatement.executeUpdate();
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
+	}
+	
 	/*
 	 * public oRetrieveIdByIds(int id_categoria, int id_prodotto) throws
 	 * SQLException { categoriaBean categoria = null; Connection con = null;
