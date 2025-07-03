@@ -37,7 +37,7 @@ public class ModificaIndirizzo extends HttpServlet {
 		
 		HttpSession session = request.getSession();
         utenteBean utente = (utenteBean) session.getAttribute("utenteLoggato");
-
+        
         if (utente == null) {
             response.sendRedirect("Login.jsp");
             return;

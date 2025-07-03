@@ -23,14 +23,6 @@
 			<div class = "signup-content">
 			<h2>Registrati ora!</h2>
 			<br>
-			<p style="color:red;" id="nome-error"></p>
-			<p style="color:red;" id="email-error"></p>
-			<p style="color:red;" id="citta-error"></p>
-			<p style="color:red;" id="via-error"></p>
-			<p style="color:red;" id="cap-error"></p>
-			<p style="color:red;" id="provincia-error"></p>
-			<p style="color:red;" id="paese-error"></p>
-			<p style="color:red;" id="telefono-error"></p>
 			
 				<form action = "<%=request.getContextPath()%>/registrazione" method = "post" onsubmit="event.preventDefault(); validate(this)">				
 					<div class="form-row">
@@ -64,11 +56,22 @@
 					    <input class = "signup" type="text" name="Telefono" placeholder = "Telefono" required>
 					    
 					</div><br>
+					
+				<p style="color:red;" id="nome-error"></p>
+				<p style="color:red;" id="email-error"></p>
+				<p style="color:red;" id="citta-error"></p>
+				<p style="color:red;" id="via-error"></p>
+				<p style="color:red;" id="cap-error"></p>
+				<p style="color:red;" id="provincia-error"></p>
+				<p style="color:red;" id="paese-error"></p>
+				<p style="color:red;" id="telefono-error"></p>
+				<br>
 
 						<input class = "signup" type = "submit" value = "Registrati"/>
 						<i><a id = "link-login" href = "Login.jsp">Hai già un account? Accedi</a></i>
 					
 				</form>
+				
 			</div>
 		</div>
 		
